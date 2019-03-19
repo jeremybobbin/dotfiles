@@ -1,0 +1,76 @@
+# Rust Related 
+vct	vim `ct`
+macro	rustc -Z unstable-options --pretty=expanded
+
+# Shell
+c	clear
+l	c && ls
+o	open
+
+# Corresponds with rm and cd_wrapper functions
+cd	cd_wrapper
+rm	rm_wrapper
+
+vba	v ~/.bashrc.d/res/aliases
+vbp	v ~/.bash_profile
+vbrc	v ~/.bashrc
+vbrcd	v ~/.bashrc.d
+sbrc	source ~/.bashrc
+
+virc	v ~/.inputrc
+vvrc	v ~/.vimrc
+vxrc	v ~/.xinitrc
+
+ssc	sudo systemctl
+
+# Clipboard
+xc	xclip -selection
+cb	xc c
+pcb	xc p
+p2c	pcb -o - | cb
+c2p	cb -o - | pcb
+
+# Apps
+g	git
+sv	sudo vim
+nn	nnn
+n	nn
+# Big O vim for vertical windows
+v	vim -O
+
+# Detatch eht
+ffplay	detached ffplay
+zathura	detached zathura
+qutebrowser	detached qutebrowser
+
+
+# Media
+rec	ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+1080,0 "$HOME/Video/ScreenCast/$(date +%s).mp4"
+pm	pulsemixer
+
+# Colors
+ls	ls -hN --color=always --group-directories-first
+grep	grep --color=always
+diff	diff --color=always
+yay	yay --color=always
+pacman	pacman --color always
+less	less -R
+
+# Timers
+25	termdown 25m 
+5	termdown 5m
+
+# Note
+note	v ~/Notes/Self/$(date +%F)
+
+# Common Dir
+h	cd ~
+dl	cd ~/Downloads
+mda	cd ~/Media
+doc	cd ~/Media/Documents
+nts	cd ~/Notes
+prj	cd ~/Projects
+rs	cd ~/Projects/Rust
+msc	cd ~/Media/Audio/Music
+img	cd ~/Media/Images
+vdo	cd ~/Media/Video
