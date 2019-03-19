@@ -109,6 +109,9 @@ playtime() {
 	$EDITOR $to_edit
 }
 
+term() {
+	nohup st -c "cd $pwd" &> /dev/null & disown
+}
 
 recurse() {
 	echo $@ | xargs -I{} find {} -type d -not -path '*/\.*' | tr '\n' ':' | sed -e 's/:$//'
