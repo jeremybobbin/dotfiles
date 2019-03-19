@@ -1,0 +1,6 @@
+impl Deref for <++> {
+	type Target = <++>;
+	fn deref(&self) -> &Self::Target {
+		&<++>
+	}
+}
