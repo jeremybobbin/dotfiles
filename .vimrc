@@ -97,14 +97,14 @@ set wildmenu
 	autocmd FileType rust inoremap <C-_>vec vec![<++>];<Esc>0/<++><CR>"_c4l
 	
 	" Commands
-	autocmd FileType rust nnoremap <C-_>r :!clear && cargo run<CR>
-	autocmd FileType rust inoremap <C-_>r <Esc>:!clear && cargo run<CR>
+	autocmd FileType rust nnoremap <C-_>r :!clear && cargo run --color=always \|& less -R<CR>
+	autocmd FileType rust inoremap <C-_>r <Esc>:!clear && cargo run --color=always \|& less -R<CR>
 
-	autocmd FileType rust nnoremap <C-_>t :!clear && cargo test<CR>
-	autocmd FileType rust inoremap <C-_>t <Esc>:!clear && cargo test<CR>
+	autocmd FileType rust nnoremap <C-_>t :!clear && cargo test --color=always \|& less -R<CR>
+	autocmd FileType rust inoremap <C-_>t <Esc>:!clear && cargo test --color=always \|& less -R<CR>
 
-	autocmd FileType rust nnoremap <C-_>b :!clear && cargo bench<CR>
-	autocmd FileType rust inoremap <C-_>b <Esc>:!clear && cargo bench<CR>
+	autocmd FileType rust nnoremap <C-_>b :!clear && cargo bench --color=always \|& less -R<CR>
+	autocmd FileType rust inoremap <C-_>b <Esc>:!clear && cargo bench --color=always \|& less -R<CR>
 
-	autocmd FileType rust nnoremap <C-_>c :!clear && cargo check<CR>
-	autocmd FileType rust inoremap <C-_>c <Esc>:!clear && cargo check<CR>
+	autocmd FileType rust nnoremap <C-_>c :!clear && cargo check --color=always \|& less -R<CR>
+	autocmd FileType rust inoremap <C-_>c <Esc>:!clear && cargo check --color=always \|& less -R<CR>

@@ -8,7 +8,7 @@ rstd() {
 	fi
 	toolchain="$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/"
 	query="file://$toolchain/share/doc/rust/html/std/index.html?search=$@"
-	detached $BROWSER "$query"
+	d $BROWSER "$query"
 }
 
 ct() {

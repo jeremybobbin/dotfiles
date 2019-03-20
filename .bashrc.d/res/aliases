@@ -38,12 +38,6 @@ n	nn
 # Big O vim for vertical windows
 v	vim -O
 
-# Detatch eht
-ffplay	detached ffplay
-zathura	detached zathura
-qutebrowser	detached qutebrowser
-
-
 # Media
 rec	ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+1080,0 "$HOME/Video/ScreenCast/$(date +%s).mp4"
 pm	pulsemixer

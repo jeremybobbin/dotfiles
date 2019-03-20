@@ -128,10 +128,10 @@ ife() {
 	[ -f $1 ] && echo $1 && return 0 || return 1
 }
 
-detached() {
+# 'Detached' previously. Doesn't hang terminal.
+d() {
 	echo "Launching command: '${@}'"
 	nohup "$@" &> /dev/null & disown
-	exit
 }
 
 
