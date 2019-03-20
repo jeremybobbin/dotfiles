@@ -97,8 +97,8 @@ set wildmenu
 	autocmd FileType rust inoremap <C-_>vec vec![<++>];<Esc>0/<++><CR>"_c4l
 	
 	" Commands
-	autocmd FileType rust nnoremap <C-_>r :!clear && cargo run --color=always \|& less -R<CR>
-	autocmd FileType rust inoremap <C-_>r <Esc>:!clear && cargo run --color=always \|& less -R<CR>
+	autocmd FileType rust nnoremap <C-_>r :!clear && cargo run<CR>
+	autocmd FileType rust inoremap <C-_>r <Esc>:!clear && cargo run<CR>
 
 	autocmd FileType rust nnoremap <C-_>t :!clear && cargo test --color=always \|& less -R<CR>
 	autocmd FileType rust inoremap <C-_>t <Esc>:!clear && cargo test --color=always \|& less -R<CR>

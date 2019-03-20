@@ -6,6 +6,7 @@ macro	rustc -Z unstable-options --pretty=expanded
 c	clear
 l	c && ls
 o	open
+new	nohup st -c "cd $pwd" &> /dev/null & disown &> /dev/null
 
 # Corresponds with rm and cd_wrapper functions
 cd	cd_wrapper
