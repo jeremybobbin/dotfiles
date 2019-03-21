@@ -1,3 +1,14 @@
+# pgrep processes into top
+pgtop() {
+	local top_args=$(pgrep "$@"  | awk '{ print "-p " $1 }' || exit 1)
+	if [[ $top_args ]] ; then
+		top $top_args
+	else
+		echo "No matches" >&2
+	fi
+}
+
+# universal open
 open() {
 	if [[ -z $1 ]]; then
 		echo "Can't open null" >&2

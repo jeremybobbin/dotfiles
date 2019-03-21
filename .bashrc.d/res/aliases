@@ -22,6 +22,7 @@ virc	v ~/.inputrc
 vvrc	v ~/.vimrc
 vxrc	v ~/.xinitrc
 
+# Administration
 ssc	sudo systemctl
 
 # Clipboard
