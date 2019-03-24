@@ -37,6 +37,7 @@ g	git
 sv	sudo vim
 nn	nnn
 n	nn
+z	zathura
 # Big O vim for vertical windows
 v	vim -O
 

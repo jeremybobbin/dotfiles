@@ -137,8 +137,7 @@ ife() {
 
 # 'Detached' previously. Doesn't hang terminal.
 d() {
-	echo "Launching command: '${@}'"
-	nohup "$@" &> /dev/null & disown
+	nohup $@ &> /dev/null & disown
 }
 
 
