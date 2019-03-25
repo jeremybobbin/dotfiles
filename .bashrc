@@ -53,3 +53,4 @@ to_mp3() {
 	rm $1
 }
 
+[[ -x /bin/loadkeys ]] && loadkeys ~/.bashrc.d/res/ttymaps.kmap

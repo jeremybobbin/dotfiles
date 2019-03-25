@@ -1,3 +1,3 @@
-$HOME/.bin/key_init
+xmodmap $HOME/.Xmodmap
 $HOME/.bin/bar &
 exec dwm
