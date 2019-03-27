@@ -49,9 +49,9 @@ set wildmenu
 	tnoremap <C-i> <C-w>N
 	
 
-"" Clipboard commands
-	nnoremap <C-p> :r !xclip -selection c -o -<CR><CR>
-	vnoremap <C-y> :w !xclip -selection c<CR><CR>
+"" Clipboard commands - Commented for use with emmet-vim 
+	"nnoremap <C-p> :r !xclip -selection c -o -<CR><CR>
+	"vnoremap <C-y> :w !xclip -selection c<CR><CR>
 
 
 " Vim
