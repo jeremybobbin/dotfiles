@@ -1,5 +1,7 @@
 # Rust Related 
 vct	vim `ct`
+# `sudo cargo run`
+scr	echo "Running as root." && cargo build && $(fde)
 macro	rustc -Z unstable-options --pretty=expanded
 
 # Shell

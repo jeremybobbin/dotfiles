@@ -22,9 +22,13 @@ if [[ -x /bin/rustc && -x /bin/cargo && -x /bin/rustup ]]; then
 		echo $(cargo locate-project | sed -e 's_{"root":"\(.*\)/Cargo.toml"}_\1_g')
 	}
 
-	# Find Cargo 'release' executable
-	fcre() {
+	# `find release executable`
+	fre() {
 		echo $(find $(rs_path)/target/release/ -maxdepth 1 -type f -executable | head -n 1)
+	}
+	# `find debug executable`
+	fde() {
+		echo $(find $(rs_path)/target/debug/ -maxdepth 1 -type f -executable | head -n 1)
 	}
 fi
 
