@@ -25,7 +25,7 @@ HISTSIZE= HISTFILESIZE=
 # Vi bindings
 set -o vi
 
-PATH=$PATH:$HOME/.bin:$HOME/.cargo/bin:/tmp/bin
+PATH=$PATH:$HOME/.bin:$HOME/.cargo/bin:/tmp/bin:$HOME/.yarn/bin
 
 # Sources tab delimited aliases
 source <(cat ~/.bashrc.d/res/aliases | sed -E "/^#/d; /^$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\2'/g")
