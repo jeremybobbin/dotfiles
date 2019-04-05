@@ -1,3 +1,14 @@
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-surround'
+Plug 'othree/yajs'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-xhp'
+Plug 'elzr/vim-json'
+Plug 'mattn/emmet-vim'
+Plug 'skywind3000/asyncrun.vim'
+call plug#end()
+
 filetype indent plugin on
 syntax on
 
@@ -6,7 +17,7 @@ set backspace=indent,eol,start
 set confirm
 set hidden
 set ignorecase
-set tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
+set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set mouse=a
 set nocompatible
 set nostartofline
@@ -21,6 +32,9 @@ set wildmenu
 
 " Flavorful remappings
 
+	" Auto closers
+	inoremap {<CR> {<CR>}<Esc>O
+	inoremap (<CR> (<CR>)<Esc>O
 	" Command Window
 	nnoremap : q:i
 	au CmdwinEnter [:>] nnoremap : :q<CR>
@@ -50,8 +64,8 @@ set wildmenu
 	
 
 "" Clipboard commands - Commented for use with emmet-vim 
-	"nnoremap <C-p> :r !xclip -selection c -o -<CR><CR>
-	"vnoremap <C-y> :w !xclip -selection c<CR><CR>
+	nnoremap <C-_>xp :r !xclip -selection c -o -<CR><CR>
+	vnoremap <C-_>xy :w !xclip -selection c<CR><CR>
 
 
 " Vim
@@ -66,6 +80,8 @@ set wildmenu
 
 	autocmd FileType sh nnoremap <C-_>r :!clear && %:p 
 
+"JS
+
 
 " Rust
 	autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
@@ -74,7 +90,6 @@ set wildmenu
 	" Templates
 	
 	" autocmd FileType rust imap <++> <++><+<++>+><++>
-	autocmd FileType rust inoremap {<CR> {<CR>}<Esc>O
 	autocmd FileType rust nnoremap <C-_>it :read ~/.vim/templates/rs/
 		" autocmd FileType rust nnoremap <C-_>i<++> :read ~/.vim/templates/rs/<++><CR>
 
