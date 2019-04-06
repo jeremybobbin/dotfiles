@@ -52,4 +52,9 @@ to_mp3() {
 	rm $1
 }
 
-[[ -x /bin/loadkeys ]] && loadkeys ~/.bashrc.d/res/ttymaps.kmap
+# if root, or if SUID bit is set, run loadkeys, else run as sudo
+if [[ -x /bin/loadkeys && ($UID -eq 0 || -u /bin/loadkeys) ]]; then
+	loadkeys ~/.bashrc.d/res/ttymaps.kmap
+else
+	sudo loadkeys ~/.bashrc.d/res/ttymaps.kmap
+fi
