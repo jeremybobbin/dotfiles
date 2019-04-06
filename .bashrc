@@ -56,5 +56,9 @@ to_mp3() {
 if [[ -x /bin/loadkeys && ($UID -eq 0 || -u /bin/loadkeys) ]]; then
 	loadkeys ~/.bashrc.d/res/ttymaps.kmap
 else
+	sudo groupadd -f loadkeys
+	sudo gpasswd loadkeys -a $USER
+	sudo chgrp loadkeys /bin/loadkeys
+	sudo chmod 4750 /bin/loadkeys
 	sudo loadkeys ~/.bashrc.d/res/ttymaps.kmap
 fi
