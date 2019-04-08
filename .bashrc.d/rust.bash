@@ -1,5 +1,5 @@
 
-if [[ -x sccache ]]; then
+if [[ -x $HOME/.cargo/bin/sccache ]]; then
 	export RUSTC_WRAPPER=sccache
 else
 	echo "Sccache is not executible." >&2 
