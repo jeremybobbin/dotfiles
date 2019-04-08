@@ -1,7 +1,13 @@
 
+if [[ -x sccache ]]; then
+	export RUSTC_WRAPPER=sccache
+else
+	echo "Sccache is not executible." &>2 
+fi
+
+
 if [[ -x /bin/rustc && -x /bin/cargo && -x /bin/rustup ]]; then
 	export CARGO_CFG_COLOR=always
-	export RUSTC_WRAPPER=sccache
 	export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src/
 
 	rstd() {
