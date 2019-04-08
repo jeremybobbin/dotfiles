@@ -2,7 +2,7 @@
 if [[ -x sccache ]]; then
 	export RUSTC_WRAPPER=sccache
 else
-	echo "Sccache is not executible." &>2 
+	echo "Sccache is not executible." >&2 
 fi
 
 
