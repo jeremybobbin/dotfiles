@@ -1,6 +1,12 @@
 [[ $- != *i* ]] && return
 
-export PS1="\[$(tput bold)\]\[$(tput setaf 8)\][\[$(tput setaf 2)\]\u\[$(tput setaf 8)\]@\[$(tput setaf 6)\]\h \[$(tput setaf 1)\]\W\[$(tput setaf 8)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+if [[ -z $SSH_CLIENT ]]
+then
+	export PS1="\[$(tput bold)\]\[$(tput setaf 8)\][\[$(tput setaf 2)\]\u\[$(tput setaf 8)\]@\[$(tput setaf 6)\]\h \[$(tput setaf 1)\]\W\[$(tput setaf 8)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+else
+	export PS1="\[$(tput bold)\]\[$(tput setaf 8)\][\[$(tput setaf 2)\]\u\[$(tput setaf 8)\]@\[$(tput setaf 6 && tput setab 2)\]\h \[$(tput sgr0 && tput setaf 1)\]\W\[$(tput setaf 8)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+fi
+
 
 export EDITOR='vim'
 export BROWSER='qutebrowser'
