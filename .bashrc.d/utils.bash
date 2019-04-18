@@ -39,47 +39,11 @@ open() {
 	eval $cmd $@
 }
 
-# Recursively evaluates directories with colon delimiter
 jump() {
-	if [[ -z $1 ]]; then
-		echo "Jump requires an argument." >&2 
-		return 1
-	fi
-
-	# Redirect find output to while loop's stdin. This is the way to redirect find output to an array of directories
-	local dirs=()
-	while IFS=  read -r -d $'\0'; do
-	    dirs+=("$REPLY")
-	done < <(ls --color=none -d $HOME/* | xargs -I{} find {} -type d -maxdepth 4 -iname "*$@*" 2> /dev/null -print0)
-
-	local count="${#dirs[@]}"
-
-	if [[ $count -eq 0 ]]; then
-		echo "Could not find $1" >&2
-		return 1
-	elif [[ $count -eq 1 ]]; then
-		cd $dirs
-		return 0
-	fi
-
-	echo "Mutliple Directories found:" >&2
-	for (( i=0; i<${count}; i++ ));
-	do
-		echo "$((i + 1)): ${dirs[i]}"
-	done
-	read input
-	if [[ $input -gt $(($count + 1)) || $input -lt 0 ]]; then
-		echo "Result out of bounds." >&2
-		return 1
-	fi
-
-	cd "${dirs[$(($in - 1))]}"
-
+	cd $(command jump $@)
 }
 
 playtime() {
-	#!/bin/bash
-
 	lang=${1-'rust'}
 	name="${lang}_playtime"
 	path="/tmp/$name"

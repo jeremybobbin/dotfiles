@@ -38,3 +38,7 @@ if [[ -x /bin/rustc && -x /bin/cargo && -x /bin/rustup ]]; then
 	}
 fi
 
+reval() {
+	 echo -e "?eval \n\`\`\`rust\n$(cat main.rs)\`\`\`" | cb
+}
+

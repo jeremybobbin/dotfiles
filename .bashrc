@@ -52,7 +52,7 @@ function suck {
 }
 
 
-to_mp3() {
+into_mp3() {
 	o=$(echo "$1" | sed -E 's/(.*)\..*/\1/')
 	ffmpeg -i $1 "$o.mp3"
 	rm $1

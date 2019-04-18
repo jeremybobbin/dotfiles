@@ -12,12 +12,12 @@ call plug#end()
 filetype indent plugin on
 syntax on
 
+
 set autoindent
 set backspace=indent,eol,start
 set confirm
 set hidden
 set ignorecase
-set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set mouse=a
 set nocompatible
 set nostartofline
@@ -27,8 +27,10 @@ set pastetoggle=<F11>
 set path+=**
 set relativenumber
 set showcmd
+set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set ttimeoutlen=100
 set wildmenu
+set wrap linebreak nolist
 
 " Flavorful remappings
 
