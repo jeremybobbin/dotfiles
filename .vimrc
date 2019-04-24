@@ -7,6 +7,8 @@ Plug 'mxw/vim-xhp'
 Plug 'elzr/vim-json'
 Plug 'mattn/emmet-vim'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'anned20/vimsence'
 call plug#end()
 
 filetype indent plugin on
@@ -33,6 +35,7 @@ set wildmenu
 set wrap linebreak nolist
 
 " Flavorful remappings
+	nnoremap Y y$
 
 	" Auto closers
 	inoremap {<CR> {<CR>}<Esc>O

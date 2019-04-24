@@ -36,7 +36,7 @@ PATH=$PATH:$HOME/.bin:$HOME/.cargo/bin:/tmp/bin:$HOME/.yarn/bin
 source <(cat ~/.bashrc.d/res/aliases | sed -E "/^#/d; /^$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\2'/g")
 
 # Can this be done async? `. ~/.bashrc` takes .5 seconds at most.
-source <(cat ~/.bashrc.d/* /usr/share/bash-completion/*/* 2> /dev/null) 
+source <(cat ~/.bashrc.d/* /usr/share/bash-completion/*/* 2> /dev/null) 2> /dev/null
 
 
 function cb2png {
