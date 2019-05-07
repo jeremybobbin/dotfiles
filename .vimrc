@@ -1,14 +1,9 @@
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
-Plug 'othree/yajs'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-xhp'
 Plug 'elzr/vim-json'
-Plug 'mattn/emmet-vim'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'anned20/vimsence'
 call plug#end()
 
 filetype indent plugin on
