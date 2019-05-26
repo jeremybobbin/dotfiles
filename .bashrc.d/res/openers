@@ -1,6 +1,0 @@
-VIDEO_PLAYER	mp4 mkv webm
-AUDIO_PLAYER	mp3 wav ogg
-IMAGE_VIEWER	png jpg jpeg
-PDF_VIEWER	pdf
-EDITOR	txt rs js c bash
-BROWSER	html

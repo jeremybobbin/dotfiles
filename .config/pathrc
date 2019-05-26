@@ -1,0 +1,7 @@
+$HOME/.bin
+$HOME/.cargo/bin
+$HOME/.local/bin
+$HOME/.yarn/bin
+/tmp/bin
+/usr/bin
+/usr/local/bin

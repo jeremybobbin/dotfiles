@@ -1,0 +1,2 @@
+directory: ~/Media/Audio/Music            # The default library root directory.
+library: ~/.config/beets/library.db

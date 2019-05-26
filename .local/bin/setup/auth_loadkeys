@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[ "$(id -u)" != 0 ] &&
+	echo "You must be root in order to authorize yourself to use load keys." >&2 &&
+	exit 1
+
+[ ! "$1" ] &&
+	echo "You must pass your username as the first argument" >&2 &&
+	exit 1
+
+groupadd -f loadkeys
+gpasswd loadkeys -a "$1"
+chgrp loadkeys /bin/loadkeys
+chmod 4750 /bin/loadkeys
+loadkeys ~/.bashrc.d/res/ttymaps.kmap

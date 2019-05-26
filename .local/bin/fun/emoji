@@ -1,0 +1,261 @@
+#!/bin/bash
+
+dmenu -i -l 20   << EOF | cut -d$'\t' -f1
+☀	Black sun with rays
+☁	Cloud
+☂	Umbrella
+☃	Snowman
+☄	Comet
+★	Black star
+☆	White star
+☇	Lightning
+☈	Thunderstorm
+☉	Sun
+☊	Ascending node
+☋	Descending node
+☌	Conjunction
+☍	Opposition
+☎	Black telephone
+☏	White telephone
+☐	Ballot box
+☑	Ballot box with check
+☒	Ballot box with X
+☓	Saltire
+☔	Umbrella with raindrops
+☕	Hot beverage
+☖	White shogi piece
+☗	Black shogi piece
+☘	Shamrock
+☙	Reversed rotated floral heart bullet
+☚	Black left pointing index
+☛	Black right pointing index
+☜	White left pointing index
+☝	White up pointing index
+☞	White right pointing index
+☟	White down pointing index
+☠	Skull and crossbones
+☡	Caution sign
+☢	Radioactive sign
+☣	Biohazard sign
+☤	Caduceus
+☥	Ankh
+☦	Orthodox cross
+☧	Chi Rho
+☨	Cross of Lorraine
+☩	Cross of Jerusalem
+☪	Star and crescent
+☫	Farsi symbol
+☬	Adi shakti
+☭	Hammer and sickle
+☮	Peace symbol
+☯	Yin yang
+☰	Trigram for Heaven
+☱	Trigram for Lake
+☲	Trigram for Fire
+☳	Trigram for Thunder
+☴	Trigram for Wind
+☵	Trigram for Water
+☶	Trigram for Mountain
+☷	Trigram for Earth
+☸	Wheel of Dharma
+☹	White frowning face
+☺	White smiling face
+☻	Black smiling face
+☼	White sun with rays
+☽	First quarter moon
+☾	Last quarter moon
+☿	Mercury
+♀	Venus
+♁	Earth
+♂	Mars
+♃	Jupiter
+♄	Saturn
+♅	Uranus
+♆	Neptune
+♇	Pluto
+♈	Aries
+♉	Taurus
+♊	Gemini
+♋	Cancer
+♌	Leo
+♍	Virgo
+♎	Libra
+♏	Scorpius
+♐	Sagittarius
+♑	Capricorn
+♒	Aquarius
+♓	Pisces
+♔	White chess king
+♕	White chess queen
+♖	White chess rook
+♗	White chess bishop
+♘	White chess knight
+♙	White chess pawn
+♚	Black chess king
+♛	Black chess queen
+♜	Black chess rook
+♝	Black chess bishop
+♞	Black chess knight
+♟	Black chess pawn
+♠	Black spade suit
+♡	White heart suit
+♢	White diamond suit
+♣	Black club suit
+♤	White spade suit
+♥	Black heart suit
+♦	Black diamond suit
+♧	White club suit
+♨	Hot springs
+♩	Quarter note
+♪	Eighth note
+♫	Beamed eighth notes
+♬	Beamed sixteenth notes
+♭	Music flat sign
+♮	Music natural sign
+♯	Music sharp sign
+♰	West Syriac cross
+♱	East Syriac cross
+♲	Universal recycling symbol
+♳	Recycling symbol for type-1 plastics
+♴	Recycling symbol for type-2 plastics
+♵	Recycling symbol for type-3 plastics
+♶	Recycling symbol for type-4 plastics
+♷	Recycling symbol for type-5 plastics
+♸	Recycling symbol for type-6 plastics
+♹	Recycling symbol for type-7 plastics
+♺	Recycling symbol for generic materials
+♻	Black universal recycling symbol
+♼	Recycled paper symbol
+♽	Partially-recycled paper symbol
+♾	Permanent paper sign
+♿	Wheelchair symbol
+⚀	Die face-1
+⚁	Die face-2
+⚂	Die face-3
+⚃	Die face-4
+⚄	Die face-5
+⚅	Die face-6
+⚆	White circle with dot right
+⚇	White circle with two dots
+⚈	Black circle with white dot right
+⚉	Black circle with two white dots
+⚊	Monogram for yang
+⚋	Monogram for yin
+⚌	Digram for greater yang
+⚍	Digram for lesser yin
+⚎	Digram for lesser yang
+⚏	Digram for greater yin
+⚐	White flag
+⚑	Black flag
+⚒	Hammer and pick
+⚓	Anchor
+⚔	Crossed swords
+⚕	Rod of Asclepius
+⚖	Scales
+⚗	Alembic
+⚘	Flower
+⚙	Gear
+⚚	Staff of Hermes
+⚛	Atom symbol
+⚜	Fleur-de-lis
+⚝	Outlined white star
+⚞	Three lines converging right
+⚟	Three lines converging left
+⚠	Warning sign
+⚡	High voltage sign
+⚢	Doubled female sign
+⚣	Doubled male sign
+⚤	Interlocked female and male sign
+⚥	Male and female sign
+⚦	Male with stroke sign
+⚧	Male with stroke and male and female sign
+⚨	Vertical male with stroke sign
+⚩	Horizontal male with stroke sign
+⚪	Medium white circle
+⚫	Medium black circle
+⚬	Medium small white circle
+⚭	Marriage symbol
+⚮	Divorce symbol
+⚯	Unmarried partnership symbol
+⚰	Coffin
+⚱	Funeral urn
+⚲	Neuter
+⚳	Ceres
+⚴	Pallas
+⚵	Juno
+⚶	Vesta
+⚷	Chiron
+⚸	Black moon Lilith
+⚹	Sextile
+⚺	Semisextile
+⚻	Quincunx
+⚼	Sesquiquadrate
+⚽	Football
+⚾	Baseball
+⚿	Squared key
+⛀	White draughts man
+⛁	White draughts king
+⛂	Black draughts man
+⛃	Black draughts king
+⛄	Snowman without snow
+⛅	Sun behind cloud
+⛆	Rain
+⛇	Black snowman
+⛈	Thunder cloud and rain
+⛉	Turned white shogi piece
+⛊	Turned black shogi piece
+⛋	White diamond in square
+⛌	Crossing lanes
+⛍	Disabled car
+⛎	Ophiuchus
+⛏	Pick
+⛐	Car sliding
+⛑	Helmet with white cross
+⛒	Circled crossing lanes
+⛓	Chains
+⛔	No entry
+⛕	Alternate one-way left way traffic
+⛖	Black two-way left way traffic
+⛗	White two-way left way traffic
+⛘	Black left lane merge
+⛙	White left lane merge
+⛚	Drive slow sign
+⛛	Heavy white down-pointing triangle
+⛜	Left closed entry
+⛝	Squared saltire
+⛞	Falling diagonal in white circle in black square
+⛟	Black truck
+⛠	Restricted left entry-1
+⛡	Restricted left entry-2
+⛢	Astronomical symbol for Uranus
+⛣	Heavy circle with stroke and two dots above
+⛤	Pentagram
+⛥	Right-handed interlaced pentagram
+⛦	Left-handed interlaced pentagram
+⛧	Inverted pentagram
+⛨	Black cross on shield
+⛩	Shinto shrine
+⛪	Church
+⛫	Castle
+⛬	Historic site
+⛭	Gear without hub
+⛮	Gear with handles
+⛯	Map symbol for lighthouse
+⛰	Mountain
+⛱	Umbrella on ground
+⛲	Fountain
+⛳	Flag in hole
+⛴	Ferry
+⛵	Sailboat
+⛶	Square four corners
+⛷	Skier
+⛸	Ice skate
+⛹	Person with ball
+⛺	Tent
+⛻	Japanese bank symbol
+⛼	Headstone graveyard symbol
+⛽	Fuel pump
+⛾	Cup on black square
+⛿	White flag with horizontal middle black stripe
+EOF
+

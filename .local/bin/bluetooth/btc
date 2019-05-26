@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Get mac address of AirPods from bluetoothctl
+[ "$1" ] &&
+	device_name="$1" || 
+	device_name='AirPods'
+
+# Initialize
+# echo -e "power on\nscan on\ndevices" |
+echo "power on" | bluetoothctl
+sleep 0.5
+
+mac_address="$(gbtm "$device_name")"
+
+# See if device is connected, if so, disconnect and verse vica
+if connected "$mac_address"; then
+	notify-send 'Bluetooth' "Disconnecting from $device_name"
+	echo -e "disconnect $mac_address" | bluetoothctl
+else
+	notify-send 'Bluetooth' "Connecting to $device_name"
+	echo -e "connect $mac_address" | bluetoothctl
+fi
+

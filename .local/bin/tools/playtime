@@ -1,0 +1,46 @@
+#!/bin/sh
+
+if [ "$1" ]; then
+	lang=$1
+else
+	lang='rust'
+fi
+
+name="${lang}_playtime"
+path="/tmp/$name"
+to_edit=''
+
+rm -rf "$path"
+
+case "$lang" in
+	'rust' | '' )
+		mkdir -p $path
+		cargo init $path &> /dev/null
+		to_edit='src/main.rs'
+		;;
+	'bash' )
+		mkdir -p $path
+		echo -e "#!/bin/bash\n" > "$path/script"
+		chmod +x "$path/script"
+		to_edit="$path/script"
+		;;
+	'node' )
+		mkdir -p $path
+		echo -e "#!/bin/env node\n" > "$path/index.js"
+		chmod +x "$path/index.js"
+		to_edit="$path/index.js"
+		;;
+
+	'c' )
+		mkdir -p $path
+		echo -e "#include <string.h>\n#include <stdio.h>\n#include <unistd.h>" > "$path/main.c"
+		to_edit="$path/main.c"
+		;;
+	* )
+		echo "Could not find protocol for '$1'." >&2
+		return 0
+		;;
+esac
+
+echo "cd $path"
+echo "$EDITOR $to_edit"

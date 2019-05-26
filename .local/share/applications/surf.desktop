@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=surf
+Exec=/usr/local/bin/surf %u
+MimeType=x-scheme-handler/https;x-scheme-handler/http;text/html;

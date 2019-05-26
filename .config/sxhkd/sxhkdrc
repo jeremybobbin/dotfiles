@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Apps
+super + shift + Return
+	$TERMINAL
+
+super + m
+	$TERMINAL -e ncmpcpp
+
+super + a
+	$TERMINAL -e pulsemixer
+
+super + d
+	dmenu_run
+
+super + i
+	discord
+
+super + w
+	qutebrowser
+
+
+# Bluetooth
+super + shift + b
+	btc $BT_DEVICE
+
+super + control + b
+	btstatus $BT_DEVICE
+
+# Media
+XF86AudioPlay
+	mpc toggle
+
+XF86AudioStop
+	mpc pause
+
+XF86AudioNext
+	mpc next
+
+XF86AudioPrev
+	mpc prev
+
+# Utils
+Print
+	maim -s | xclip -selection c -t image/png -s
+
+super + e
+	emoji | xclip -selection c

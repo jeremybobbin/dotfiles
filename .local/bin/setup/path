@@ -1,0 +1,11 @@
+#!/bin/sh
+
+[ "$XDG_CONFIG_HOME" ] ||
+	XDG_CONFIG_HOME="$HOME/.config"
+
+envsubst < "$XDG_CONFIG_HOME/pathrc" |
+	xargs -I{} find {} -type d 2>/dev/null |
+	tr '\n' ':'
+
+# Echo to append new line; breaks otherwise
+echo

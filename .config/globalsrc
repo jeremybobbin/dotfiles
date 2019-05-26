@@ -1,0 +1,22 @@
+PATH			`~/.local/bin/setup/path`
+
+# Apps
+TERMINAL		st
+EDITOR			vim
+BROWSER			qutebrowser
+PDF_VIEWER		zathura
+AUDIO_PLAYER	mpv
+VIDEO_PLAYER	mpv
+
+BT_DEVICE		AirPods
+
+XDG_CONFIG_HOME	$HOME/.config
+XDG_CACHE_HOME	$HOME/.cache
+XDG_DATA_HOME	$HOME/.local/share
+XDG_DATA_DIRS	/usr/local/share/:/usr/share/
+XDG_CONFIG_DIRS	/etc/xdg
+
+# Rust
+RUSTC_WRAPPER	sccache
+CARGO_CFG_COLOR	always
+RUST_SRC_PATH	`/usr/bin/rustc --print sysroot`/lib/rustlib/src/rust/src/

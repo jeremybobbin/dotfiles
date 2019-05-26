@@ -1,0 +1,2 @@
+#!/bin/sh
+cargo locate-project | sed -e 's/{"root":"\(.*\)"}/\1/g'

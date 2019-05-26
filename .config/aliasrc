@@ -1,30 +1,36 @@
 # Rust Related 
-vct	vim `ct`
-# `sudo cargo run`
-scr	echo "Running as root." && cargo build && $(fde)
-macro	rustc -Z unstable-options --pretty=expanded
+# Need to escape so that alias generator doesn't evaluate
+vct	vim $(ct)
 
 # Shell
-c		clear
-l		c && ls
+l		ls
 o		open
 new		nohup st -c "cd $pwd" &> /dev/null & disown &> /dev/null
 
 # Corresponds with rm and cd_wrapper functions
-cd	cd_wrapper
 rm	rm_wrapper
 
-vba	v ~/.bashrc.d/res/aliases
-vbp	v ~/.bash_profile
-vbrc	v ~/.bashrc
-vbrcd	v ~/.bashrc.d
+
+sp	source ~/.profile
 sbrc	source ~/.bashrc
 
+vp	v ~/.profile
+vbp	v ~/.profile
+vxp	v ~/.xprofile
+
+
+
+vbrc	v ~/.bashrc
 virc	v ~/.inputrc
 vvrc	v ~/.vimrc
 vxrc	v ~/.xinitrc
 
+vxbk	v ~/.config/sxhkd/sxhkdrc
+varc	v ~/.config/aliasrc
+vgrc	v ~/.config/globalsrc
+
 # Administration
+sc	systemctl
 ssc	sudo systemctl
 
 # Clipboard
@@ -63,6 +69,10 @@ less	less -R
 note	v ~/Notes/Self/$(date +%F)
 
 # Common Dir
+uls	~/.local/share
+ulb	~/.local/bin
+cfg ~/.config
+
 dl	~/Downloads
 mda	~/Media
 doc	~/Media/Documents

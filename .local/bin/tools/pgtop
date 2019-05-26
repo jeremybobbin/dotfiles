@@ -1,0 +1,7 @@
+#!/bin/sh
+
+top_args=$(pgrep "$@"  | awk 'NR <= 20 { print "-p " $1 }')
+
+[ "$top_args" ] &&
+	top "$top_args" ||
+	echo "No matches" >&2

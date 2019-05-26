@@ -1,0 +1,11 @@
+#!/bin/sh
+
+path="$HOME/.trash/$(date +%F)/"
+# make dir titled wiht date
+mkdir -p "$path"
+# Let mv handle duplicate names
+
+while [ $# -gt 0 ]; do
+	VERSION_CONTROL="numbered" mv --backup "$1" "$path"
+	shift
+done
