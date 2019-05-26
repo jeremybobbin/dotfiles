@@ -14,12 +14,12 @@ rm -rf "$path"
 
 case "$lang" in
 	'rust' | '' )
-		mkdir -p $path
-		cargo init $path &> /dev/null
+		mkdir -p "$path"
+		cargo init "$path" &> /dev/null
 		to_edit='src/main.rs'
 		;;
 	'bash' )
-		mkdir -p $path
+		mkdir -p "$path"
 		echo -e "#!/bin/bash\n" > "$path/script"
 		chmod +x "$path/script"
 		to_edit="$path/script"

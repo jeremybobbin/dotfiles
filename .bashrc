@@ -1,7 +1,6 @@
 #!/bin/sh
 echo $- | grep -v 'i' && return
 
-source_globals
 source_aliases
 
 PS1=$(ps1)

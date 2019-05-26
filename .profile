@@ -39,9 +39,13 @@ PATH=/usr/bin
 [ "$XDG_CONFIG_HOME" ] ||
 	XDG_CONFIG_HOME="$HOME/.config"
 
-echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ] &&
-	. "$HOME/.bashrc" ||
-	source_globals && source_aliases
+source_globals 
+
+if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+else
+	source_aliases
+fi
 
 # Done initializing
 
