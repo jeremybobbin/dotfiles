@@ -10,8 +10,8 @@ super + m
 super + a
 	$TERMINAL -e pulsemixer
 
-super + d
-	dmenu_run
+#super + d
+#	dmenu_run
 
 super + i
 	discord
@@ -42,7 +42,7 @@ XF86AudioPrev
 
 # Utils
 Print
-	maim -s | xclip -selection c -t image/png -s
+	maim -s -o | xclip -selection c -t image/png
 
 super + e
 	emoji | xclip -selection c

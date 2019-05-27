@@ -25,7 +25,7 @@ virc	v ~/.inputrc
 vvrc	v ~/.vimrc
 vxrc	v ~/.xinitrc
 
-vxbk	v ~/.config/sxhkd/sxhkdrc
+vxhk	v ~/.config/sxhkd/sxhkdrc
 varc	v ~/.config/aliasrc
 vgrc	v ~/.config/globalsrc
 
