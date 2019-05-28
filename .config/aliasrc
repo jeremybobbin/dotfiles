@@ -1,10 +1,11 @@
 # Rust Related 
 # Need to escape so that alias generator doesn't evaluate
-vct	vim $(ct)
+vct	v $(ct)
 
 # Shell
 l		ls
 o		open
+e		exit
 new		nohup st -c "cd $pwd" &> /dev/null & disown &> /dev/null
 
 # Corresponds with rm and cd_wrapper functions
@@ -22,7 +23,7 @@ vxp	v ~/.xprofile
 
 vbrc	v ~/.bashrc
 virc	v ~/.inputrc
-vvrc	v ~/.vimrc
+vvrc	v ~/.config/nvim/init.vim
 vxrc	v ~/.xinitrc
 
 vxhk	v ~/.config/sxhkd/sxhkdrc
@@ -42,12 +43,12 @@ c2p	cb -o - | pcb
 
 # Apps
 g	git
-sv	sudo vim
+sv	sudo nvim
 nn	nnn
 n	nn
 z	zathura
 # Big O vim for vertical windows
-v	vim -O
+v	nvim -O
 
 # Media
 rec	ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+1080,0 "$HOME/Video/ScreenCast/$(date +%s).mp4"

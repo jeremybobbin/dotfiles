@@ -2,7 +2,7 @@ PATH			`~/.local/bin/setup/path`
 
 # Apps
 TERMINAL		st
-EDITOR			vim
+EDITOR			nvim
 BROWSER			qutebrowser
 PDF_VIEWER		zathura
 AUDIO_PLAYER	mpv
