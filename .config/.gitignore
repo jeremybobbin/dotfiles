@@ -1,0 +1,22 @@
+GIMP/
+GNS3/
+Paradox Interactive/
+QtProject.conf
+configstore/
+dconf/
+discord/
+dolphin-emu/
+gtk-2.0/
+ion/
+launcher/
+libreoffice/
+menus/
+milkytracker/
+mnemosyne/
+ncmpcpp/
+neofetch/
+nvim/
+pulse/
+qutebrowser/
+vitetris
+yarn/
