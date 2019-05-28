@@ -56,8 +56,8 @@ rec	ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+1080,0 "$HOME/
 pm	pulsemixer
 
 # Colors
-ls	ls -hN --color=always --group-directories-first
-grep	grep --color=always
+ls	ls -hN --color=auto --group-directories-first
+grep	grep --color=auto
 diff	diff --color=always
 yay	yay --color=always
 pacman	pacman --color always
