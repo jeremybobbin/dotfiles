@@ -1,42 +1,42 @@
-autocmd BufRead * :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-autocmd BufWritePost * :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
-" Templates
+" Commands
+nnoremap <leader>r :make run<CR>
+nnoremap <leader>t :make test<CR>
+nnoremap <leader>b :make run --bin 
+nnoremap <leader>c :make check<CR>
 
-" autocmd FileType rust imap <++> <++><+<++>+><++>
-nnoremap <C-_>it :read ~/.vim/templates/rs/
-nnoremap <C-_>i<++> :read ~/.vim/templates/rs/<++><CR>
+
+" Impl Trait
+nnoremap <leader>it :read ~/.vim/templates/rs/
+nnoremap <leader>i<++> :read ~/.vim/templates/rs/<++><CR>
 
 
 " Common constructions
-inoremap <C-_>fn fn <++>(<++>) -> <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-inoremap <C-_>if if <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
+inoremap <leader>fn fn <++>(<++>) -> <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
+inoremap <leader>fm fn main() {<CR><++><CR>}<Esc>/<++><CR>"_c4l
+inoremap <leader>if if <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
 
-inoremap <C-_>ils if let Some(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-inoremap <C-_>ilo if let Ok(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
+inoremap <leader>ils if let Some(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
+inoremap <leader>ilo if let Ok(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
 
-inoremap <C-_>wls while let Some(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-inoremap <C-_>wlo while let Ok(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
+inoremap <leader>wls while let Some(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
+inoremap <leader>wlo while let Ok(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
 
-inoremap <C-_>let let <++> = <++>;<Esc>0/<++><CR>"_c4l
-inoremap <C-_>mut let mut <++> = <++>;<Esc>0/<++><CR>"_c4l
+"inoremap <leader>let let <++> = <++>;<Esc>0/<++><CR>"_c4l
+"inoremap <leader>mut let mut <++> = <++>;<Esc>0/<++><CR>"_c4l
+inoreabbrev let let = <++><Esc>6hi
+inoreabbrev lm let mut = <++><Esc>6hi
 
 
 " Common macros
-inoremap <C-_>pl println!("<++>", <++>);<Esc>0/<++><CR>"_c4l
-inoremap <C-_>pv println!("{}", <++>);<Esc>0/<++><CR>"_c4l
-inoremap <C-_>vec vec![<++>];<Esc>0/<++><CR>"_c4l
+"inoremap <leader>pl println!("<++>", <++>);<Esc>0/<++><CR>"_c4l
+"inoremap <leader>pv println!("{}", <++>);<Esc>0/<++><CR>"_c4l
+"inoremap <leader>vec vec![<++>];<Esc>0/<++><CR>"_c4l
+inoreabbrev pl println!("<++>", <++>);<Esc>23h
+inoreabbrev pv println!("{}", <++>);<Esc>21h
+inoreabbrev vec vec![<++>];<Esc>11h
 
-
-" Commands
-nnoremap <C-_>r :!clear && cargo run<CR>
-inoremap <C-_>r <Esc>:!clear && cargo run<CR>
-
-nnoremap <C-_>t :!clear && cargo test --color=always \|& less -R<CR>
-inoremap <C-_>t <Esc>:!clear && cargo test --color=always \|& less -R<CR>
-
-nnoremap <C-_>b :!clear && cargo bench --color=always \|& less -R<CR>
-inoremap <C-_>b <Esc>:!clear && cargo bench --color=always \|& less -R<CR>
-
-nnoremap <C-_>c :!clear && cargo check --color=always \|& less -R<CR>
-inoremap <C-_>c <Esc>:!clear && cargo check --color=always \|& less -R<CR>
+" More abbreviations
+inoreabbrev ec extern crate

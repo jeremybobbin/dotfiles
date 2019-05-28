@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
+Plug 'rust-lang/rust.vim'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
@@ -31,13 +32,20 @@ set showcmd
 set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set wildmenu
 
-
-" Flavorful remappings
+" General remaps
 nnoremap Y y$
 
 " Auto closers
 inoremap {<CR> {<CR>}<Esc>O
+
 inoremap (<CR> (<CR>)<Esc>O
+inoremap ( ()<Esc>i
+inoremap (; ();<Esc>
+inoremap (. ().
+inoremap () ()
+
+inoremap " ""<Esc>i
+inoremap "" ""
 
 " Command Window
 nnoremap : q:i
@@ -50,49 +58,36 @@ au CmdwinLeave [:>] nnoremap <Esc> <Esc>
 
 let mapleader = ""
 
+" Source Vim
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
 " Place holders
-inoremap  <leader><C-_> <++>
+inoremap  <leader><leader> <++>
 nnoremap  <leader><leader> i<++><Esc>
-inoremap  <leader><C-_> <++>
-vnoremap  <C-_><C-_> "_c<++><Esc>
+inoremap  <leader><leader> <++>
+vnoremap  <leader><leader> "_c<++><Esc>
 
 nnoremap <Space> 0/<++><CR>"_c4l
 vnoremap <Space> "xd0/<++><CR>v3l"xp
 
-"" Clipboard commands - Commented for use with emmet-vim 
-nnoremap <C-_>xp :r !xclip -selection c -o -<CR><CR>
-vnoremap <C-_>xy :w !xclip -selection c<CR><CR>
-
 " Terminal
-nnoremap <leader>t :vert terminal bash<CR>
+nnoremap <M-t> :vert terminal<CR>
 
-" Windowctl
-inoremap <M-j> <C-W>j
-nnoremap <M-j> <C-W>j
-vnoremap <M-j> <C-W>j
-tnoremap <M-j> <C-\><C-N>j
+" Window
+nnoremap <C-c> <C-W><C-c>
 
-inoremap <M-k> <C-W>k
-nnoremap <M-k> <C-W>k
-vnoremap <M-k> <C-W>k
-tnoremap <M-k> <C-\><C-N>k
+inoremap <M-j> <C-W><C-W>
+nnoremap <M-j> <C-W><C-W>
+vnoremap <M-j> <C-W><C-W>
+tnoremap <M-j> <C-\><C-N><C-W><C-W>
 
-inoremap <M-h> <C-W>h
-nnoremap <M-h> <C-W>h
-vnoremap <M-h> <C-W>h
-tnoremap <M-h> <C-\><C-N>h
+inoremap <M-k> <C-W>W
+nnoremap <M-k> <C-W>W
+vnoremap <M-k> <C-W>W
+tnoremap <M-k> <C-\><C-N><C-W>W
 
-inoremap <M-l> <C-W>l
-nnoremap <M-l> <C-W>l
-vnoremap <M-l> <C-W>l
-tnoremap <M-l> <C-\><C-N>l
 
-inoremap <M-n> <C-W><C-W>
-nnoremap <M-n> <C-W><C-W>
-vnoremap <M-n> <C-W><C-W>
-tnoremap <M-n> <C-\><C-N><C-W><C-W>
+nnoremap <M-o> :copen<CR>
+nnoremap <M-n> :cnext<CR>
+nnoremap <M-p> :cprev<CR>
 
-inoremap <M-p> <C-W>W
-nnoremap <M-p> <C-W>W
-vnoremap <M-p> <C-W>W
-tnoremap <M-p> <C-\><C-N><C-W>W

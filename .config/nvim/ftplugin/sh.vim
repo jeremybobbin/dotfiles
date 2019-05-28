@@ -1,2 +1,2 @@
-map <C-_>a oalias <++>='<++>'<Space>
-nnoremap <C-_>r :!clear && %:p 
+map <leader>a oalias <++>='<++>'<Space>
+nnoremap <leader>r :!clear && %:p 

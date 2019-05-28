@@ -23,8 +23,9 @@ vxp	v ~/.xprofile
 
 vbrc	v ~/.bashrc
 virc	v ~/.inputrc
-vvrc	v ~/.config/nvim/init.vim
 vxrc	v ~/.xinitrc
+vvrc	v ~/.vimrc
+vvrcd	v ~/.vim
 
 vxhk	v ~/.config/sxhkd/sxhkdrc
 varc	v ~/.config/aliasrc
