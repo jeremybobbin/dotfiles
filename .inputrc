@@ -1,0 +1,32 @@
+$include /etc/inputrc
+set editing-mode vi
+
+set keymap vi-command
+"\C-l":"Iclear; ls \eD\C-M"
+
+"\C-u":"Icd ..; clear; ls \eD\C-M"
+# "\C-h":"Icd ~; clear; ls \eD\C-M"
+
+"\el":"A | less"
+"\es":"Isudo "
+
+set keymap vi-insert
+"\C-l":"\eIclear; ls \eD\C-M"
+
+"\C-u":"\eIcd ..; clear; ls \eD\C-M"
+# "\C-h":"\eIcd ~; clear; ls \eD\C-M"
+
+"\el":"\eA | less"
+"\es":"\eIsudo "
+
+# Color files by types
+set colored-stats On
+# Append char to indicate type
+set visible-stats On
+# Mark symlinked directories
+set mark-symlinked-directories On
+# Color the common prefix
+set colored-completion-prefix On
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix On
+

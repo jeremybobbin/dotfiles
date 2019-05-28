@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
@@ -11,23 +12,24 @@ syntax on
 
 
 set autoindent
-set backspace=indent,eol,start
-set confirm
-set hidden
+set laststatus=2
+"set backspace=indent,eol,start
+"set confirm
+"set hidden
 set ignorecase
-set mouse=a
-set nocompatible
-set nostartofline
-set notimeout ttimeout ttimeoutlen=500
+"set mouse=a
+"set nocompatible
+"set nostartofline
+"set notimeout ttimeout ttimeoutlen=500
 set number
-set pastetoggle=<F11>
-set path+=**
 set relativenumber
+"set pastetoggle=<F11>
+"set path+=**
 set showcmd
 set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-set ttimeoutlen=100
+"set ttimeoutlen=100
 set wildmenu
-set wrap linebreak nolist
+"set wrap linebreak nolist
 
 " Flavorful remappings
 	nnoremap Y y$
@@ -69,57 +71,13 @@ set wrap linebreak nolist
 
 
 " Vim
-	autocmd FileType vim inoremap <C-_>ck <C-_<Esc>a><Esc>
-	autocmd FileType vim inoremap <C-_>es <Esc<Esc>a><Esc>
-	autocmd FileType vim inoremap <C-_>st <Space<Esc>a><Esc>
-	autocmd FileType vim inoremap <C-_>cr <CR<Esc>a>
-	autocmd FileType vim inoremap <C-_>jmp <Esc<Esc>a>/<++><CR<Esc>a>"_c4l
 
 " Bash
-	autocmd FileType sh map <C-_>a oalias <++>='<++>'<Space>
-
-	autocmd FileType sh nnoremap <C-_>r :!clear && %:p 
-
-"JS
 
 
-" Rust
-	autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-	autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-
-	" Templates
-	
-	" autocmd FileType rust imap <++> <++><+<++>+><++>
-	autocmd FileType rust nnoremap <C-_>it :read ~/.vim/templates/rs/
-		" autocmd FileType rust nnoremap <C-_>i<++> :read ~/.vim/templates/rs/<++><CR>
-
-	" Common constructions
-	autocmd FileType rust inoremap <C-_>fn fn <++>(<++>) -> <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-	autocmd FileType rust inoremap <C-_>if if <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-
-	autocmd FileType rust inoremap <C-_>ils if let Some(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-	autocmd FileType rust inoremap <C-_>ilo if let Ok(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-
-	autocmd FileType rust inoremap <C-_>wls while let Some(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-	autocmd FileType rust inoremap <C-_>wlo while let Ok(<++>) = <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l
-
-	autocmd FileType rust inoremap <C-_>let let <++> = <++>;<Esc>0/<++><CR>"_c4l
-	autocmd FileType rust inoremap <C-_>mut let mut <++> = <++>;<Esc>0/<++><CR>"_c4l
-
-	" Common macros
-	autocmd FileType rust inoremap <C-_>pl println!("<++>", <++>);<Esc>0/<++><CR>"_c4l
-	autocmd FileType rust inoremap <C-_>pv println!("{}", <++>);<Esc>0/<++><CR>"_c4l
-	autocmd FileType rust inoremap <C-_>vec vec![<++>];<Esc>0/<++><CR>"_c4l
-	
-	" Commands
-	autocmd FileType rust nnoremap <C-_>r :!clear && cargo run<CR>
-	autocmd FileType rust inoremap <C-_>r <Esc>:!clear && cargo run<CR>
-
-	autocmd FileType rust nnoremap <C-_>t :!clear && cargo test --color=always \|& less -R<CR>
-	autocmd FileType rust inoremap <C-_>t <Esc>:!clear && cargo test --color=always \|& less -R<CR>
-
-	autocmd FileType rust nnoremap <C-_>b :!clear && cargo bench --color=always \|& less -R<CR>
-	autocmd FileType rust inoremap <C-_>b <Esc>:!clear && cargo bench --color=always \|& less -R<CR>
-
-	autocmd FileType rust nnoremap <C-_>c :!clear && cargo check --color=always \|& less -R<CR>
-	autocmd FileType rust inoremap <C-_>c <Esc>:!clear && cargo check --color=always \|& less -R<CR>
+augroup ft
+	"autocmd!
+	"autocmd FileType rust	:source $HOME/.vim/autoload/rust.vim
+	"autocmd FileType sh	:source $HOME/.vim/autoload/sh.vim
+	"autocmd FileType vim	:source $HOME/.vim/autoload/vim.vim
+augroup END
