@@ -1,6 +1,7 @@
 GIMP/
 GNS3/
 Paradox Interactive/
+modem-manager-gui/
 QtProject.conf
 configstore/
 dconf/
@@ -8,6 +9,7 @@ discord/
 dolphin-emu/
 gtk-2.0/
 ion/
+enchant/
 launcher/
 libreoffice/
 menus/

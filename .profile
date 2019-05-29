@@ -55,6 +55,9 @@ jump() {
 }
 
 playtime() {
+	# Prevents something
+	cd / ||
+		return 1
 	sauce command playtime "$@"
 }
 

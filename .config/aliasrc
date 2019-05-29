@@ -1,6 +1,6 @@
 # Rust Related 
 # Need to escape so that alias generator doesn't evaluate
-vct	v $(ct)
+vct	ct=$(ct) && v $ct
 
 # Shell
 l		ls
