@@ -1,6 +1,32 @@
 #!/bin/sh
-# Print value to be exported to PS1
 
-[ -z "$SSH_CLIENT" ] &&
-	echo "$(tput bold)$(tput setaf 0)[$(tput setaf 2)\$(id -u -n)$(tput setaf 0)@$(tput setaf 6)\$(hostname) $(tput setaf 1)\$(pwd | sed "s.$HOME.\~.g" | grep -o '[^/]*$')$(tput setaf 0)]$(tput setaf 7)\$( [ $(id -u) = 0 ] && echo \# || echo \$ ) $(tput sgr0)" ||
-	echo "$(tput bold)$(tput setaf 0)[$(tput setaf 2)\$(id -u -n)$(tput setaf 0)@$(tput setaf 2)\$(hostname) $(tput setaf 1)\$(pwd | sed "s.$HOME.\~.g" | grep -o '[^/]*$')$(tput setaf 0)]$(tput setaf 7)\$( [ $(id -u) = 0 ] && echo \# || echo \$ ) $(tput sgr0)"
+escape_tput() {
+	echo "\[$(tput "$@")\]"
+}
+
+black=$(escape_tput setaf 0)
+red=$(escape_tput setaf 1)
+green=$(escape_tput setaf 2)
+yellow=$(escape_tput setaf 3)
+purple=$(escape_tput setaf 4)
+pink=$(escape_tput setaf 5)
+blue=$(escape_tput setaf 6)
+white=$(escape_tput setaf 7)
+
+bold=$(escape_tput bold)
+none=$(escape_tput sgr0)
+
+username=$(id -u -n)
+hostname=$(hostname -s)
+level="\$( [ $(id -u) = 0 ] && echo \# || echo \$ )"
+cwd="\$(pwd | sed \"s.$HOME.\~.g\" | grep -o '[^/]*$')"
+
+PS1="$bold$black[$green$(id -u -n)$black@"
+
+[ ! "$SSH_CLIENT" ] &&
+	PS1+="$blue" ||
+	PS1+="$green"
+
+PS1+="$hostname $red$cwd$bold$black]$white$level $none"
+
+echo $PS1
