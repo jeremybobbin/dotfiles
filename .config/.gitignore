@@ -5,6 +5,7 @@ modem-manager-gui/
 QtProject.conf
 configstore/
 dconf/
+htop/
 discord/
 dolphin-emu/
 gtk-2.0/
