@@ -57,6 +57,7 @@ pm	pulsemixer
 
 # Colors
 ls	ls -hN --color=auto --group-directories-first
+ip	ip --color=auto
 grep	grep --color=auto
 diff	diff --color=always
 yay	yay --color=always
