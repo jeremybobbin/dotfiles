@@ -1,0 +1,20 @@
+#!/bin/sh
+
+! pgrep btpd &&
+	exit 1 && notify-send 'BTPD not running'
+
+while [ "$#" -gt 0 ]; do
+	tmp="/tmp/$(awk 'BEGIN { print int(srand() * rand() * srand()) }').torrent"
+
+	notify-send 'downloading torrent file'
+	magnet2torrent -m "$1" -o $tmp
+	
+	btcli add "$tmp" -d ~/.torrents && notify-send 'starting torrent' || 
+		 notify-send 'btcli add didnt work' && exit 1
+
+	rm $tmp
+
+	shift
+
+done
+
