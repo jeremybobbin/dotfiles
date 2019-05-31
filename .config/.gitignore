@@ -5,6 +5,8 @@ modem-manager-gui/
 QtProject.conf
 configstore/
 dconf/
+transmission/
+transmission-daemon/
 htop/
 discord/
 dolphin-emu/

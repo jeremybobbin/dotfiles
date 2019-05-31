@@ -10,8 +10,8 @@ super + m
 super + a
 	$TERMINAL -e pulsemixer
 
-#super + d
-#	dmenu_run
+super + t
+	$TERMINAL -e transmission-remote-cli
 
 super + i
 	discord
