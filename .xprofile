@@ -3,6 +3,6 @@ setbg &
 bar &
 
 sxhkd &
-xmodmap $HOME/.Xmodmap &
+xmodmap $HOME/.xmodmaprc &
 
 dunst &

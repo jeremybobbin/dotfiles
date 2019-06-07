@@ -49,6 +49,7 @@ nn	nnn
 n	nn
 z	zathura
 # Big O vim for vertical windows
+vim	nvim
 v	nvim -O
 
 # Media

@@ -4,6 +4,7 @@
 .ansible_galaxy
 .backups/
 .bash_history
+.btpd/
 .cache
 .cargo
 .ccache
@@ -12,8 +13,6 @@
 .fltk
 .gdrive
 .git
-.torrents/
-.btpd/
 .gitconfig
 .gnupg
 .history
@@ -42,6 +41,7 @@
 .swp
 .tmux.conf
 .tor-browser-en
+.torrents/
 .trash
 .vgl
 .viminfo
@@ -58,8 +58,10 @@ Downloads
 file
 file2
 hexes
+Mail/
 Media
 Notes
+pam.d/
 Projects
 pt/
 test/

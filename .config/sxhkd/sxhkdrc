@@ -22,10 +22,10 @@ super + w
 
 # Bluetooth
 super + shift + b
-	btc $BT_DEVICE
+	bluetooth_connect $BLUETOOTH_DEVICE
 
 super + control + b
-	btstatus $BT_DEVICE
+	bluetooth_status $BLUETOOTH_DEVICE
 
 # Media
 XF86AudioPlay

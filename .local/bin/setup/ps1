@@ -18,7 +18,7 @@ none=$(escape_tput sgr0)
 
 username=$(id -u -n)
 hostname=$(hostname -s)
-level="\$( [ $(id -u) = 0 ] && echo \# || echo \$ )"
+level="\$( [ $(id -u) = 0 ] && echo '#' || echo \$ )"
 cwd="\$(pwd | sed \"s.$HOME.\~.g\" | grep -o '[^/]*$')"
 
 PS1="$bold$black[$green$(id -u -n)$black@"
