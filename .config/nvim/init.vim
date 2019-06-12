@@ -72,7 +72,7 @@ inoremap  <leader><leader> <++>
 nnoremap  <leader><leader> i<++><Esc>
 vnoremap  <leader><leader> "_c<++><Esc>
 
-nnoremap <Space> 3h/<++><CR>"_c4l
+nnoremap <Space> /<++><CR>"_c4l
 vnoremap <Space> "xd0/<++><CR>v3l"xp
 
 " Terminal
