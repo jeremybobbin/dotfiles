@@ -67,11 +67,16 @@ inoremap <leader>ec extern crate
 inoremap <leader>std use std::{<CR>};<Esc>O
 
 " Nitpicks
+inoremap ( ()<Esc>hi
 inoremap (; ();<Esc>hi
 inoremap (. ()<CR>.
 inoremap (" ("")<Esc>hi
 inoremap <leader>std use std::{<CR>};<Esc>O
 
+inoremap " ""<Esc>hi
+inoremap [ []<Esc>hi
+inoremap { {}<Esc>hi
+inoremap < <><Esc>hi
 
 " O remaps
 onoremap ifd :<c-u>execute "normal! ?^\\s*fn\\s\\+\\w*\\s*\\(<.*>\\)\\=\\s*(.*)\r:nohlsearch\rgn"<cr>
