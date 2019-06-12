@@ -18,15 +18,15 @@ none=$(escape_tput sgr0)
 
 username=$(id -u -n)
 hostname=$(hostname -s)
-level="\$( [ $(id -u) = 0 ] && echo '#' || echo \$ )"
+level="\$( [ $(id -u) = 0 ] && echo '#' || echo '$' )"
 cwd="\$(pwd | sed \"s.$HOME.\~.g\" | grep -o '[^/]*$')"
 
 PS1="$bold$black[$green$(id -u -n)$black@"
 
 [ ! "$SSH_CLIENT" ] &&
-	PS1+="$blue" ||
-	PS1+="$green"
+	PS1="$PS1$blue" ||
+	PS1+="$PS1$green"
 
-PS1+="$hostname $red$cwd$bold$black]$white$level $none"
+PS1="$PS1$hostname $red$cwd$bold$black]$white$level $none"
 
 echo $PS1

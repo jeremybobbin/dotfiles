@@ -53,6 +53,14 @@ inoremap (. ()<CR>.
 inoremap (" ("")<Esc>hi
 inoremap <leader>std use std::{<CR>};<Esc>O
 
+
+" O remaps
+onoremap ifd :<c-u>execute "normal! ?^\\s*fn\\s\\+\\w*\\s*\\(<.*>\\)\\=\\s*(.*)\r:nohlsearch\rgn"<cr>
+
+
+
+
+
 " Vim Surround customization
 " let b:surround_111 = "**\r**"
 let b:surround_{char2nr('s')} = "(\"\r\")"

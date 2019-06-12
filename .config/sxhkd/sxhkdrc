@@ -10,8 +10,8 @@ super + m
 super + a
 	$TERMINAL -e pulsemixer
 
-super + t
-	$TERMINAL -e transmission-remote-cli
+super + p
+	$TERMINAL -e htop
 
 super + i
 	discord

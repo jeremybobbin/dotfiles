@@ -4,11 +4,11 @@
 set -a
 # Posix compiliant sourcing abstraction
 sauce() {
-	pipe=/tmp/$(awk 'BEGIN { print int(srand() * rand() * srand()) }')
+	pipe=$(mktemp -u)
 	mkfifo "$pipe"
 	(eval "$@" > "$pipe" &)
 	. "$pipe"
-	command rm "$pipe"
+	command rm -R "$pipe"
 }
 
 # Intialize environment
@@ -30,7 +30,6 @@ source_globals() {
 source_aliases() {
 	rc="$XDG_CONFIG_HOME/aliasrc"
 	sauce "cat $rc | sed -E '/^$/d; /#.*$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\''\2'\''/g'"
-	# source <(cat "$XDG_CONFIG_HOME/aliasrc" | sed -E "/^$/d; /#.*$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\2'/g")
 	unset rc
 }
 

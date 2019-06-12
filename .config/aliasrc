@@ -3,10 +3,10 @@
 vct	ct=$(ct) && v $ct
 
 # Shell
-l		ls
 o		open
 e		exit
-new		nohup st -c "cd $pwd" &> /dev/null & disown &> /dev/null
+ll		ls -al
+new		(st -c "cd $PWD" & disown)
 
 # Corresponds with rm and cd_wrapper functions
 rm	rm_wrapper
@@ -45,8 +45,7 @@ c2p	cb -o - | pcb
 # Apps
 g	git
 sv	sudo nvim
-nn	nnn
-n	nn
+n	nnn
 z	zathura
 # Big O vim for vertical windows
 vim	nvim

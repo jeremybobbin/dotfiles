@@ -8,11 +8,12 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
+Plug 'aurieh/discord.nvim'
 call plug#end()
 
 filetype indent plugin on
 syntax on
+
 
 
 colorscheme delek
@@ -81,3 +82,29 @@ inoremap <M-k> <C-W>W
 nnoremap <M-k> <C-W>W
 vnoremap <M-k> <C-W>W
 tnoremap <M-k> <C-\><C-N><C-W>W
+
+" OMAP
+" Inner Next
+onoremap in( :<c-u>normal! f(vi(<CR>
+onoremap in{ :<c-u>normal! f{vi{<CR>
+onoremap in" :<c-u>normal! f"vi"<CR>
+onoremap in' :<c-u>normal! f'vi'<CR>
+onoremap in` :<c-u>normal! f`vi`<CR>
+" Inner Previous
+onoremap ip( :<c-u>normal! F)vi(<CR>
+onoremap ip{ :<c-u>normal! F}vi{<CR>
+onoremap ip" :<c-u>normal! F"vi"<CR>
+onoremap ip' :<c-u>normal! F'vi'<CR>
+onoremap ip` :<c-u>normal! F`vi`<CR>
+" Around Next
+onoremap an( :<c-u>normal! f(va(<CR>
+onoremap an{ :<c-u>normal! f{va{<CR>
+onoremap an" :<c-u>normal! f"va"<CR>
+onoremap an' :<c-u>normal! f'va'<CR>
+onoremap an` :<c-u>normal! f`va`<CR>
+" Arround Previous
+onoremap ap( :<c-u>normal! F)va(<CR>
+onoremap ap{ :<c-u>normal! F}va{<CR>
+onoremap ap" :<c-u>normal! F"va"<CR>
+onoremap ap' :<c-u>normal! F'va'<CR>
+onoremap ap` :<c-u>normal! F`va`<CR>
