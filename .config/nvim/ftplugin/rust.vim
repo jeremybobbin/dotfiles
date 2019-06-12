@@ -68,11 +68,11 @@ inoremap <leader>std use std::{<CR>};<Esc>O
 
 
 " Complete ({<"'
-inoremap ( ()<Esc>hi
-inoremap " ""<Esc>hi
-inoremap [ []<Esc>hi
-inoremap { {}<Esc>hi
-inoremap < <><Esc>hi
+inoremap ( ()<Esc>i
+inoremap " ""<Esc>i
+inoremap [ []<Esc>i
+inoremap { {}<Esc>i
+inoremap < <><Esc>i
 
 " Otherwise
 inoremap () ()
