@@ -1,5 +1,7 @@
 setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
 
 func! ListBins()
 	let l:dirs = split(system("list_bins"), "\n")
@@ -13,11 +15,28 @@ nnoremap <leader>t :make test<CR>
 nnoremap <leader>b q:imake run --bin <C-R>=ListBins()<CR>
 nnoremap <leader>c :make check<CR>
 
+" Racer
+let g:racer_cmd = "/home/jer/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+nmap gd <Plug>(rust-def)
+nmap gs <Plug>(rust-def-split)
+nmap gx <Plug>(rust-def-vertical)
+nmap <leader>gd <Plug>(rust-doc)
 
 
 " Impl Trait
-nnoremap <leader>it :read ~/.vim/templates/rs/
-nnoremap <leader>i<++> :read ~/.vim/templates/rs/<++><CR>
+func! ImplTrait()
+	let l:templates = g:mainruntimepath . "/templates/rs"
+	if !isdirectory(l:templates)
+		echoerr "Could not find"
+	endif
+	return "\<Esc>:read " . l:templates . "/"
+endfunc
+
+"nnoremap <leader>it :read ~/.vim/templates/rs/
+"inoremap <leader>it :read ~/.vim/templates/rs/<CR>
+inoremap <leader>it <C-r>=ImplTrait()<CR>
+
 
 " Common constructions
 inoremap <leader>fn fn <++>(<++>) -> <++> {<CR><++><CR>}<Esc>/<++><CR>"_c4l

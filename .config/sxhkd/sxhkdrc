@@ -10,6 +10,9 @@ super + m
 super + a
 	$TERMINAL -e pulsemixer
 
+super + c
+	mpv /dev/video0
+
 super + p
 	$TERMINAL -e htop
 

@@ -9,12 +9,19 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'aurieh/discord.nvim'
+Plug 'racer-rust/vim-racer'
 call plug#end()
 
 filetype indent plugin on
 syntax on
 
-
+if isdirectory($HOME . "/.vim")
+	let g:mainruntimepath = $HOME . "/.vim"
+elseif isdirectory(s:red)
+	let g:mainruntimepath = $XDG_CONFIG_HOME . "nvim"
+else
+	echoerr "No main runtime path"
+endif
 
 colorscheme delek
 set autoindent
@@ -56,7 +63,8 @@ au CmdwinLeave [:>] nnoremap <Esc> <Esc>
 
 let mapleader = ""
 
-" Source Vim
+
+" Source Vimrc
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Place holders
@@ -83,28 +91,35 @@ nnoremap <M-k> <C-W>W
 vnoremap <M-k> <C-W>W
 tnoremap <M-k> <C-\><C-N><C-W>W
 
-" OMAP
+" OMAP (asdfjkl)
 " Inner Next
-onoremap in( :<c-u>normal! f(vi(<CR>
-onoremap in{ :<c-u>normal! f{vi{<CR>
-onoremap in" :<c-u>normal! f"vi"<CR>
-onoremap in' :<c-u>normal! f'vi'<CR>
-onoremap in` :<c-u>normal! f`vi`<CR>
+onoremap in( :<c-u>:execute "normal! /(\rvi("<CR>
+onoremap in[ :<c-u>:execute "normal! /[\rvi["<CR>
+onoremap in{ :<c-u>:execute "normal! /{\rvi{"<CR>
+onoremap in" :<c-u>:execute "normal! /"\rvi""<CR>
+onoremap in' :<c-u>:execute "normal! /'\rvi'"<CR>
+onoremap in` :<c-u>:execute "normal! /`\rvi`"<CR>
 " Inner Previous
-onoremap ip( :<c-u>normal! F)vi(<CR>
-onoremap ip{ :<c-u>normal! F}vi{<CR>
-onoremap ip" :<c-u>normal! F"vi"<CR>
-onoremap ip' :<c-u>normal! F'vi'<CR>
-onoremap ip` :<c-u>normal! F`vi`<CR>
+onoremap iN( :<c-u>:execute "normal! ?)\rvi("<CR>
+onoremap iN[ :<c-u>:execute "normal! ?[\rvi["<CR>
+onoremap iN{ :<c-u>:execute "normal! ?}\rvi{"<CR>
+onoremap iN" :<c-u>:execute "normal! ?"\rvi""<CR>
+onoremap iN' :<c-u>:execute "normal! ?'\rvi'"<CR>
+onoremap iN` :<c-u>:execute "normal! ?`\rvi`"<CR>
 " Around Next
-onoremap an( :<c-u>normal! f(va(<CR>
-onoremap an{ :<c-u>normal! f{va{<CR>
-onoremap an" :<c-u>normal! f"va"<CR>
-onoremap an' :<c-u>normal! f'va'<CR>
-onoremap an` :<c-u>normal! f`va`<CR>
+onoremap an( :<c-u>:execute "normal! /(\rva("<CR>
+onoremap an[ :<c-u>:execute "normal! /[\rva["<CR>
+onoremap an{ :<c-u>:execute "normal! /{\rva{"<CR>
+onoremap an" :<c-u>:execute "normal! /"\rva""<CR>
+onoremap an' :<c-u>:execute "normal! /'\rva'"<CR>
+onoremap an` :<c-u>:execute "normal! /`\rva`"<CR>
 " Arround Previous
-onoremap ap( :<c-u>normal! F)va(<CR>
-onoremap ap{ :<c-u>normal! F}va{<CR>
-onoremap ap" :<c-u>normal! F"va"<CR>
-onoremap ap' :<c-u>normal! F'va'<CR>
-onoremap ap` :<c-u>normal! F`va`<CR>
+onoremap aN( :<c-u>:execute "normal! ?)\rva("<CR>
+onoremap aN[ :<c-u>:execute "normal! ?[\rva["<CR>
+onoremap aN{ :<c-u>:execute "normal! ?}\rva{"<CR>
+onoremap aN" :<c-u>:execute "normal! ?"\rva""<CR>
+onoremap aN' :<c-u>:execute "normal! ?'\rva'"<CR>
+onoremap aN` :<c-u>:execute "normal! ?`\rva`"<CR>
+
+" Visual equivalent
+vnoremap in( :<c-u>:execute "normal! /(.*)\rvi("<CR>

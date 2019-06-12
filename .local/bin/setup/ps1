@@ -25,7 +25,7 @@ PS1="$bold$black[$green$(id -u -n)$black@"
 
 [ ! "$SSH_CLIENT" ] &&
 	PS1="$PS1$blue" ||
-	PS1+="$PS1$green"
+	PS1="$PS1$green"
 
 PS1="$PS1$hostname $red$cwd$bold$black]$white$level $none"
 
