@@ -81,11 +81,11 @@ inoremap [] []
 inoremap {} {}
 inoremap <> <>
 
-inoremap (<Esc> ()
-inoremap "<Esc> ""
-inoremap [<Esc> []
-inoremap {<Esc> {}
-inoremap <<Esc> <>
+"inoremap (<Esc> ()
+"inoremap "<Esc> ""
+"inoremap [<Esc> []
+"inoremap {<Esc> {}
+"inoremap <<Esc> <>
 
 " Nitpicks
 inoremap (; ();<Esc>hi
