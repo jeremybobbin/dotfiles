@@ -1,2 +1,8 @@
-directory: ~/Media/Audio/Music            # The default library root directory.
+directory: ~/Media/Audio/Music
 library: ~/.config/beets/library.db
+
+plugins: fetchart
+
+fetchart:
+  auto: yes
+  cover_names: front back

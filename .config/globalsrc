@@ -3,16 +3,18 @@ PATH				`~/.local/bin/setup/path`
 # Apps
 TERMINAL			st
 EDITOR				nvim
-BROWSER				qutebrowser
+BROWSER				surf
 PDF_VIEWER			zathura
 AUDIO_PLAYER		mpv
 VIDEO_PLAYER		mpv
+HOME_PAGE			https://www.google.com
 
 BLUETOOTH_DEVICE	AirPods
 
 XDG_CONFIG_HOME		$HOME/.config
 XDG_CACHE_HOME		$HOME/.cache
 XDG_DATA_HOME		$HOME/.local/share
+XDG_BIN_HOME		$HOME/.local/bin
 XDG_DATA_DIRS		$XDG_DATA_HOME:/usr/local/share/:/usr/share/
 XDG_CONFIG_DIRS		/etc/xdg
 

@@ -39,6 +39,7 @@ PATH=/usr/bin
 	XDG_CONFIG_HOME="$HOME/.config"
 
 source_globals 
+export PATH=$(echo "$PATH" | /usr/bin/tr -d '\n' | xargs -d':' -I{} find {} -type d 2> /dev/null | tr '\n' ':')
 
 if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"

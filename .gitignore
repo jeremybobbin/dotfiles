@@ -19,6 +19,7 @@
 .iourc
 .keep/
 .lesshst
+.fetchmailrc
 .links/
 .mozilla
 .mutt_certificates
