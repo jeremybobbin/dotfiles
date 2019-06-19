@@ -1,7 +1,9 @@
 #!/bin/sh
-setbg &
 bar &
+reset_theme &
 xcompmgr &
+
+xrdb $HOME/.Xresources
 
 sxhkd &
 xmodmap $HOME/.xmodmaprc &

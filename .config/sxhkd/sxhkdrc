@@ -4,11 +4,6 @@
 super + shift + Return
 	$TERMINAL
 
-super + m
-	$TERMINAL -e ncmpcpp
-
-super + a
-	$TERMINAL -e pulsemixer
 
 super + p
 	$TERMINAL -e htop
@@ -17,20 +12,23 @@ super + p
 super + i
 	discord
 
-super + w
-	$BROWSER $HOME_PAGE
-
 super + s
 	search
 
 # Bluetooth
-super + shift + b
+super + b
 	bluetooth_connect $BLUETOOTH_DEVICE
 
-super + control + b
+control + b
 	bluetooth_status $BLUETOOTH_DEVICE
 
-# Media
+# Audio
+super + m
+	$TERMINAL -e ncmpcpp
+
+super + a
+	$TERMINAL -e pulsemixer
+
 XF86AudioPlay
 	mpc toggle
 
@@ -49,3 +47,6 @@ Print
 
 super + e
 	emoji | xclip -selection c
+
+super + F4
+	reset_theme

@@ -1,0 +1,38 @@
+dwm.normfgcolor: {color15}
+dwm.normbgcolor: {color0}
+dwm.normbordercolor: {color8}
+dwm.selfgcolor: {color15}
+dwm.selbgcolor: {color1}
+dwm.selbordercolor: {color1}
+
+st.font: Source Code Pro:pixelsize=18:antialias=true:autohint=true
+st.alpha: 224
+st.termname: xterm-256color
+st.shell: /bin/bash
+st.xfps: 120
+st.actionfps: 30
+!st.blinktimeout: 
+!st.bellvolume: 
+!st.tabspaces: 
+!st.borderpx: 
+!st.cwscale: 
+!st.chscale: 
+st.color0: {color0}
+st.color1: {color1}
+st.color2: {color2}
+st.color3: {color3}
+st.color4: {color4}
+st.color5: {color5}
+st.color6: {color6}
+st.color7: {color7}
+st.color8: {color8}
+st.color9: {color9}
+st.color10: {color10}
+st.color11: {color11}
+st.color12: {color12}
+st.color13: {color13}
+st.color14: {color14}
+st.color15: {color15}
+st.foreground: {foreground}
+st.background: {background}
+st.cursorColor: {cursor}
