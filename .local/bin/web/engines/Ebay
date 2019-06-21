@@ -1,2 +1,0 @@
-#!/bin/sh
-$BROWSER "https://www.ebay.com/sch/?$(echo '_nkw:'$@ | url_encode)"

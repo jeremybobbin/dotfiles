@@ -1,0 +1,8 @@
+#!/bin/bash
+wal_options=""
+if [ -r "$1" ]; then
+	xwallpaper --stretch "$1"
+	(wal --backend colortheif -tso update_theme -i "$1" 1> /dev/null) 
+else
+	(wal  -tso update_theme --theme  base16-cupcake)
+fi

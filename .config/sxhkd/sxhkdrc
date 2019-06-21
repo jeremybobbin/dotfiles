@@ -1,25 +1,33 @@
 #!/bin/sh
 
 # Apps
+super + d
+	dmenu_run_color
+
 super + shift + Return
 	$TERMINAL
-
 
 super + p
 	$TERMINAL -e htop
 
+super + e
+	$TERMINAL -e $EMAIL_CLIENT
+	
 
 super + i
 	discord
 
+super + w
+	browser_prompt
+
 super + s
-	search
+	browser_prompt Search Google
 
 # Bluetooth
 super + b
 	bluetooth_connect $BLUETOOTH_DEVICE
 
-control + b
+super + control + b
 	bluetooth_status $BLUETOOTH_DEVICE
 
 # Audio
@@ -45,8 +53,12 @@ XF86AudioPrev
 Print
 	maim -s -o | xclip -selection c -t image/png
 
-super + e
+super + shift + w
+	xwininfo | grep 'Window id' | grep -Eo '0x[0-9a-fA-F]+' | xclip -selection c
+	
+super + grave
 	emoji | xclip -selection c
 
 super + F4
 	reset_theme
+

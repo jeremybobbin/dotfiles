@@ -1,0 +1,4 @@
+#!/bin/sh
+cache="${XDG_CACHE_HOME:-"$HOME/.cache"}"
+. "$cache/wal/colors.sh"
+dmenu -fn "Fera Sans:size=14" -nf $foreground -nb $color0 -sf $foreground -sb $color1 "$@"

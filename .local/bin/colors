@@ -1,0 +1,2 @@
+#!/bin/sh
+seq 0 15 | xargs -I{} sh -c 'tput setaf {} && echo {}'

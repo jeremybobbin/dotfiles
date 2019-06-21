@@ -1,8 +1,0 @@
-#!/bin/bash
-wal_options="-tso update_theme"
-if [ -r "$1" ]; then
-	xwallpaper --stretch "$1"
-	(wal --backend haishoku "$wal_options" -i "$1" 1> /dev/null) 
-else
-	(wal  "$wal_options" --theme  base16-cupcake)
-fi

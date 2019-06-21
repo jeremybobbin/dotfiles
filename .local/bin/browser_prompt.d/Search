@@ -1,0 +1,30 @@
+#!/bin/sh
+cache="$XDG_CACHE_HOME/search"
+
+engines_cache="$cache/engines"
+engines_dir="$DIR/engines"
+
+[ ! -x $cache ] && mkdir -p $cache
+
+if [ "$1" ] && [ -x "$engines_dir/$1" ]; then
+	engine="$1"
+else
+	engine="$({ 
+		tac "$engines_cache";
+		ls "$engines_dir";
+	} | unique | dmenu_color -i -p "Where to search: ")"
+fi
+
+[ ! $engine ] || [ ! "$?" ] && exit 1
+
+query_cache="$cache/$(echo $engine | to_snake_case)"
+
+query=$(tac "$query_cache" | unique | dmenu_color -l 10 -i -p "Searching $engine:")
+
+[ ! "$query" ] || [ ! "$?" ] && exit 1
+
+("$engines_dir/$engine" "$query" &)
+
+echo $engine >> $engines_cache
+echo $query >> $query_cache
+sed -e :a -e '$q;N;11,$D;ba' -i $engines_cache $query_cache

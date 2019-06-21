@@ -1,0 +1,3 @@
+#!/bin/sh
+tac "$XDG_CONFIG_HOME/bookmarks" | unique |
+	dmenu_color -i -l 10 -p "Please select: "

@@ -75,6 +75,7 @@ note	v ~/Notes/Self/$(date +%F)
 uls	~/.local/share
 ulb	~/.local/bin
 cfg ~/.config
+cch ~/.cache
 
 dl	~/Downloads
 mda	~/Media

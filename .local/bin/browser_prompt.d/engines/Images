@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "https://www.google.com/search?tbm=isch&$(echo q:$@ | url_encode)"

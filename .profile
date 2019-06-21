@@ -1,68 +1,42 @@
 #!/bin/sh
 
-# Functions in .profile aren't exported by default, enter 'set -a'
+COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
+
 set -a
-# Posix compiliant sourcing abstraction
-sauce() {
-	pipe=$(mktemp -u)
-	mkfifo "$pipe"
-	(eval "$@" > "$pipe" &)
-	. "$pipe"
-	command rm -R "$pipe"
-}
+PATH=/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin
 
-# Intialize environment
-source_globals() {
+XDG_CONFIG_HOME="$HOME/.config"
+XDG_CACHE_HOME="$HOME/.cache"
+XDG_DATA_HOME="$HOME/.local/share"
+XDG_BIN_HOME="$HOME/.local/bin"
+XDG_DATA_DIRS="$XDG_DATA_HOME:/usr/local/share/:/usr/share/"
+XDG_CONFIG_DIRS="/etc/xdg"
 
-	[ "$XDG_CONFIG_HOME" ] ||
-		XDG_CONFIG_HOME="$HOME/.config"
+TERMINAL="st"
+EDITOR="nvim"
+BROWSER="surf"
+PDF_VIEWER="zathura"
+AUDIO_PLAYER="mpv"
+VIDEO_PLAYER="mpv"
+EMAIL_CLIENT="mutt"
+HOME_PAGE="https://www.google.com"
 
-	rc="$XDG_CONFIG_HOME/globalsrc"
+BLUETOOTH_DEVICE="AirPods"
 
-	sauce "cat $rc | 
-		envsubst |
-		sed -E '
-			/$^/d;
-			/#.*$/d;
-			s/([^ \t]+)[ \t]+(.*)/export \1=\"\2\"/g'"
-}
+RUSTC_WRAPPER="sccache"
+CARGO_CFG_COLOR="always"
+RUST_SRC_PATH=`/usr/bin/rustc --print sysroot`/lib/rustlib/src/rust/src/
 
-source_aliases() {
-	rc="$XDG_CONFIG_HOME/aliasrc"
-	sauce "cat $rc | sed -E '/^$/d; /#.*$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\''\2'\''/g'"
-	unset rc
-}
+PATH=`path`
 
-PATH=/usr/bin
+[ -r "$COLORS_TTY" ] && source "$COLORS_TTY"
 
-[ "$XDG_CONFIG_HOME" ] ||
-	XDG_CONFIG_HOME="$HOME/.config"
-
-source_globals 
-export PATH=$(echo "$PATH" | /usr/bin/tr -d '\n' | xargs -d':' -I{} find {} -type d 2> /dev/null | tr '\n' ':')
-
-if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-else
-	source_aliases
-fi
-
-# Done initializing
-
-jump() {
-	cd "$(command jump "$@")" ||
-		return 1
-}
-
-playtime() {
-	# Prevents something
-	cd / ||
-		return 1
-	sauce command playtime "$@"
-}
+set +a
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ ! -r "/tmp/no_x" ] && [ -x "/bin/startx" ]; then
 	exec startx
 fi
 
-set +a
+if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+fi

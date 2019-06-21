@@ -1,2 +1,0 @@
-#!/bin/sh
-$BROWSER "https://www.google.com/search?tbm=isch&$(echo q:$@ | url_encode)"

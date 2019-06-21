@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "https://www.google.com/search?$(echo q:$@ | url_encode)"
