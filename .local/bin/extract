@@ -1,0 +1,7 @@
+#!/bin/sh
+methods="$XDG_BIN_HOME/extract.d"
+method="$methods/$(ls $methods | dmenu_color -i -p 'What to extract:')"
+
+[ ! -e $method ] && exit 1
+
+$method | unique | dmenu_color -l 10 |  xclip -selection c

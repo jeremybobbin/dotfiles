@@ -1,15 +1,16 @@
 call plug#begin('~/.config/nvim/plugged')
+Plug 'aurieh/discord.nvim'
+Plug 'chrisbra/csv.vim'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'pangloss/vim-javascript'
+Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'aurieh/discord.nvim'
-Plug 'racer-rust/vim-racer'
 call plug#end()
 
 filetype indent plugin on

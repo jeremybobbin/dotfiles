@@ -27,10 +27,9 @@ RUSTC_WRAPPER="sccache"
 CARGO_CFG_COLOR="always"
 RUST_SRC_PATH=`/usr/bin/rustc --print sysroot`/lib/rustlib/src/rust/src/
 
-PATH=`path`
-
 [ -r "$COLORS_TTY" ] && source "$COLORS_TTY"
 
+PATH=`path`
 set +a
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ ! -r "/tmp/no_x" ] && [ -x "/bin/startx" ]; then

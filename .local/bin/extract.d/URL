@@ -1,0 +1,24 @@
+#!/bin/sh
+# Valid In URL: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=
+# Valid In Domain: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~#[]!'()*
+# Valid In Query String: ;/?:@&=+$,
+#domain='[[:alnum:]-\._~#\[\]!\(\)\*]+'
+
+protocol='(https?://)?'
+
+# Domain Level - missing [] as optional characters... Not sure how to do 
+level='[:alnum:]\-_~#!\(\)\*'
+
+# Top Level Domain
+tld='[a-zA-Z\.]{2,}'
+
+# Query is a superset of domain
+intersection=';/\?:@&=\+\$' 
+query="$level$intersection"
+
+# A url consists of a protocol, at least one (level, followed by a '.' and a top
+#+level domain, optionally followed by a slash, and if so, optionally
+#+ a query string
+
+grep -Eo "$protocol([$level]{3,}\.)+$tld(/([$query]*)?)?"
+#grep -Eo '(https?://)?({3,})\.[^/"@\t ][^"@\t ]+'
