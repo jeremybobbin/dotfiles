@@ -1,0 +1,5 @@
+#!/bin/sh
+pasta='https://www.jer.cx/pasta/'
+name=$(maim -s -o | curl --data-binary @- "$pasta?ext=png")
+
+printf "$pasta$name" | xclip -sel c

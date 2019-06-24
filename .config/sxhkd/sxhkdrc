@@ -53,6 +53,9 @@ XF86AudioPrev
 Print
 	maim -s -o | xclip -selection c -t image/png
 
+shift + Print
+	pasta
+
 super + shift + w
 	xwininfo | grep 'Window id' | grep -Eo '0x[0-9a-fA-F]+' | xclip -selection c
 	

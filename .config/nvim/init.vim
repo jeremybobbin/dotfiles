@@ -2,6 +2,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'aurieh/discord.nvim'
 Plug 'chrisbra/csv.vim'
 Plug 'elzr/vim-json'
+Plug 'mattn/emmet-vim'
 Plug 'mxw/vim-jsx'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'pangloss/vim-javascript'

@@ -2,6 +2,6 @@
 xid=$1
 uri=$(xprop -id "$xid" | sed -En 's_.*URI.*"([^"]*)"_\1_p')
 
-printf 'No\nYes' | dmenu -i -p "Bookmark $uri?" 
+printf 'No\nYes' | dmenu_color -i -p "Bookmark $uri?" 
 
 echo $uri >> ~/.config/bookmarks
