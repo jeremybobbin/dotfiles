@@ -10,6 +10,7 @@
 .ccache
 .elinks/
 .esd_auth
+.fetchmailrc
 .fltk
 .gdrive
 .git
@@ -19,8 +20,8 @@
 .iourc
 .keep/
 .lesshst
-.fetchmailrc
 .links/
+.mail/
 .mozilla
 .mutt_certificates
 .muttrc
