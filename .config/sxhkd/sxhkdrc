@@ -56,6 +56,9 @@ Print
 shift + Print
 	pasta
 
+super + v
+	mpv /dev/video0
+
 super + shift + w
 	xwininfo | grep 'Window id' | grep -Eo '0x[0-9a-fA-F]+' | xclip -selection c
 	
@@ -64,4 +67,5 @@ super + grave
 
 super + F4
 	reset_theme
+
 

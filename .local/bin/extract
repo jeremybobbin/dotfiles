@@ -1,7 +1,15 @@
 #!/bin/sh
 methods="$XDG_BIN_HOME/extract.d"
-method="$methods/$(ls $methods | dmenu_color -i -p 'What to extract:')"
 
-[ ! -e $method ] && exit 1
+if [ -z "$@" ]; then
+	method=$(ls $methods | dmenu_color -i -p 'What to extract:')
+else
+	method="$@"
+fi
 
-$method | unique | dmenu_color -l 10 |  xclip -selection c
+script="$methods/$method"
+
+( [ ! -e "$script" ] || [ -d "$script" ] ) && exit 1 
+
+"$script" | unique | dmenu_color -l 10
+

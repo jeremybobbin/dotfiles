@@ -16,9 +16,9 @@ tld='[a-zA-Z\.]{2,}'
 intersection=';/\?:@&=\+\$' 
 query="$level$intersection"
 
+
 # A url consists of a protocol, at least one (level, followed by a '.' and a top
 #+level domain, optionally followed by a slash, and if so, optionally
 #+ a query string
 
 grep -Eo "$protocol([$level]{3,}\.)+$tld(/([$query]*)?)?"
-#grep -Eo '(https?://)?({3,})\.[^/"@\t ][^"@\t ]+'

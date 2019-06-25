@@ -1,9 +1,21 @@
 #!/bin/sh
 
+
 COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
 
+appendpath() {
+	case ":$PATH:" in
+		*:"$1":*)
+			;;
+		*)
+			PATH="${PATH:+$PATH:}$1"
+	esac
+}
+
 set -a
-PATH=/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin
+
+
+#PATH=/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin
 
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_CACHE_HOME="$HOME/.cache"
@@ -12,24 +24,28 @@ XDG_BIN_HOME="$HOME/.local/bin"
 XDG_DATA_DIRS="$XDG_DATA_HOME:/usr/local/share/:/usr/share/"
 XDG_CONFIG_DIRS="/etc/xdg"
 
-TERMINAL="st"
-EDITOR="nvim"
-BROWSER="surf"
-PDF_VIEWER="zathura"
 AUDIO_PLAYER="mpv"
-VIDEO_PLAYER="mpv"
-EMAIL_CLIENT="mutt"
+BROWSER="qutebrowser"
+EDITOR="nvim"
+EMAIL_CLIENT="neomutt"
 HOME_PAGE="https://www.google.com"
+PDF_VIEWER="zathura"
+TERMINAL="st"
+VIDEO_PLAYER="mpv"
 
 BLUETOOTH_DEVICE="AirPods"
 
 RUSTC_WRAPPER="sccache"
 CARGO_CFG_COLOR="always"
-RUST_SRC_PATH=`/usr/bin/rustc --print sysroot`/lib/rustlib/src/rust/src/
+RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
 
-[ -r "$COLORS_TTY" ] && source "$COLORS_TTY"
+[ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
-PATH=`path`
+for path in $(envsubst < "$XDG_CONFIG_HOME/pathrc")
+do
+	appendpath "$path"
+done
+
 set +a
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ ! -r "/tmp/no_x" ] && [ -x "/bin/startx" ]; then

@@ -24,12 +24,12 @@ vxp	v ~/.xprofile
 vbrc	v ~/.bashrc
 virc	v ~/.inputrc
 vxrc	v ~/.xinitrc
+vmrc	v ~/.muttrc
 vvrc	v ~/.vimrc
 vvrcd	v ~/.vim
 
 vxhk	v ~/.config/sxhkd/sxhkdrc
 varc	v ~/.config/aliasrc
-vgrc	v ~/.config/globalsrc
 
 # Administration
 sc	systemctl

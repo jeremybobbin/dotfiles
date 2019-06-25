@@ -1,0 +1,14 @@
+#!/bin/sh
+methods="$XDG_BIN_HOME/actions.d"
+
+if [ -z "$@" ]; then
+	method="$(ls $methods | dmenu_color -i -p 'What to do:')"
+else
+	method="$@"
+fi
+
+script="$methods/$method"
+
+([ ! -e "$script" ] || [ -d "$script" ]) && exit 1 
+
+"$script"

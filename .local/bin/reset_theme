@@ -1,5 +1,7 @@
 #!/bin/sh
-bg_dir="$HOME/Media/Images/Backgrounds"
+flavinate "$HOME/Media/Audio/Music/Car Bomb/Meta/cover.jpg"
 
-find "$bg_dir" -type f | sort -R | head -n 1 | xargs -I{} xwallpaper --stretch {}
-wal -t -s --theme base16-onedark -o update_theme
+#bg_dir="$HOME/Media/Images/Backgrounds"
+#
+#find "$bg_dir" -type f | sort -R | head -n 1 | xargs -I{} xwallpaper --stretch {}
+#wal -t -s --theme base16-onedark -o update_theme

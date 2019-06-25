@@ -28,13 +28,14 @@ source_aliases() {
 
 PS1=$(ps1)
 source_aliases
+
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd # Unknown command defaults to cd <command>
 HISTSIZE= HISTFILESIZE= # Infinite history.
 
 # if root, or if SUID bit is set, run loadkeys, else run as sudo
-#if [ -x /bin/loadkeys ]; then
-	#loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"
-#else
-	#sudo auto_loadkeys "$USER"
-#fi
+if [ -x /bin/loadkeys ]; then
+	loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"
+else
+	sudo auto_loadkeys "$USER"
+fi

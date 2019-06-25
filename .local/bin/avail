@@ -1,0 +1,4 @@
+#!/bin/sh
+extracted=$(extract "$1")
+
+echo $extracted | actions "$2"

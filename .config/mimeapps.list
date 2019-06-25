@@ -1,6 +1,12 @@
 [Default Applications]
-text/html=qutebrowser.desktop
-x-scheme-handler/http=qutebrowser.desktop
-x-scheme-handler/https=qutebrowser.desktop
-x-scheme-handler/about=qutebrowser.desktop
+application/pdf=pdf.desktop;
+image/gif=img.desktop;
+image/jpeg=img.desktop;
+image/png=img.desktop;
+text/html=web.desktop
+text/plain=text.desktop;
+text/x-shellscript=text.desktop;
+x-scheme-handler/http=web.desktop
+x-scheme-handler/https=web.desktop
 x-scheme-handler/magnet=torrent.desktop
+x-scheme-handler/mailto=mail.desktop;
