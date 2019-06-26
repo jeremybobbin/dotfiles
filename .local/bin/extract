@@ -9,7 +9,7 @@ fi
 
 script="$methods/$method"
 
-( [ ! -e "$script" ] || [ -d "$script" ] ) && exit 1 
+([ ! -e "$script" ] || [ -d "$script" ]) && exit 1 
 
 "$script" | unique | dmenu_color -l 10
 
