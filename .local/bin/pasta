@@ -1,5 +1,13 @@
 #!/bin/sh
-pasta='https://www.jer.cx/pasta/'
-name=$(maim -s -o | curl --data-binary @- "$pasta?ext=png")
+url='https://www.jer.cx/pasta/'
 
-printf "$pasta$name" | xclip -sel c
+if [ "$1" ]; then
+	post="$url?ext=$1"
+else
+	post="$url"
+fi
+
+{
+	printf "$url";
+	curl --data-binary @- "$post";
+} | xclip -sel c

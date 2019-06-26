@@ -51,10 +51,17 @@ XF86AudioPrev
 
 # Utils
 Print
-	maim -s -o | xclip -selection c -t image/png
+	maim -s -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | xclip -selection c -t image/png
 
-shift + Print
-	pasta
+Print + shift
+	maim -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | xclip -selection c -t image/png
+
+Print + control
+	maim -s -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | pasta png
+
+Print + control + shift
+	maim -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | pasta png
+
 
 super + v
 	mpv /dev/video0
