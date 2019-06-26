@@ -1,0 +1,8 @@
+#!/bin/sh
+project=${1:-"dwm"}
+patches="$project.suckless.org/patches/"
+
+curl "$patches" -o - |
+	grep -o "$patches[^/\"]*" |
+	cut -d'/' -f3 |
+	xargs -P 16 -I{} curl "$patches{}/" -o {}
