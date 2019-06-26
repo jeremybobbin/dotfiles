@@ -3,7 +3,7 @@
 vct	ct=$(ct) && v $ct
 
 # Shell
-o		open
+o		xdg-open
 e		exit
 ll		ls -al
 new		(st -c "cd $PWD" & disown)
