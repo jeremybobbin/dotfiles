@@ -1,0 +1,11 @@
+#!/bin/sh
+environs=`pidof dbus-daemon | tr ' ' '\n'  | head -n 1 | awk '{printf "/proc/%s/environ ", $1}'`
+export DBUS_SESSION_BUS_ADDRESS=`cat $environs 2>/dev/null | tr '\0' '\n' | grep DBUS_SESSION_BUS_ADDRESS | cut -d '=' -f2-`
+export DISPLAY=:0
+
+count=$(ssh -i /home/jer/.ssh/id_rsa jer@jer.cx 'ls ~/.mail/new' | wc -l)
+
+if [ "$count" -gt 0 ]; then
+	echo leee
+	notify-send 'Mail' "You've got $count new mail."
+fi
