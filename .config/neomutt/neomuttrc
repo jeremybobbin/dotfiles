@@ -1,0 +1,62 @@
+source "gpg -dq $HOME/.passwords/neomutt.gpg |"
+
+set folder="imaps://jer@jer.cx/"
+set imap_user='jer'
+set imap_pass=$my_pass
+
+set smtp_url='smtps://jer@jer.cx'
+set smtp_pass=$my_pass
+
+set from='jer@jer.cx'
+set hostname="jer.cx"
+set realname='Jeremy Bobbin'
+
+set pipe_decode=yes # Gets rid of '=' line breaks
+
+set sidebar_visible = yes
+
+set spoolfile=+INBOX
+set record=+Sent
+set postponed=+Drafts
+
+set mailcap_path 	= ~/.config/neomutt/mailcap
+
+auto_view text/html
+mailboxes +Inbox +Sent +Drafts 
+
+# Arch wiki Vim keys
+bind pager j next-line
+bind pager k previous-line
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+bind index \CN sidebar-next
+bind index \CP sidebar-prev
+bind index \CO sidebar-open
+
+bind index,pager B sidebar-toggle-visible
+bind index "^" imap-fetch-mail
+
+macro attach 'V' "<pipe-entry>cat >~/.cache/mutt/mail.html && $BROWSER ~/.cache/mutt/mail.html && rm ~/.cache/mutt/mail.html<enter>"
+macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
+
+color hdrdefault blue default
+color quoted blue default
+color signature blue default
+color attachment red default
+color prompt brightmagenta default
+color message brightred default
+color error brightred default
+color indicator default red
+color status default blue
+color tree white default
+color normal white default
+color markers red default
+color search white default
+color tilde brightmagenta default
+color index blue default ~F
+color index red default "~N|~O"

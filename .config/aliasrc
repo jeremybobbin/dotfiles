@@ -24,7 +24,7 @@ vxp	v ~/.xprofile
 vbrc	v ~/.bashrc
 virc	v ~/.inputrc
 vxrc	v ~/.xinitrc
-vmrc	v ~/.muttrc
+vmrc	v ~/.config/neomutt/neomuttrc
 vvrc	v ~/.vimrc
 vvrcd	v ~/.vim
 
