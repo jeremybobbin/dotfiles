@@ -1,6 +1,14 @@
 #!/bin/sh
-extracted=$(extract "$1")
 
-[ ! $? ] && exit 1
+if [ -z "$@" ]; then
+	method=$(extract -l | dmenu_color -i -p 'How to extract:')
+	[ "$?" -ne 0 ] && exit 1
+else
+	method="$@"
+fi
+
+extracted=$(extract "$method" | dmenu_color -l 10)
+
+[ "$?" -ne 0 ] && exit 1
 
 echo $extracted | actions "$2"

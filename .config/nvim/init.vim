@@ -14,6 +14,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 call plug#end()
 
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+
 filetype indent plugin on
 syntax on
 

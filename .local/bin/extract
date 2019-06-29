@@ -1,15 +1,21 @@
 #!/bin/sh
 methods="$XDG_BIN_HOME/extract.d"
 
-if [ -z "$@" ]; then
-	method=$(ls $methods | dmenu_color -i -p 'What to extract:')
-else
-	method="$@"
+list_methods() {
+	ls -1 "$methods"
+}
+
+if [ "$1" = "-l" ]; then
+	list_methods
+	exit 0
 fi
 
-script="$methods/$method"
+script="$methods/$@"
 
-([ ! -e "$script" ] || [ -d "$script" ]) && exit 1 
+if [ ! -e "$script" ] || [ -d "$script" ]; then
+	echo "Invalid argument. Valid arguments:" >&2;
+	list_methods
+	exit 1;
+fi
 
-"$script" | unique | dmenu_color -l 10
-
+"$script" | unique

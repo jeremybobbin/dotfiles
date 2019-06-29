@@ -5,7 +5,8 @@ vct	ct=$(ct) && v $ct
 # Shell
 o		xdg-open
 e		exit
-ll		ls -al
+ll		command ls -al
+lt		command ls -t
 new		(st -c "cd $PWD" & disown)
 
 # Corresponds with rm and cd_wrapper functions
@@ -18,7 +19,6 @@ sbrc	source ~/.bashrc
 vp	v ~/.profile
 vbp	v ~/.profile
 vxp	v ~/.xprofile
-
 
 
 vbrc	v ~/.bashrc
@@ -42,6 +42,9 @@ pcb	xc p
 p2c	pcb -o - | cb
 c2p	cb -o - | pcb
 
+cbpng	xc c -t image/png
+pcbpng	xc c -t image/png
+
 # Apps
 g	git
 sv	sudo nvim
@@ -56,9 +59,9 @@ rec	ffmpeg -video_size 1920x1080 -framerate 20 -f x11grab -i :0.0+0,0 "$HOME/Med
 pm	pulsemixer
 
 # Colors
-ls	ls -hN --color=auto --group-directories-first
+ls	ls --color=auto --group-directories-first -hN 
 ip	ip --color=auto
-grep	grep --color=auto
+grep	grep --color=auto 
 diff	diff --color=always
 yay	yay --color=always
 pacman	pacman --color always
@@ -70,6 +73,9 @@ less	less -R
 
 # Note
 note	v ~/Notes/Self/$(date +%F)
+
+# Temp
+vps	echo 45.77.215.144
 
 # Common Dir
 uls	~/.local/share

@@ -6,6 +6,5 @@ export DISPLAY=:0
 count=$(ssh -i /home/jer/.ssh/id_rsa jer@jer.cx 'ls ~/.mail/new' | wc -l)
 
 if [ "$count" -gt 0 ]; then
-	echo leee
 	notify-send 'Mail' "You've got $count new mail."
 fi
