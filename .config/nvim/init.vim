@@ -81,6 +81,7 @@ vnoremap <Space> "xd0/<++><CR>v3l"xp
 
 " Terminal
 nnoremap <M-t> :vsplit term://bash<CR>
+tnoremap <Esc> <C-\><C-n>
 
 " Window
 nnoremap <C-c> <C-W><C-c>
