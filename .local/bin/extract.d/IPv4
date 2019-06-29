@@ -1,0 +1,4 @@
+#!/bin/sh
+octet='(([0-1]?[0-9]|2[0-4])?[0-9]|25[0-5])'
+
+grep -Eo "$octet\.$octet\.$octet\.$octet(:[0-9]+)?"

@@ -80,7 +80,7 @@ nnoremap <Space> /<++><CR>"_c4l
 vnoremap <Space> "xd0/<++><CR>v3l"xp
 
 " Terminal
-nnoremap <M-t> :vert terminal<CR>
+nnoremap <M-t> :vsplit terminal<CR>
 
 " Window
 nnoremap <C-c> <C-W><C-c>
