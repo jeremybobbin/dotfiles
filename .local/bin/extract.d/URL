@@ -13,7 +13,7 @@ level='-[:alnum:]_~#!\(\)\*'
 tld='[a-zA-Z\.]{2,}'
 
 # Query is a superset of domain
-intersection=';/\?:@&=\+\$' 
+intersection='\.;/\?:@&=\+\$' 
 query="$level$intersection"
 
 

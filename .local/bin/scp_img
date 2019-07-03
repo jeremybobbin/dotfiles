@@ -1,4 +1,0 @@
-#!/bin/sh
-scp "$1" jer.cx:~/jer.cx/assets/public/images
-
-echo "https://jer.cx/images/$1" | xclip -sel c
