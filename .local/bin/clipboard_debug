@@ -3,11 +3,11 @@ echo 'PRIMARY: '
 echo
 echo ------------
 xclip -selection primary -o
-echo ------------
+printf '\n------------'
 echo
 echo 'SECONDARY:'
 echo
 echo ------------
 xclip -selection clipboard -o
-echo ------------
+printf '\n------------'
 echo

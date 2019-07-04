@@ -47,7 +47,7 @@ pcbpng	xc c -t image/png
 
 # Apps
 g	git
-sv	sudo -E v
+sv	sudo -E nvim -O
 n	nnn
 z	zathura
 # Big O vim for vertical windows
