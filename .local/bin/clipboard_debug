@@ -1,0 +1,13 @@
+#!/bin/sh
+echo 'PRIMARY: '
+echo
+echo ------------
+xclip -selection primary -o
+echo ------------
+echo
+echo 'SECONDARY:'
+echo
+echo ------------
+xclip -selection clipboard -o
+echo ------------
+echo
