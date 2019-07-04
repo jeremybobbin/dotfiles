@@ -15,7 +15,7 @@ super + e
 	
 
 super + i
-	discord
+	notify-send "No more Discord rip"
 
 super + w
 	browser_prompt
