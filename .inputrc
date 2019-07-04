@@ -13,7 +13,6 @@ set keymap vi-command
 
 "\el":"A | less"
 "\es":"Isudo "
-
 set keymap vi-insert
 "\C-l":"\eIclear; ls \eD\C-M"
 "\C-u":"\eIcd ..; clear; ls \eD\C-M"
@@ -32,3 +31,5 @@ set colored-completion-prefix On
 # Color the common prefix in menu-complete
 set menu-complete-display-prefix On
 
+set completion-ignore-case On
+set completion-map-case On

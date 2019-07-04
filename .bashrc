@@ -31,6 +31,10 @@ source_aliases
 
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd # Unknown command defaults to cd <command>
+shopt -s direxpand
+shopt -s expand_aliases
+shopt -s extglob
+shopt -s globstar
 HISTSIZE= HISTFILESIZE= # Infinite history.
 
 # if root, or if SUID bit is set, run loadkeys, else run as sudo
