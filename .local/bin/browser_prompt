@@ -1,5 +1,4 @@
 #!/bin/sh
-cache="$XDG_CACHE_HOME/browser_prompt"
 export DIR=$XDG_BIN_HOME/browser_prompt.d
 
 # User should be able to $ browser_prompt Search Google
@@ -7,11 +6,7 @@ if [ "$1" ] && [ -x "$DIR/$1" ]; then
 	method=$1
 	shift
 else
-	method=$({
-		tac "$cache" || touch "$cache";
-		find "$DIR" -maxdepth 1 -type f -printf '%f\n';
-	} | unique | dmenu_color -i -p "How start:")
-
+	method=$(find "$DIR" -maxdepth 1 -type f -printf '%f\n' | dmenu_cache browser_prompt -i -p "How start:")
 fi
 
 [ ! "$method" ] && exit
@@ -21,5 +16,3 @@ url=$("$DIR/$method" "$@")
 [ ! "$url" ] && exit
 
 $BROWSER $url
-
-echo "$method" >> $cache

@@ -35,7 +35,10 @@ shopt -s direxpand
 shopt -s expand_aliases
 shopt -s extglob
 shopt -s globstar
-HISTSIZE= HISTFILESIZE= # Infinite history.
+shopt -s progcomp_alias
+
+ # Infinite history.
+HISTSIZE= HISTFILESIZE=
 
 # if root, or if SUID bit is set, run loadkeys, else run as sudo
 if [ -x /bin/loadkeys ]; then

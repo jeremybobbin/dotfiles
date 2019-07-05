@@ -39,6 +39,8 @@ RUSTC_WRAPPER="sccache"
 CARGO_CFG_COLOR="always"
 RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
 
+TZ='US/Pacific'
+
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
 for path in $(envsubst < "$XDG_CONFIG_HOME/pathrc")

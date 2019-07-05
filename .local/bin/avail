@@ -1,14 +1,19 @@
 #!/bin/sh
 
 if [ -z "$@" ]; then
-	method=$(extract -l | dmenu_color -i -p 'How to extract:')
+	method=$(extract -l | dmenu_cache avail_methods -i -p 'How to extract:')
 	[ "$?" -ne 0 ] && exit 1
 else
 	method="$@"
 fi
 
+[ -z "$method" ] && exit 1
+
+# Don't cache chosen extracted item
 extracted=$(extract "$method" | dmenu_color -l 10)
 
 [ "$?" -ne 0 ] && exit 1
 
 echo $extracted | actions "$2"
+
+[ "$?" -ne 0 ] && exit 1
