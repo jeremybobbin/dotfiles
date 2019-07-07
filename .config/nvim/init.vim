@@ -128,3 +128,8 @@ onoremap aN` :<c-u>:execute "normal! ?`\rva`"<CR>
 
 " Visual equivalent
 vnoremap in( :<c-u>:execute "normal! /(.*)\rvi("<CR>
+
+
+
+
+autocmd BufNewFile *.sh,~/.local/bin/*,~/.local/bin/*/* 0r ~/.config/nvim/templates/sh/skeleton.sh
