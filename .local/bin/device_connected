@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "info $1" | bluetoothctl | grep -Ei 'Connected.*yes' > /dev/null 2>&1
-exit $?

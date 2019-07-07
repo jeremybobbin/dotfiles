@@ -1,9 +1,0 @@
-#!/bin/sh
-
-device_name="$1"
-
-if connected "$(gbtm "$device_name")"; then
-	notify-send 'Bluetooth' "Currently connect to device: $device_name"
-else
-	notify-send 'Bluetooth' "No connections"
-fi
