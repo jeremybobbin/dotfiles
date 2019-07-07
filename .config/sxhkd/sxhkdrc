@@ -25,10 +25,10 @@ super + s
 
 # Bluetooth
 super + b
-	bluetooth_connect $BLUETOOTH_DEVICE
+	bluetooth connect $BLUETOOTH_DEVICE
 
 super + control + b
-	bluetooth_status $BLUETOOTH_DEVICE
+	bluetooth status $BLUETOOTH_DEVICE
 
 # Audio
 super + m
