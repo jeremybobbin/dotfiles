@@ -1,0 +1,35 @@
+#!/bin/bash
+name="$(basename $0)"
+
+# Name is either passed in from sourcing script like
+#
+# command | . dmenu_cache
+# OR
+#  | dmenu_cache <cache_file_name>
+
+if [ "$name" = 'sh' ] || [ "$name" = 'bash' ] || [ "$name" = 'dmenu_cache' ]; then
+	if [ -z "$1" ]; then
+		echo 'Please either "| . dmenu_cache" or "dmenu_cache <name>"'
+		exit 1
+	else
+		name="$1"
+		shift
+	fi
+fi
+
+cache="$XDG_CACHE_HOME/dmenu_cache/$name"
+
+# tac the cache and pipe stdin into dmenu
+# append the answer to the cache file.
+
+{
+	tac "$cache";
+	cat -;
+} | unique |  dmenu_color "$@" | tee -a "$cache"
+
+for stat in "${PIPESTATUS[@]}"
+do
+	[ "$stat" -ne 0 ] && exit 1
+done
+
+exit 0
