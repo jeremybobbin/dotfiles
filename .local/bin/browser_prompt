@@ -6,7 +6,7 @@ if [ "$1" ] && [ -x "$DIR/$1" ]; then
 	method=$1
 	shift
 else
-	method=$(find "$DIR" -maxdepth 1 -type f -printf '%f\n' | dmenu_cache browser_prompt -i -p "How start:")
+	method=$(find "$DIR" -maxdepth 1 -type f -printf '%f\n' | dmenu_cache -s browser_prompt -i -p "How start:")
 fi
 
 [ ! "$method" ] && exit

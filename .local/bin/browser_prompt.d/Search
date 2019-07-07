@@ -4,13 +4,14 @@ engines_dir="$DIR/engines"
 if [ "$1" ] && [ -x "$engines_dir/$1" ]; then
 	engine="$1"
 else
-	engine="$( ls "$engines_dir" | . dmenu_cache -i -p 'Where to search: ')"
+	engine="$( ls "$engines_dir" | dmenu_cache -s 'Search' -i -p 'Where to search: ')"
 fi
 
-[ ! $engine ] || [ ! "$?" ] && exit 1
+script="$engines_dir/$engine"
+[ ! -x "$script" ] && exit 1
 
-query=$(dmenu_cache query -l 10 -i -p "Searching $engine:")
+query=$(printf '' | dmenu_cache "$engine" -l 10 -i -p "Searching $engine:")
 
 [ ! "$query" ] || [ ! "$?" ] && exit 1
 
-("$engines_dir/$engine" "$query" &)
+"$script" "$query"

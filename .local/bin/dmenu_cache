@@ -7,6 +7,16 @@ name="$(basename $0)"
 # OR
 #  | dmenu_cache <cache_file_name>
 
+
+# -s for strict.
+# only displays from stdin. No arbitrary cached options displayed.
+if [ "$1" = '-s' ]; then
+	strict='0'
+	shift
+else
+	strict='1'
+fi
+
 if [ "$name" = 'sh' ] || [ "$name" = 'bash' ] || [ "$name" = 'dmenu_cache' ]; then
 	if [ -z "$1" ]; then
 		echo 'Please either "| . dmenu_cache" or "dmenu_cache <name>"'
@@ -19,13 +29,22 @@ fi
 
 cache="$XDG_CACHE_HOME/dmenu_cache/$name"
 
+touch "$cache"
+
 # tac the cache and pipe stdin into dmenu
 # append the answer to the cache file.
 
-{
-	tac "$cache";
-	cat -;
-} | unique |  dmenu_color "$@" | tee -a "$cache"
+if [ "$strict" = '0' ]; then
+	{
+		tac "$cache";
+		cat - | xargs -I{} printf '{}\n{}\n';
+	} | nl | sort -k2 | uniq -df1 | sort -nk1 | cut -f2- |  dmenu_color "$@" | tee -a "$cache"
+else 
+	{
+		tac "$cache";
+		cat -;
+	} | unique |  dmenu_color "$@" | tee -a "$cache"
+fi
 
 for stat in "${PIPESTATUS[@]}"
 do
