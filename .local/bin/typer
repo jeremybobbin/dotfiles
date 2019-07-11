@@ -1,0 +1,2 @@
+#!/bin/sh
+sed -E 's/(.)/\n\1/g; s/:/colon/g; s_/_slash_g;' | xargs -I{} xdotool key '{}'
