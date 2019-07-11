@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Get mac address of AirPods from bluetoothctl
+[ "$1" ] &&
+	device_name="$1" || 
+	device_name='AirPods'
+
+mac_address="$(bluetooth get_mac "$device_name")"
+
+# See if device is connected, if so, disconnect and verse vica
+if bluetooth mac_connected "$mac_address"; then
+	action='disconnect'
+else
+	action='connect'
+fi
+
+bluetooth "$action" "$1"

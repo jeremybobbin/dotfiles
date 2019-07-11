@@ -17,18 +17,13 @@ super + e
 super + i
 	notify-send "No more Discord rip"
 
-super + w
-	browser_prompt
 
-super + s
-	browser_prompt Search Google
+super + w; super + { w, s, g, b, u, c }
+	browser_prompt { _, Search, Search Google, Bookmarks, URL, Clipboard }
 
 # Bluetooth
-super + b
-	bluetooth connect $BLUETOOTH_DEVICE
-
-super + control + b
-	bluetooth status $BLUETOOTH_DEVICE
+super + b; super + { b, t, c, d, s }
+	bluetooth { toggle, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
 
 # Audio
 super + m
@@ -62,7 +57,6 @@ Print + control
 Print + control + shift
 	maim -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | pasta png
 
-
 super + v
 	mpv /dev/video0
 
@@ -74,5 +68,3 @@ super + grave
 
 super + F4
 	reset_theme
-
-

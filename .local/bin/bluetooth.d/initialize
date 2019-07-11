@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "power on" | bluetoothctl
+sleep 0.5
