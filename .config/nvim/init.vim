@@ -1,5 +1,4 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'aurieh/discord.nvim'
 Plug 'chrisbra/csv.vim'
 Plug 'elzr/vim-json'
 Plug 'mattn/emmet-vim'
