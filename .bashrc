@@ -44,5 +44,5 @@ HISTSIZE= HISTFILESIZE=
 if [ -x /bin/loadkeys ]; then
 	loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"
 else
-	sudo auto_loadkeys "$USER"
+	sudo auth_loadkeys "$USER" "$XDG_CONFIG_HOME/ttymaps.kmap"
 fi

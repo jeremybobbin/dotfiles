@@ -8,8 +8,12 @@
 	echo "You must pass your username as the first argument" >&2 &&
 	exit 1
 
+[ ! "$2" ] &&
+	echo "You must pass your tty keymap file as the second argument" >&2 &&
+	exit 1
+
 groupadd -f loadkeys
-gpasswd loadkeys -a "$1"
+usermod "$1" -aG loadkeys
 chgrp loadkeys /bin/loadkeys
 chmod 4750 /bin/loadkeys
-loadkeys ~/.bashrc.d/res/ttymaps.kmap
+loadkeys "$2"
