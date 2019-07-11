@@ -7,6 +7,6 @@ export XDG_RUNTIME_DIR="/run/user/1000"
 count=$(ssh -i /home/jer/.ssh/id_rsa jer@jer.cx 'ls ~/.mail/new' | wc -l)
 
 if [ "$count" -gt 0 ]; then
-	play "$HOME/Media/Audio/Recordings/bow.mp3" &
+	play "$HOME/Media/Audio/Recordings/bow.mp3" vol 0.25 & 
 	notify-send 'Mail' "You've got $count new mail."
 fi
