@@ -13,6 +13,6 @@ fi
 
 url=$("$DIR/$method" "$@")
 
-[ ! "$url" ] && exit
+[ "$?" -ne 0 ] && exit
 
-$BROWSER $url
+"$BROWSER" "$url"

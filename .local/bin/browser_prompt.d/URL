@@ -1,2 +1,8 @@
 #!/bin/sh
-printf | dmenu_color -p "Enter URL:"
+url=$(printf | dmenu_color -p "Enter URL:")
+
+[ "$url" ] &&
+	echo "$url" &&
+	exit 1
+
+exit 0

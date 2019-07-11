@@ -9,3 +9,5 @@ url=$(xclip -selection c -o | url_grep)
 
 url=$(xclip -selection p -o | url_grep)
 [ "$url" ] && $BROWSER $url && exit
+
+exit 1
