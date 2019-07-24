@@ -25,7 +25,7 @@ XDG_DATA_DIRS="$XDG_DATA_HOME:/usr/local/share/:/usr/share/"
 XDG_CONFIG_DIRS="/etc/xdg"
 
 AUDIO_PLAYER="mpv"
-BROWSER="qutebrowser"
+BROWSER="surf"
 EDITOR="nvim"
 EMAIL_CLIENT="neomutt"
 HOME_PAGE="https://www.google.com"
@@ -35,7 +35,7 @@ VIDEO_PLAYER="mpv"
 
 BLUETOOTH_DEVICE="AirPods"
 
-RUSTC_WRAPPER="sccache"
+RUSTC_WRAPPER=""
 CARGO_CFG_COLOR="always"
 RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
 
