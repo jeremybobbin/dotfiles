@@ -13,10 +13,6 @@ appendpath() {
 }
 
 set -a
-
-
-#PATH=/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin
-
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_CACHE_HOME="$HOME/.cache"
 XDG_DATA_HOME="$HOME/.local/share"
@@ -40,6 +36,7 @@ CARGO_CFG_COLOR="always"
 RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
 
 TZ='US/Pacific'
+_JAVA_AWT_WM_NONREPARENTING=1
 
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
@@ -47,12 +44,13 @@ for path in $(envsubst < "$XDG_CONFIG_HOME/pathrc")
 do
 	appendpath "$path"
 done
-
 set +a
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ ! -r "/tmp/no_x" ] && [ -x "/bin/startx" ]; then
 	exec startx
 fi
+
+. start_agent
 
 if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
