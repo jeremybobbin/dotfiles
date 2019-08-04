@@ -3,7 +3,7 @@
 vct	ct=$(ct) && v $ct
 
 # Shell
-o		xdg-open
+o		open
 e		exit
 ll		command ls -al
 lt		command ls -t
@@ -60,13 +60,15 @@ pm	pulsemixer
 
 # Colors
 ls	ls --color=auto --group-directories-first -hN 
-ipv	command ip --color=auto
-ip	command ip -br --color=auto
+ip	ip --color=auto
 grep	grep --color=auto 
 diff	diff --color=always
 yay	yay --color=always
 pacman	pacman --color always
 less	less -R
+highlight highlight --out-format=ansi 
+
+mpv mpv --input-ipc-server="/tmp/mpv_$(date +%s%N)"
 
 # Timers
 25	termdown 25m 
@@ -76,7 +78,9 @@ less	less -R
 note	v ~/Notes/Self/$(date +%F)
 
 # Temp
+p8	ping 8.8.8.8
 vps	echo 45.77.215.144
+ipb	ip -br
 
 # Common Dir
 uls	~/.local/share
