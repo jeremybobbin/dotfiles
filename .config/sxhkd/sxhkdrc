@@ -15,7 +15,8 @@ super + e
 	
 
 super + i
-	notify-send "No more Discord rip"
+	$TERMINAL -e weechat
+	
 
 
 super + w; super + { w, s, g, b, u, c }
