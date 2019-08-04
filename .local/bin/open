@@ -1,0 +1,13 @@
+#!/bin/sh
+
+[ "$#" -eq '0' ] && map "xdg-open '{}'"
+
+while [ "$#" -gt '0' ]; do
+	xdg-open "$1"
+
+	[ "$?" -ne 0 ] &&
+		echo "Could not proccess argument: $1" 1>&2 &&
+		exit 1
+
+	shift
+done
