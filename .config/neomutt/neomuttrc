@@ -10,6 +10,7 @@ set smtp_pass=$my_pass
 set from='jer@jer.cx'
 set hostname="jer.cx"
 set realname='Jeremy Bobbin'
+#source ~/.config/neomutt/account.com.langineers.jeremy
 
 set pipe_decode=yes # Gets rid of '=' line breaks
 
@@ -24,6 +25,9 @@ set mailcap_path 	= ~/.config/neomutt/mailcap
 auto_view text/html
 mailboxes +Inbox +Sent +Drafts 
 
+folder-hook 'account.com.langineers.jeremy' 'source ~/.mutt/account.com.langineers.jeremy'
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.com.langineers.jeremy<enter><change-folder>!<enter>'
+
 # Arch wiki Vim keys
 bind pager j next-line
 bind pager k previous-line
@@ -33,10 +37,6 @@ bind pager g top
 bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
-
-bind index \CN sidebar-next
-bind index \CP sidebar-prev
-bind index \CO sidebar-open
 
 bind index,pager B sidebar-toggle-visible
 bind index "^" imap-fetch-mail
