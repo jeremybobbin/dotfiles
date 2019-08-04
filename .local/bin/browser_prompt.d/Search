@@ -10,7 +10,7 @@ fi
 script="$engines_dir/$engine"
 [ ! -x "$script" ] && exit 1
 
-query=$(printf '' | dmenu_cache $engine -l 10 -i -p "Searching $engine")
+query=$(printf '' | dmenu_cache "$engine" -l 10 -i -p "Searching $engine")
 
 [ ! "$query" ] || [ ! "$?" ] && exit 1
 
