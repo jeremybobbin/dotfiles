@@ -131,4 +131,4 @@ vnoremap in( :<c-u>:execute "normal! /(.*)\rvi("<CR>
 
 
 
-autocmd BufNewFile *.sh,~/.local/bin/*,~/.local/bin/*/* 0r ~/.config/nvim/templates/sh/skeleton.sh
+autocmd BufNewFile *.sh,~/.local/bin/* r ~/.config/nvim/templates/sh/skeleton.sh
