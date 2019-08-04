@@ -1,2 +1,2 @@
 #!/bin/sh
-xargs -I{} echo "$*" | sh
+xargs -I{} echo "$@" | sh
