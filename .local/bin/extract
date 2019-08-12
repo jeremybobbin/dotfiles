@@ -10,7 +10,12 @@ if [ "$1" = "-l" ]; then
 	exit 0
 fi
 
-script="$methods/$@"
+if [ "$1" = "-d" ]; then
+	allow_duplicates=true
+	shift
+fi
+
+script="$methods/$1"
 
 if [ ! -e "$script" ] || [ -d "$script" ]; then
 	echo "Invalid argument. Valid arguments:" >&2;
@@ -18,4 +23,9 @@ if [ ! -e "$script" ] || [ -d "$script" ]; then
 	exit 1;
 fi
 
-"$script" | unique
+if [ "$allow_duplicates" ]; then
+	"$script"
+else
+	"$script" | unique
+fi
+
