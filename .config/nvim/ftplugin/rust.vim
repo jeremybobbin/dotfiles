@@ -12,6 +12,7 @@ endfunc
 " Commands
 nnoremap <leader>r :make! run<CR>
 nnoremap <leader>t :make! test<CR>
+nnoremap <leader>m :make! build<CR>
 nnoremap <leader>b q:imake! run --bin <C-R>=ListBins()<CR>
 nnoremap <leader>c :make! check<CR>
 
