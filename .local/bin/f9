@@ -1,0 +1,3 @@
+#!/bin/sh
+path="$HOME/.local/share/five9"
+ls $path/$1* | head -n 1 | xargs javaws
