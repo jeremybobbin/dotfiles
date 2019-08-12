@@ -97,3 +97,13 @@ posix
 record
 records/
 todo
+.eclipse/
+.local/share/sip/
+.m2/
+.swt/
+.tooling/
+.wine/
+LANgineers/
+ictdialer/
+netsapiens-tools/
+rtl8188eu/

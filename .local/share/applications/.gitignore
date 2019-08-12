@@ -1,13 +1,4 @@
 deadpixi-sam.desktop
 defaults.list
 mimeinfo.cache
-wine-extension-chm.desktop
-wine-extension-hlp.desktop
-wine-extension-ini.desktop
-wine-extension-msp.desktop
-wine-extension-pdf.desktop
-wine-extension-rtf.desktop
-wine-extension-url.desktop
-wine-extension-vbs.desktop
-wine-extension-wri.desktop
-wine/
+wine*
