@@ -1,0 +1,2 @@
+#!/bin/sh
+cat "$HOME/.local/share/art/ascii/lambda/labs" | lolcat
