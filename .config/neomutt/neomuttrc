@@ -41,7 +41,7 @@ bind attach,index G last-entry
 bind index,pager B sidebar-toggle-visible
 bind index "^" imap-fetch-mail
 
-macro attach 'V' "<pipe-entry>cat >~/.cache/mutt/mail.html && $BROWSER ~/.cache/mutt/mail.html && rm ~/.cache/mutt/mail.html<enter>"
+macro attach 'V' "<pipe-entry>cat >~/.cache/mutt/mail.html && qutebrowser ~/.cache/mutt/mail.html && rm ~/.cache/mutt/mail.html<enter>"
 macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
 
 color hdrdefault blue default
