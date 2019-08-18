@@ -37,7 +37,14 @@ if [ -z "$1" ]; then
 	exit 1 
 fi
 
-subcommand="$enum_dir/$1"
+subcommand="$(ls $enum_dir/$1*)"
+count=$(echo $subcommand | wc -l)
+
+if test "$count" -gt 1; then
+	echo "Ambiguous subcommand:" 2>&1
+	echo "$subcommand" 2>&1
+	exit 1
+fi
 
 
 if ! test -x "$subcommand" -a -f "$subcommand"; then
