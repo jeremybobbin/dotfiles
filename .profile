@@ -46,8 +46,8 @@ do
 done
 set +a
 
-if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ ! -r "/tmp/no_x" ] && [ -x "/bin/startx" ]; then
-	exec startx
+if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/bin/startx" ]; then
+	startx
 fi
 
 . start_agent
