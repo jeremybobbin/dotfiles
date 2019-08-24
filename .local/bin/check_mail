@@ -4,7 +4,12 @@ export DBUS_SESSION_BUS_ADDRESS=`cat $environs 2>/dev/null | tr '\0' '\n' | grep
 export DISPLAY=:0
 export XDG_RUNTIME_DIR="/run/user/1000"
 
-count=$(ssh -i /home/jer/.ssh/id_rsa jer@jer.cx 'ls ~/.mail/new' | wc -l)
+count=$(timeout 6 ssh -i /home/jer/.ssh/id_rsa jer@jer.cx 'ls ~/.mail/new' | wc -l)
+
+if [ "$?" -ne 0 ]; then
+	echo 'SSH failed or surpassed timeout' >&2 
+	exit 1
+fi
 
 if [ "$count" -gt 0 ]; then
 	play "$HOME/Media/Audio/Recordings/bow.mp3" vol 0.25 & 
