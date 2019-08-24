@@ -1,2 +1,13 @@
 #!/bin/sh
-nl | sort -uk2 | sort -nk1 | cut -f2-
+# Print first unique instance of a line
+# 
+# Input	Output
+# A		A
+# B		B
+# A		C
+# C		D
+# B		
+# D		
+# D		
+
+nl | sort -uk 2 | sort -nk 1 | cut -f 2-
