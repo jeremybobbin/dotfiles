@@ -1,0 +1,8 @@
+#!/bin/sh
+# Finds mentions of a file in other files for each file passed as an argument
+files="${@-`ls .`}" 
+command="grep -ao '{}' \$(echo '$files' | grep -Ev '{}')"
+
+echo "$files" |
+	xargs -I{} sh -c "$command" |
+	nl | sort -uk2 | sort -n | cut -f2-
