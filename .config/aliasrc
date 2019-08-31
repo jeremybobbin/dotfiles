@@ -7,7 +7,7 @@ o		open
 e		exit
 ll		command ls -al
 lt		command ls -t
-new		(st -c "cd $PWD" & disown)
+new		(st -c "cd $PWD" &>/dev/null & disown)
 
 # Corresponds with rm and cd_wrapper functions
 rm	rm_wrapper
