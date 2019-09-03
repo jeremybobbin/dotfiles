@@ -1,7 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'chrisbra/csv.vim'
 Plug 'elzr/vim-json'
-Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim'
 Plug 'mxw/vim-jsx'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'pangloss/vim-javascript'
@@ -13,7 +13,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 call plug#end()
 
+let mapleader = ""
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+let g:lisp_rainbow = 1
+
 
 filetype indent plugin on
 syntax on
@@ -63,8 +66,6 @@ au CmdwinLeave [:>] nnoremap : q:i
 au CmdwinEnter [:>] nnoremap <Esc> :q<CR>
 au CmdwinLeave [:>] nnoremap <Esc> <Esc> 
 
-
-let mapleader = ""
 
 
 " Source Vimrc
