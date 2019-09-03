@@ -46,3 +46,5 @@ if [ -x /bin/loadkeys ]; then
 else
 	sudo auth_loadkeys "$USER" "$XDG_CONFIG_HOME/ttymaps.kmap"
 fi
+
+eval "$(fasd --init auto)"

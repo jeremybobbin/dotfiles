@@ -4,6 +4,7 @@
 .wpscan
 .tor-browser
 .fehbg
+.fasd
 .android/
 .ansible/
 .ansible_galaxy

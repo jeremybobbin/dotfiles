@@ -2,12 +2,15 @@
 # Need to escape so that alias generator doesn't evaluate
 vct	ct=$(ct) && v $ct
 
+
+
 # Shell
 o		open
 e		exit
 ll		command ls -al
 lt		command ls -t
 new		(st -c "cd $PWD" &>/dev/null & disown)
+c		fasd_cd -d -i
 
 # Corresponds with rm and cd_wrapper functions
 rm	rm_wrapper
@@ -50,6 +53,10 @@ g	git
 sv	sudo -E nvim -O
 n	nnn
 z	zathura
+
+# Make
+rh	runhaskell
+
 # Big O vim for vertical windows
 vim	nvim
 v	nvim -O
