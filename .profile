@@ -40,6 +40,7 @@ _JAVA_AWT_WM_NONREPARENTING=1
 
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
+appendpath "$XDG_BIN_HOME"
 for path in $(envsubst < "$XDG_CONFIG_HOME/pathrc")
 do
 	appendpath "$path"

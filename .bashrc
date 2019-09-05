@@ -41,10 +41,12 @@ shopt -s progcomp_alias
 HISTSIZE= HISTFILESIZE=
 
 # if root, or if SUID bit is set, run loadkeys, else run as sudo
-if [ -x /bin/loadkeys ]; then
+if [ -x $(which setxkbmap) ]; then
+	setxkbmap -option caps:escape
+elif [ -x /bin/loadkeys ]; then
 	loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"
 else
-	sudo auth_loadkeys "$USER" "$XDG_CONFIG_HOME/ttymaps.kmap"
+	sudo -E auth_loadkeys "$USER" "$XDG_CONFIG_HOME/ttymaps.kmap"
 fi
 
 eval "$(fasd --init auto)"
