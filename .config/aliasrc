@@ -91,7 +91,14 @@ t8	traceroute 8.8.8.8
 t42	traceroute 4.2.2.2
 ipb	ip -br
 
-# Temp
+# Lambda
+# Dialpad Number
+dpn		echo 6502886100
+# Lambda Dialpad Number
+ldpn	echo 6504795530
+
+
+
 vps	echo 45.77.215.144
 
 # Common Dir
