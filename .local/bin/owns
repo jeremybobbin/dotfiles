@@ -1,14 +1,16 @@
 #!/bin/sh
 
-path=$(which "$1")
-
-if [ "$?" -ne 0 ]; then
-	echo "$1 does not exist or is not executible"
-	exit 1
+if [ -x "$1" ]; then
+	file="$1"
+else
+	file=$(which "$1") || {
+		echo "$1 neither exists nor is executible" >&2;
+		exit 1;
+	}
 fi
 
 if [ -x "/bin/pacman" ]; then
-	pacman -Qo "$path"
-elif [ -x "/usr/bin/dpkg"]; then
-	dpkg -S "$path"
+	pacman -Qqo "$file"
+elif [ -x "/usr/bin/dpkg" ]; then
+	dpkg -S "$file" | cut -d':' -f 1
 fi
