@@ -1,0 +1,14 @@
+#!/bin/sh
+
+path=$(which "$1")
+
+if [ "$?" -ne 0 ]; then
+	echo "$1 does not exist or is not executible"
+	exit 1
+fi
+
+if [ -x "/bin/pacman" ]; then
+	pacman -Qo "$path"
+elif [ -x "/usr/bin/dpkg"]; then
+	dpkg -S "$path"
+fi
