@@ -48,11 +48,10 @@ done
 set +a
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/bin/startx" ]; then
-	startx
+	exec startx
 fi
-
-. start_agent
 
 if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
 fi
+

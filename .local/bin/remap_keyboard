@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ "$DISPLAY" ]; then
+
+	if [ -x "$(which xmodmap)" ]; then
+		xmodmap "$HOME/.xmodmaprc"
+	elif [ -x "$(which setxkbmap)" ]; then
+		setxkbmap -option caps:escape
+	fi
+	
+else
+	# if root, or if SUID bit is set, run loadkeys, else run as sudo
+	if [ ! -x "/bin/loadkeys" ]; then
+		"$XDG_BIN_HOME/auth_loadkeys"
+	fi
+	loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"
+fi
+

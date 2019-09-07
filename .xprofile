@@ -2,11 +2,7 @@
 bar &
 reset_theme &
 compton -c -r 2 -e1 -l 2 -t 2 --no-fading-openclose &
-
-
 xrdb $HOME/.Xresources &
-
 sxhkd &
-xmodmap $HOME/.xmodmaprc &
-
+bind_keys
 dunst &

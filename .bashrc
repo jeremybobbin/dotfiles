@@ -40,13 +40,13 @@ shopt -s progcomp_alias
  # Infinite history.
 HISTSIZE= HISTFILESIZE=
 
-# if root, or if SUID bit is set, run loadkeys, else run as sudo
-if [ -x $(which setxkbmap) ]; then
-	setxkbmap -option caps:escape
-elif [ -x /bin/loadkeys ]; then
-	loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"
-else
-	sudo -E auth_loadkeys "$USER" "$XDG_CONFIG_HOME/ttymaps.kmap"
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
+
+if [ ! "$SSH_AUTH_SOCK" ]; then
+    . "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+
 
 eval "$(fasd --init auto)"
