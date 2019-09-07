@@ -91,6 +91,11 @@ t8	traceroute 8.8.8.8
 t42	traceroute 4.2.2.2
 ipb	ip -br
 
+# Mail
+mutt	neomutt
+m		neomutt
+
+
 # Lambda
 # Dialpad Number
 dpn		echo 6502886100
