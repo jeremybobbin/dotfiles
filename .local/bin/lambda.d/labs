@@ -1,2 +1,2 @@
 #!/bin/sh
-cat "$HOME/.local/share/art/ascii/lambda/labs" | lolcat
+lolless "$HOME/.local/share/art/ascii/lambda/labs"

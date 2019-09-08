@@ -1,21 +1,2 @@
 #!/bin/sh
-
-# ./lambda love
-#
-# The terminal emulator is really the only bottleneck when it comes to lolcat
-#
-# This script works best on the GPU accelerated terminal emulator "Alacritty".
-
-
-sin() {
-	awk '{printf "-s (%f / 12) / 3\n", $1}' | bc -l
-}
-
-i=0
-while true; do
-	val="$(echo $i | sin)"
-	clear
-	cat "$HOME/.local/share/art/ascii/lambda/love" | X="$val" Y="$val" lolcat
-	i=$((i + 1))
-	sleep 0.05
-done
+lolless "$HOME/.local/share/art/ascii/lambda/love"
