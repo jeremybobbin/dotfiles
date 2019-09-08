@@ -107,8 +107,8 @@ ldpn	echo 6504795530
 
 
 # Temp
-coreutils	yay -Ql coreutils | sed -nE "s|.*/bin/(.+)|\1|p;"
-vps			echo 45.77.215.144
+bins	sed -nE "s|.*/bin/(.+)|\1|p;"
+vps		echo 45.77.215.144
 
 # Common Dir
 uls	~/.local/share
