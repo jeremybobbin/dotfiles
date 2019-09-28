@@ -39,6 +39,7 @@ varc	v ~/.config/aliasrc
 # Administration
 sc	systemctl
 ssc	sudo systemctl
+cx	chmod a+x
 
 # Clipboard
 xc	xclip -selection
