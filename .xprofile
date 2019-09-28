@@ -3,6 +3,6 @@ bar &
 reset_theme &
 compton -c -r 2 -e1 -l 2 -t 2 --no-fading-openclose &
 xrdb $HOME/.Xresources &
+remap xorg
 sxhkd &
-bind_keys
 dunst &

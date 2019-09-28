@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ -x "$(which xmodmap)" ]; then
+	xmodmap "$HOME/.xmodmaprc"
+elif [ -x "$(which setxkbmap)" ]; then
+	setxkbmap -option caps:escape
+fi

@@ -1,0 +1,9 @@
+#!/bin/sh
+loadkeys=$(which loadkeys)
+
+envsubst | sudo sh << "EOF"
+groupadd -f loadkeys
+usermod "$USER" -aG loadkeys
+chgrp loadkeys "$loadkeys"
+chmod 4750 "$loadkeys"
+EOF
