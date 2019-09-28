@@ -107,7 +107,6 @@ ldpn	echo 6504795530
 
 
 # Temp
-bins	sed -nE "s|.*/bin/(.+)|\1|p;"
 vps		echo 45.77.215.144
 
 # Common Dir
