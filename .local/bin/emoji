@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dmenu -i -l 20   << EOF | cut -d$'\t' -f1
+dmenu -i -l 20 << EOF | cut -f1
 ▶	Black right pointed triangle
 ☀	Black sun with rays
 ☁	Cloud
