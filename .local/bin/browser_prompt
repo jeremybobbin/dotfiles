@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 export DIR=$XDG_BIN_HOME/browser_prompt.d
 
 # User should be able to $ browser_prompt Search Google

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 set -o pipefail
 
 bin=$(ct | sed 's_Cargo.toml_src/bin_') || exit 1

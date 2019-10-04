@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 if [ ! -x "/bin/loadkeys" ]; then
 	"$XDG_BIN_HOME/remap" authorize
 fi

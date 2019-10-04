@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 environs=`pidof dbus-daemon | tr ' ' '\n'  | head -n 1 | awk '{printf "/proc/%s/environ ", $1}'`
 export DBUS_SESSION_BUS_ADDRESS=`cat $environs 2>/dev/null | tr '\0' '\n' | grep DBUS_SESSION_BUS_ADDRESS | cut -d '=' -f2-`
 export DISPLAY=:0

@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/sh
 dmenu_path | dmenu_color | ${SHELL:-"/bin/sh"} &

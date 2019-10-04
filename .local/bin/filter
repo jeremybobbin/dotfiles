@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/sh
 xargs -I{} sh -c "[ $@ '{}' ] && echo '{}'"

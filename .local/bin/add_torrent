@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 ! pgrep btpd &&
 	exit 1 && notify-send 'BTPD not running'

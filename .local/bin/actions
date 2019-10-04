@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 methods="$XDG_BIN_HOME/actions.d"
 
 if [ -z "$@" ]; then

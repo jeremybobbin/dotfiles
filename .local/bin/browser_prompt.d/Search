@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 engines_dir="$DIR/engines"
 
 if [ "$1" ] && [ -x "$engines_dir/$1" ]; then

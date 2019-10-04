@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 scp "$@" "jer.cx:~/jer.cx/assets/public/"
 
 echo "https://jer.cx/images/$1" | xclip -sel c

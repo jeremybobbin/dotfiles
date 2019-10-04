@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/sh
 echo "$@" | tr -d '\n' | xargs -d' ' -I{} git clone https://git.suckless.org/{}/

@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/sh
 lolless "$HOME/.local/share/art/ascii/lambda/love"

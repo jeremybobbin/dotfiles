@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 # Print first unique instance of a line
 # 
 # Input	Output

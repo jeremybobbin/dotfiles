@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 # Valid In URL: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=
 # Valid In Domain: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~#[]!'()*
 # Valid In Query String: ;/?:@&=+$,

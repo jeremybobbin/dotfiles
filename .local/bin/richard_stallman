@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 #TODO: add redundent bloat
 OS=${1-${OS-'GNU'}}
 KERNEL=${2-${KERNEL-'Linux'}}

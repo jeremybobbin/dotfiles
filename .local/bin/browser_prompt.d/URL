@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 url=$(printf | dmenu_color -p "Enter URL:")
 
 [ "$url" ] &&

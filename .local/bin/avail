@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 if [ -z "$@" ]; then
 	method=$(extract -l | dmenu_cache avail_methods -i -p 'How to extract:')
