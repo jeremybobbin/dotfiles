@@ -10,5 +10,4 @@ fi
 {
 	printf "$url";
 	curl --data-binary @- "$post";
-	echo;
 }
