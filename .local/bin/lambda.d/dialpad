@@ -1,0 +1,2 @@
+#!/bin/bash
+$BROWSER https://dialpad.com/app 2>&1 > /dev/null & disown
