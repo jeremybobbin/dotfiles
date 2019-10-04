@@ -5,7 +5,7 @@ vct	ct=$(ct) && v $ct
 
 
 # Shell
-o		open
+o		"$XDG_BIN_HOME/open"
 e		exit
 ll		command ls -al
 lt		command ls -t
@@ -70,7 +70,7 @@ pm	pulsemixer
 
 # Colors
 ls	ls --color=auto --group-directories-first -hN 
-ip	ip --color=auto
+ip	ip -c
 grep	grep --color=auto 
 diff	diff --color=always
 yay	yay --color=always

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo $- | grep -v 'i' && return
 
 jump() {
@@ -35,13 +35,17 @@ shopt -s direxpand
 shopt -s expand_aliases
 shopt -s extglob
 shopt -s globstar
-shopt -s progcomp_alias
+#shopt -s progcomp_alias
 
  # Infinite history.
 HISTSIZE= HISTFILESIZE=
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+
+if [ -r '/etc/bash_completion' ]; then
+	. /etc/bash_completion
 fi
 
 if [ ! "$SSH_AUTH_SOCK" ]; then
