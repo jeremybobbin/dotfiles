@@ -1,2 +1,2 @@
 #!/bin/bash
-tee <(xargs -I{} echo "$@" 1>&2 | sh 1>&2)
+tee >(xargs -i echo "$@" | sh)
