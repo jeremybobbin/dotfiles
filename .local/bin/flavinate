@@ -1,7 +1,7 @@
 #!/bin/bash
 wal_options=""
 if [ -r "$1" ]; then
-	(wal --backend colortheif -tso update_theme -i "$1" 1> /dev/null) 
+	(wal --backend haishoku -tso update_theme -i "$1" 1> /dev/null) 
 	xwallpaper --stretch "$1"
 else
 	(wal  -tso update_theme --theme  base16-cupcake)

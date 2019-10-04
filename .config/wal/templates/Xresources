@@ -6,7 +6,7 @@ dwm.selbgcolor: {color1}
 dwm.selbordercolor: {color1}
 
 st.font: Source Code Pro:pixelsize=18:antialias=true:autohint=true
-st.alpha: 192
+st.alpha: 248
 st.termname: xterm-256color
 st.shell: /bin/bash
 st.xfps: 120
