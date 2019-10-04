@@ -25,3 +25,16 @@ xorg/
 zathura/
 vlc
 webkitgtk/
+app-info/
+evolution/
+gnome-settings-daemon/
+gnome-shell/
+gvfs-metadata/
+icc/
+jupyter/
+keyrings/
+lambda.png
+man/
+remmina/
+session_migration-ubuntu
+xrdp/
