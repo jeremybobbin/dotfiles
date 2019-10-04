@@ -1,2 +1,2 @@
 #!/bin/sh
-xargs -n 1 xdg-open
+xargs -n 1 xdg-open & disown

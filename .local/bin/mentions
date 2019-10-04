@@ -1,6 +1,6 @@
 #!/bin/sh
 # Finds mentions of a file in other files for each file passed as an argument
-files="${@-`ls .`}" 
+files="${@-`find . -type f`}" 
 command="grep -ao '{}' \$(echo '$files' | grep -Ev '{}')"
 
 echo "$files" |

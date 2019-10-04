@@ -21,7 +21,7 @@ hostname=$(hostname -s)
 level="\$( [ $(id -u) = 0 ] && echo '#' || echo '$' )"
 cwd="\$(pwd | sed \"s.$HOME.\~.g\" | grep -o '[^/]*$')"
 
-PS1="$bold$black[$green$(id -u -n)$black@"
+PS1="$bold$black[$green$username$black@"
 
 [ ! "$SSH_CLIENT" ] &&
 	PS1="$PS1$blue" ||

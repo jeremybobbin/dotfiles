@@ -46,7 +46,7 @@ set nohlsearch
 "set pastetoggle=<F11>
 "set path+=**
 set showcmd
-set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+"set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set wildmenu
 
 " General remaps
