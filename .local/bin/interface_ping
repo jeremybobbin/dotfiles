@@ -3,7 +3,7 @@
 ls /sys/class/net/ |
 	grep -Ev '(lo|tap.*|wwp*)' |
 	xargs -I{} sh -c "printf '{} ' &&
-		ping -I {} -qc1 8.8.8.8 2>&1 |
+		ping -I {} -W 5 -qc1 8.8.8.8 2>&1 |
 		tail -n 1 |
 		cut -d'/' -f5"
 
