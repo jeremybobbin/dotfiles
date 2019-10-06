@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+"$BROWSER" "https://www.google.com/search?q=$@"

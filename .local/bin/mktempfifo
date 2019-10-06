@@ -1,0 +1,5 @@
+#!/bin/sh
+tmp=$(mktemp)
+rm "$tmp"
+mkfifo "$tmp"
+echo "$tmp"
