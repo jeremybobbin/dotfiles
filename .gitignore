@@ -1,4 +1,6 @@
 # Obsticle
+.haskeline
+.ghc
 .android/
 .ansible/
 .ansible_galaxy
