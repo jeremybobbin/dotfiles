@@ -20,11 +20,11 @@ super + i
 
 
 super + w; super + { w, s, g, b, u, c }
-	browser_prompt { _, Search, Search Google, Bookmarks, URL, Clipboard }
+	dmenu_prompt web { _, Search, Search Google, Bookmarks, URL, Clipboard }
 
 # Bluetooth
 super + b; super + { b, t, c, d, s }
-	bluetooth { toggle, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
+	dmenu_prompt bluetooth { toggle, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
 
 # Audio
 super + m
