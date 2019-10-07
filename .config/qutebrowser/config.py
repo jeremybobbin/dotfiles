@@ -8,17 +8,17 @@
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, 'file://*')
+#config.set('content.javascript.enabled', True, 'file://*')
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, 'chrome://*/*')
+#config.set('content.javascript.enabled', True, 'chrome://*/*')
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, 'qute://*/*')
+#config.set('content.javascript.enabled', True, 'qute://*/*')
 
-config.set('content.javascript.enabled', True, 'qute://*/*')
+#config.set('content.javascript.enabled', True, 'qute://*/*')
 
 config.set('url.searchengines', {"DEFAULT": "https://www.google.com/search?hl=en&q={}"})
 
