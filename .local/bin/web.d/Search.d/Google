@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-"$BROWSER" "https://www.google.com/search?q=$@"
+printf | dmenu_color -p 'Search Google:' | xargs -ir "$BROWSER" "https://www.google.com/search?q={}"
