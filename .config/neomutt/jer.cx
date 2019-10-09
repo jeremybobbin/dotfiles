@@ -1,0 +1,15 @@
+set folder="imaps://jer@jer.cx/"
+set imap_user='jer'
+set imap_pass=$my_pass
+
+set smtp_url='smtps://jer@jer.cx'
+set smtp_pass=$my_pass
+
+set from='jer@jer.cx'
+set hostname="jer.cx"
+set realname='Jeremy Bobbin'
+
+set spoolfile=+INBOX
+set record=+Sent
+set postponed=+Drafts
+
