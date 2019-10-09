@@ -1,9 +1,11 @@
 #!/usr/bin/sh
-loadkeys=$(which loadkeys)
+export loadkeys=$(which loadkeys)
 
-envsubst | sudo sh << "EOF"
+(envsubst | sudo sh) << "EOF"
 groupadd -f loadkeys
 usermod "$USER" -aG loadkeys
 chgrp loadkeys "$loadkeys"
 chmod 4750 "$loadkeys"
 EOF
+
+echo "Please logout for changes to take effect." 1>&2
