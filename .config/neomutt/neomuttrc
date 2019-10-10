@@ -1,18 +1,26 @@
 source "gpg -dq $HOME/.passwords/neomutt.gpg |"
 
+set sendmail="/usr/bin/msmtp"
+set use_from=yes
+
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = "~/.mutt/certificates"
+
 set pipe_decode=yes # Gets rid of '=' line breaks
 set sidebar_visible = yes
 set mailcap_path 	= ~/.config/neomutt/mailcap
 auto_view text/html
 
-# Default Box
-source ~/.config/neomutt/lambdal.com
 
 folder-hook 'jer.cx' 'source ~/.config/neomutt/jer.cx'
 macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx<enter><change-folder>!<enter>'
 
 folder-hook 'lambdal.com' 'source ~/.config/neomutt/lambdal.com'
 macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><change-folder>!<enter>'
+
+# Default Box
+source ~/.config/neomutt/lambdal.com
 
 
 # Cache
