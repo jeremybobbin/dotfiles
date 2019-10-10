@@ -1,11 +1,9 @@
 IMAPAccount lambda
-# Address to connect to
 Host imap.gmail.com
 User jeremy@lambdal.com
 PassCmd "gpg -dq --for-your-eyes-only --no-tty $HOME/.passwords/password.gpg"
-
-SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
+SSLType IMAPS
 
 IMAPStore lambda-remote
 Account lambda

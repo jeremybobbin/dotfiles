@@ -3,9 +3,8 @@ source "gpg -dq $HOME/.passwords/neomutt.gpg |"
 set sendmail="/usr/bin/msmtp"
 set use_from=yes
 
-set header_cache = "~/.mutt/cache/headers"
-set message_cachedir = "~/.mutt/cache/bodies"
-set certificate_file = "~/.mutt/certificates"
+set header_cache = "~/.cache/mutt/headers"
+set message_cachedir = "~/.cache/mutt/bodies"
 
 set pipe_decode=yes # Gets rid of '=' line breaks
 set sidebar_visible = yes
