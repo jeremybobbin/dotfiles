@@ -8,8 +8,7 @@ set realname="Jeremy"
 set imap_user='jer'
 set imap_pass=$my_pass
 
-set smtp_url='smtps://jer@jer.cx'
-set smtp_pass=$my_pass
+set sendmail="/usr/bin/msmtp -a jer.cx"
 
 set spoolfile=+INBOX
 set record=+Sent

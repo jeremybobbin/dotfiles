@@ -1,6 +1,4 @@
 # Obsticle
-.haskeline
-.ghc
 .android/
 .ansible/
 .ansible_galaxy
@@ -22,10 +20,12 @@
 .fltk
 .fonts/
 .gdrive
+.ghc
 .gimp-2.8/
 .git
 .gitconfig
 .gnupg
+.haskeline
 .history
 .ICEauthority
 .iourc
@@ -38,6 +38,7 @@
 .m2/
 .mail/
 .mozilla
+.msmtp.log
 .mutt/
 .mutt_certificates
 .muttrc
@@ -124,6 +125,7 @@ pt/
 record
 records/
 rtl8188eu/
+sent
 Test
 test/
 todo
