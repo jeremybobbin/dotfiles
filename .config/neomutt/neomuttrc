@@ -11,6 +11,7 @@ set sidebar_visible = yes
 set mailcap_path 	= ~/.config/neomutt/mailcap
 auto_view text/html
 
+set sleep_time=0
 
 folder-hook 'jer.cx' 'source ~/.config/neomutt/jer.cx'
 macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx<enter><change-folder>!<enter>'
