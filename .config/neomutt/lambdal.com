@@ -6,6 +6,7 @@ set realname="Jeremy"
 
 set sendmail="/usr/bin/msmtp -a lambdal.com"
 
+unset record
 set spoolfile=+Inbox
 set postponed=+Drafts
 set trash=+Trash
