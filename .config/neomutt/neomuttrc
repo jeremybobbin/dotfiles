@@ -1,37 +1,34 @@
-source "gpg -dq $HOME/.passwords/neomutt.gpg |"
-
-set sendmail="/usr/bin/msmtp"
 set use_from=yes
-
-set header_cache = "~/.cache/mutt/headers"
-set message_cachedir = "~/.cache/mutt/bodies"
-
 set pipe_decode=yes # Gets rid of '=' line breaks
 set sidebar_visible = yes
+set sleep_time=0
+
 set mailcap_path 	= ~/.config/neomutt/mailcap
 auto_view text/html
 
-set sleep_time=0
 
 folder-hook 'jer.cx' 'source ~/.config/neomutt/jer.cx'
-macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx<enter><change-folder>!<enter>'
-
 folder-hook 'lambdal.com' 'source ~/.config/neomutt/lambdal.com'
-macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><change-folder>!<enter>'
 
 # Default Box
 source ~/.config/neomutt/lambdal.com
 
 
-# Cache
-set header_cache = ~/.cache/mutt
-set message_cachedir = "~/.cache/mutt"
 
-# Arch wiki Vim keys
+macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx<enter><change-folder>!<enter>'
+macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><change-folder>!<enter>'
+
+# Need to disown the browser process
+macro attach 'V' "<pipe-entry>cat >~/.cache/mutt/mail.html && qutebrowser ~/.cache/mutt/mail.html && rm ~/.cache/mutt/mail.html<enter>"
+macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
+
+
 bind pager j next-line
 bind pager k previous-line
 bind attach,index,pager \CD next-page
 bind attach,index,pager \CU previous-page
+
+# One of these is the 'reply-all' button...
 bind pager g top
 bind pager G bottom
 bind attach,index g first-entry
@@ -40,8 +37,6 @@ bind attach,index G last-entry
 bind index,pager B sidebar-toggle-visible
 bind index "^" imap-fetch-mail
 
-macro attach 'V' "<pipe-entry>cat >~/.cache/mutt/mail.html && qutebrowser ~/.cache/mutt/mail.html && rm ~/.cache/mutt/mail.html<enter>"
-macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
 
 color hdrdefault blue default
 color quoted blue default
