@@ -4,7 +4,8 @@ export DBUS_SESSION_BUS_ADDRESS=`cat $environs 2>/dev/null | tr '\0' '\n' | grep
 export DISPLAY=:0
 export XDG_RUNTIME_DIR="/run/user/1000"
 
-count="$(ls $(find "$HOME/.mail" -name Inbox)/new | wc -l)"
+count="$(find /home/jer/.mail -name Inbox | xargs -i find '{}/new' -type f | wc -l)"
+
 
 if [ "$?" -ne 0 ]; then
 	echo 'SSH failed or surpassed timeout' 1>&2 
