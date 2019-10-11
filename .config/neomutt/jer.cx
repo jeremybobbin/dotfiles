@@ -1,15 +1,13 @@
-set folder="imaps://jer@jer.cx/"
-set ssl_starttls = yes
+set folder="~/.mail/jer"
 
 set from='jer@jer.cx'
 set hostname="jer.cx"
 set realname="Jeremy"
 
-set imap_user='jer'
-set imap_pass=$my_pass
-
 set sendmail="/usr/bin/msmtp -a jer.cx"
 
-set spoolfile=+INBOX
+set spoolfile=+Inbox
 set record=+Sent
 set postponed=+Drafts
+
+mailboxes +Inbox +Drafts +Sent
