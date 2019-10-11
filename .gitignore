@@ -36,7 +36,6 @@
 .links/
 .local/share/sip/
 .m2/
-.mail/
 .mozilla
 .msmtp.log
 .mutt/
