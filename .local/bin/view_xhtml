@@ -1,5 +1,3 @@
 #!/bin/sh
-temp=$(mktemp)
 # Necessary for suckless Surf
-sed -E 's|<html[^>]*>|<html>|g; s|<![^>]*>||g' > $temp
-$BROWSER $temp
+sed -E 's|<html[^>]*>|<html>|g; s|<![^>]*>||g' | peek $BROWSER
