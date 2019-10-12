@@ -56,17 +56,17 @@ Channel lambda-inbox
 Master :lambda-remote:"Inbox"
 Slave :lambda-local:"Inbox"
 
-Channel lambda-all
-Master :lambda-remote:"[Gmail]/All Mail"
-Slave :lambda-local:"All Mail"
+#Channel lambda-all
+#Master :lambda-remote:"[Gmail]/All Mail"
+#Slave :lambda-local:"All Mail"
 
 Channel lambda-drafts
 Master :lambda-remote:"[Gmail]/Drafts"
 Slave :lambda-local:"Drafts"
 
-Channel lambda-important
-Master :lambda-remote:"[Gmail]/Important"
-Slave :lambda-local:"Important"
+#Channel lambda-important
+#Master :lambda-remote:"[Gmail]/Important"
+#Slave :lambda-local:"Important"
 
 Channel lambda-sent
 Master :lambda-remote:"[Gmail]/Sent Mail"
@@ -76,9 +76,9 @@ Channel lambda-spam
 Master :lambda-remote:"[Gmail]/Spam"
 Slave :lambda-local:"Spam"
 
-Channel lambda-starred
-Master :lambda-remote:"[Gmail]/Starred"
-Slave :lambda-local:"Starred"
+#Channel lambda-starred
+#Master :lambda-remote:"[Gmail]/Starred"
+#Slave :lambda-local:"Starred"
 
 Channel lambda-trash
 Master :lambda-remote:"[Gmail]/Trash"
