@@ -1,2 +1,2 @@
 * * * * * /home/jer/.local/bin/check_mail
-*/3 * * * * mbsync -Va
+* * * * * mbsync -Va
