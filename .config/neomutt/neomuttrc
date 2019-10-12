@@ -19,7 +19,7 @@ macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx<enter><change-f
 macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><change-folder>!<enter>'
 
 # Need to disown the browser process
-macro attach 'V' "<pipe-entry>cat >~/.cache/mutt/mail.html && qutebrowser ~/.cache/mutt/mail.html && rm ~/.cache/mutt/mail.html<enter>"
+macro attach 'V' '<pipe-entry>view_xhtml<enter>'
 macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
 
 
