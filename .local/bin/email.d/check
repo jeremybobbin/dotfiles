@@ -1,0 +1,3 @@
+#!/bin/sh
+email sync
+email notify
