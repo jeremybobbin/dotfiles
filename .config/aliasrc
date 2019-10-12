@@ -72,6 +72,7 @@ pm	pulsemixer
 ls	ls --color=auto --group-directories-first -hN 
 ip	ip -c
 grep	grep --color=auto 
+grepc	grep --color=always 
 diff	diff --color=always
 yay	yay --color=always
 pacman	pacman --color always
