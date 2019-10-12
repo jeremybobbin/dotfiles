@@ -39,6 +39,13 @@ varc	v ~/.config/aliasrc
 # Administration
 sc	systemctl
 ssc	sudo systemctl
+scu	systemctl --user
+
+sscr	sudo systemctl restart
+ssce	sudo systemctl enable
+scur	systemctl --user restart
+scue	systemctl --user enable
+
 cx	chmod a+x
 
 # Clipboard
