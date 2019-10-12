@@ -47,13 +47,20 @@ do
 done
 set +a
 
-if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
-	exec startx
-else
-	remap tty
-fi
 
 if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
 fi
 
+is_tty() {
+	case "$(tty)" in
+		/dev/tty*) return 0;;
+		*) return 1
+	esac
+}
+
+if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
+	exec startx
+elif is_tty; then
+	remap tty
+fi
