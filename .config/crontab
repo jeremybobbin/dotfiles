@@ -1,2 +1,1 @@
-* * * * * /home/jer/.local/bin/check_mail
-* * * * * mbsync -Va
+* * * * * email check cron

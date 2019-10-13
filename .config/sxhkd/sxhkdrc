@@ -10,28 +10,22 @@ super + shift + Return
 super + p
 	$TERMINAL -e htop
 
-super + e
-	$TERMINAL -e $EMAIL_CLIENT
-	
-
 super + i
 	$TERMINAL -e weechat
 	
 
 
+# Web
 super + w; super + { w, s, g, b, u, c }
 	dmenu_prompt web { _, Search, Search Google, Bookmarks, URL, Clipboard }
 
 # Bluetooth
 super + b; super + { b, t, c, d, s }
-	dmenu_prompt bluetooth { toggle, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
+	bluetooth { _, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
 
-# Audio
-super + m
-	$TERMINAL -e ncmpcpp
-
-super + a
-	$TERMINAL -e pulsemixer
+# Email
+super + e; super + { e, c }
+	email { open, check }
 
 XF86AudioPlay
 	mpc toggle

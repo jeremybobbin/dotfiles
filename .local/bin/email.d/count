@@ -1,2 +1,2 @@
 #!/bin/sh
-find /home/jer/.mail -name Inbox | xargs -i find '{}/new' -type f | wc -l
+unread | wc -l
