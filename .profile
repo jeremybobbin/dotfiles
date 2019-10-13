@@ -21,14 +21,16 @@ XDG_DATA_DIRS="$XDG_DATA_HOME:/usr/local/share/:/usr/share/"
 XDG_CONFIG_DIRS="/etc/xdg"
 
 AUDIO_PLAYER="mpv"
+MUSIC_PLAYER="ncmpcpp"
+IRC_CLIENT="weechat"
 BROWSER="surf"
 EDITOR="nvim"
 EMAIL_CLIENT="neomutt"
-HOME_PAGE="https://www.google.com"
 PDF_VIEWER="zathura"
 TERMINAL="st"
 VIDEO_PLAYER="mpv"
 
+HOME_PAGE="https://www.google.com"
 BLUETOOTH_DEVICE="AirPods"
 
 RUSTC_WRAPPER=""
