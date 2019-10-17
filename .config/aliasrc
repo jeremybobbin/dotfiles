@@ -3,7 +3,6 @@
 vct	ct=$(ct) && v $ct
 
 
-
 # Shell
 o		"$XDG_BIN_HOME/open"
 e		exit
@@ -77,14 +76,20 @@ pm	pulsemixer
 
 # Colors
 ls	ls --color=auto --group-directories-first -hN 
+ip	ip -c
+
 grep	grep --color=auto 
-grepc	grep --color=always 
 yay	yay --color=auto
+diff	diff --color=auto
 pacman	pacman --color auto
-diff	diff --color=always
+
+grepc	grep --color=always 
+diffc	diff --color=always
+yayc	yay --color=always
+pacmanc	pacman --color always
+
 less	less -R
 highlight	highlight --out-format=ansi 
-ip	ip -c
 less	less -R
 
 mpv mpv --input-ipc-server="/tmp/mpv_$(date +%s%N)"
