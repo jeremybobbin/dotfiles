@@ -10,28 +10,29 @@ super + shift + Return
 super + p
 	$TERMINAL -e htop
 
-super + e
-	$TERMINAL -e $EMAIL_CLIENT
-	
-
 super + i
-	$TERMINAL -e weechat
+	$TERMINAL -e $IRC_CLIENT
 	
+super + m
+	$TERMINAL -e $MUSIC_PLAYER
 
-
+# Web
 super + w; super + { w, s, g, b, u, c }
 	dmenu_prompt web { _, Search, Search Google, Bookmarks, URL, Clipboard }
 
+# sxhkd won't listen for 
+# super + e; super + j
+# because super + j is taken by
+# dwm...
+# email + check, work, personal
+super + e; super + { e, c, w, p }
+	email { open, check, open lambda, open jer }
+
 # Bluetooth
 super + b; super + { b, t, c, d, s }
-	dmenu_prompt bluetooth { toggle, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
+	bluetooth { _, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
 
-# Audio
-super + m
-	$TERMINAL -e ncmpcpp
 
-super + a
-	$TERMINAL -e pulsemixer
 
 XF86AudioPlay
 	mpc toggle

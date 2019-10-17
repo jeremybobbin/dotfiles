@@ -1,0 +1,3 @@
+#!/bin/sh
+# Necessary for suckless Surf
+sed -E 's|<html[^>]*>|<html>|g; s|<![^>]*>||g' | peek $BROWSER

@@ -41,3 +41,7 @@ toco_from_protos
 tqdm
 wal
 wheel
+meson
+pip
+pip3
+pip3.6

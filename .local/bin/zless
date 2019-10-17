@@ -1,0 +1,2 @@
+#!/bin/sh
+zcat "$1" | less

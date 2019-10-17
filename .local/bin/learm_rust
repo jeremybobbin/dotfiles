@@ -1,6 +1,0 @@
-#!/usr/bin/sh
-book='https://doc.rust-lang.org/stable/book/'
-example='https://doc.rust-lang.org/stable/rust-by-example/'
-echo Learm Rust
-echo "**Book:** $book"
-echo "**Rust by Example:** $example"

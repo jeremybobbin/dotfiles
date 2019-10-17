@@ -4,7 +4,7 @@ set from='jeremy@lambdal.com'
 set hostname="lambdal.com"
 set realname="Jeremy"
 
-set sendmail="/usr/bin/msmtp -a lambdal.com"
+set sendmail="msmtp-enqueue.sh -a lambdal.com"
 
 unset record
 set spoolfile=+Inbox

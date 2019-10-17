@@ -12,7 +12,7 @@ lt		command ls -t
 new		(st -c "cd $PWD" &>/dev/null & disown)
 c		fasd_cd -d -i
 # Jenkins Operator |_
-_		xargs -n 1 
+_		xargs -n 1 -I{}
 
 # Corresponds with rm and cd_wrapper functions
 rm	rm_wrapper
@@ -39,6 +39,13 @@ varc	v ~/.config/aliasrc
 # Administration
 sc	systemctl
 ssc	sudo systemctl
+scu	systemctl --user
+
+sscr	sudo systemctl restart
+ssce	sudo systemctl enable
+scur	systemctl --user restart
+scue	systemctl --user enable
+
 cx	chmod a+x
 
 # Clipboard
@@ -74,7 +81,9 @@ grep	grep --color=auto
 grepc	grep --color=always 
 yay	yay --color=auto
 pacman	pacman --color auto
-highlight highlight --out-format=ansi 
+diff	diff --color=always
+less	less -R
+highlight	highlight --out-format=ansi 
 ip	ip -c
 less	less -R
 

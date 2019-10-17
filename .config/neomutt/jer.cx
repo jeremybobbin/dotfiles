@@ -4,7 +4,7 @@ set from='jer@jer.cx'
 set hostname="jer.cx"
 set realname="Jeremy"
 
-set sendmail="/usr/bin/msmtp -a jer.cx"
+set sendmail="msmtp-enqueue.sh -a jer.cx"
 
 set spoolfile=+Inbox
 set record=+Sent

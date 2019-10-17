@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$1" != cron ]; then
+	notify "Mail" "Checking mail..."
+fi
+email sync
+email notify "$1"
