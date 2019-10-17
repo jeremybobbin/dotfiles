@@ -1,42 +1,3 @@
-Create Slave
-SyncState *
-
-
-
-IMAPAccount jer
-Host jer.cx
-User jer
-PassCmd "gpg -dq --for-your-eyes-only --no-tty $HOME/.passwords/password.gpg"
-CertificateFile /etc/ssl/certs/ca-certificates.crt
-SSLType IMAPS
-
-IMAPStore jer-remote
-Account jer
-
-MaildirStore jer-local
-Subfolders Verbatim
-Path ~/.mail/jer/
-Inbox ~/.mail/jer/Inbox
-
-Channel jer-inbox
-Master :jer-remote:"Inbox"
-Slave :jer-local:"Inbox"
-
-Channel jer-drafts
-Master :jer-remote:"Drafts"
-Slave :jer-local:"Drafts"
-
-Channel jer-sent
-Master :jer-remote:"Sent"
-Slave :jer-local:"Sent"
-
-Group jer
-Channel jer-inbox
-Channel jer-drafts
-Channel jer-sent
-
-
-
 IMAPAccount lambda
 Host imap.gmail.com
 User jeremy@lambdal.com
@@ -93,3 +54,40 @@ Channel lambda-sent
 Channel lambda-spam
 Channel lambda-starred
 Channel lambda-trash
+
+Create Slave
+SyncState *
+
+IMAPAccount jer
+Host jer.cx
+User jer
+PassCmd "gpg -dq --for-your-eyes-only --no-tty $HOME/.passwords/password.gpg"
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+SSLType IMAPS
+
+IMAPStore jer-remote
+Account jer
+
+MaildirStore jer-local
+Subfolders Verbatim
+Path ~/.mail/jer/
+Inbox ~/.mail/jer/Inbox
+
+Channel jer-inbox
+Master :jer-remote:"Inbox"
+Slave :jer-local:"Inbox"
+
+Channel jer-drafts
+Master :jer-remote:"Drafts"
+Slave :jer-local:"Drafts"
+
+Channel jer-sent
+Master :jer-remote:"Sent"
+Slave :jer-local:"Sent"
+
+Group jer
+Channel jer-inbox
+Channel jer-drafts
+Channel jer-sent
+
+
