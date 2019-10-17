@@ -80,7 +80,7 @@ ls	ls --color=auto --group-directories-first -hN
 ip	ip -c
 grep	grep --color=auto 
 grepc	grep --color=always 
-diff	diff --color=always
+diff	diff --color=auto
 yay	yay --color=always
 pacman	pacman --color always
 less	less -R
