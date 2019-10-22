@@ -1,1 +1,1 @@
-* * * * * PATH="$PATH:$HOME/.local/bin:/usr/local/bin" email check cron 2>&1 >> ~/leedle
+* * * * * PATH="$PATH:$HOME/.local/bin:/usr/local/bin" email check cron

@@ -67,8 +67,8 @@ z	zathura
 rh	runhaskell
 
 # Big O vim for vertical windows
-vim	nvim
-v	nvim -O
+vim	$EDITOR
+v	$EDITOR -O
 
 # Media
 rec	ffmpeg -video_size 1920x1080 -framerate 20 -f x11grab -i :0.0+0,0 "$HOME/Media/Video/ScreenCast/$(date +%s).mp4"
@@ -139,4 +139,4 @@ rs	~/Projects/Rust
 msc	~/Media/Audio/Music
 img	~/Media/Images
 vdo	~/Media/Video
-vrcd ~/.config/nvim
+vrcd	~/.config/nvim
