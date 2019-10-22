@@ -15,6 +15,9 @@ super + i
 	
 super + m
 	$TERMINAL -e $MUSIC_PLAYER
+	
+super + a
+	$TERMINAL -e pulsemixer
 
 # Web
 super + w; super + { w, s, g, b, u, c }
