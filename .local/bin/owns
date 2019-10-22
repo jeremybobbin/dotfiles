@@ -1,12 +1,12 @@
 #!/usr/bin/sh
 
 if [ -x "$1" ]; then
-	file="$1"
-else
 	file=$(which "$1") || {
 		echo "$1 neither exists nor is executible" >&2;
 		exit 1;
 	}
+else
+	file="$1"
 fi
 
 if [ -x "/bin/pacman" ]; then
