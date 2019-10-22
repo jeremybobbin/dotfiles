@@ -1,8 +1,12 @@
 #!/bin/bash
 wal_options=""
 if [ -r "$1" ]; then
-	(wal --backend haishoku -tso update_theme -i "$1" 1> /dev/null) 
-	xwallpaper --stretch "$1"
+	wal --backend haishoku -tso update_theme -i "$1" 1> /dev/null
+	if [ -x $(which feh) ]; then
+		feh --bg-fill "$1"
+	elif [ -x $(which xwallpaper) ]; then
+		xwallpaper --stretch "$1"
+	fi
 else
 	(wal  -tso update_theme --theme  base16-cupcake)
 fi
