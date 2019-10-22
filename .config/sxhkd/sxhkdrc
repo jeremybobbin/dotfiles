@@ -6,6 +6,9 @@ super + d
 
 super + shift + Return
 	$TERMINAL
+	
+super + shift + Escape
+	$TERMINAL
 
 super + p
 	$TERMINAL -e htop
