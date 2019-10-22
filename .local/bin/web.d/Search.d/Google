@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-printf | dmenu_color -p 'Search Google:' | xargs -i "$BROWSER" 'https://www.google.com/search?q={}'
+printf | dmenu_color -p 'Search Google:' | xargs -0I{} "$BROWSER" 'https://www.google.com/search?q={}'
