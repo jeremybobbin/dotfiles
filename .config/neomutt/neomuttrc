@@ -22,21 +22,16 @@ macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><cha
 macro attach 'V' '<pipe-entry>view_xhtml<enter>'
 macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
 
-
+# Vim Keys
 bind pager j next-line
 bind pager k previous-line
+bind pager g top
+bind attach,index,pager G bottom
 bind attach,index,pager \CD next-page
 bind attach,index,pager \CU previous-page
 
-# One of these is the 'reply-all' button...
-#bind pager g top
-#bind pager G bottom
-#bind attach,index g first-entry
-#bind attach,index G last-entry
-
 bind index,pager B sidebar-toggle-visible
 bind index "^" imap-fetch-mail
-
 
 color hdrdefault blue default
 color quoted blue default
