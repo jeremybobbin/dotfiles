@@ -1,4 +1,11 @@
 #!/bin/sh
-tmp=$(mktemp)
+if [ "$#" -gt 1 ];
+then
+	tmp="$(mktemp).$1"
+	shift
+else
+	tmp=$(mktemp)
+fi
+
 cat > "$tmp"
 $@ $tmp
