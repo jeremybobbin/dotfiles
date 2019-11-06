@@ -1,2 +1,8 @@
 #!/usr/bin/sh
-printf | dmenu_color -p 'Search Google:' | xargs -0I{} "$BROWSER" 'https://www.google.com/search?q={}'
+url=$(printf | dmenu_color -p 'Search Google:')
+
+if [ -z $url ]; then
+	exit 1
+fi
+
+$BROWSER "https://www.google.com/search?q=$url"
