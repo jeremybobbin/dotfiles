@@ -36,6 +36,7 @@ EDITOR='nvim'
 EMAIL_CLIENT='neomutt'
 PDF_VIEWER='zathura'
 TERMINAL='st'
+TERM=$TERMINAL
 VIDEO_PLAYER='mpv'
 
 HOME_PAGE='https://www.google.com'
