@@ -12,9 +12,13 @@ purple=$(escape_tput setaf 4)
 pink=$(escape_tput setaf 5)
 blue=$(escape_tput setaf 6)
 white=$(escape_tput setaf 7)
-
-bold=$(escape_tput bold)
 none=$(escape_tput sgr0)
+
+if tty | grep tty; then
+	bold=''
+else 
+	bold=$(escape_tput bold)
+fi
 
 username=$(id -u -n)
 hostname=$(hostname -s)
