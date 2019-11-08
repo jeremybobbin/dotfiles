@@ -1,12 +1,24 @@
 #!/usr/bin/sh
+# Which package owns this file/executible?
+#
+# $ owns lsblk
+# util-linux 
+# $
 
-if [ -x "$1" ]; then
-	file=$(which "$1") || {
-		echo "$1 neither exists nor is executible" >&2;
-		exit 1;
-	}
-else
+if [ $# -lt 1 ]; then
+	echo "$0 requires an argument" >&2;
+	exit 1;
+fi
+
+file=$(which "$1")
+
+if [ $? -eq 0 ]; then
+	file=$(which "$1")
+elif [ -x "$1" ]; then
 	file="$1"
+else
+	echo "$1 neither exists nor is executible" >&2;
+	exit 1;
 fi
 
 if [ -x "/bin/pacman" ]; then
