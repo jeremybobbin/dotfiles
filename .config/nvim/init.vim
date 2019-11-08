@@ -1,4 +1,4 @@
-call plug#begin('~/.config/vim/plugged')
+call plug#begin('~/.vim')
 Plug 'chrisbra/csv.vim'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
