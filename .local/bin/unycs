@@ -1,0 +1,28 @@
+#!/bin/sh
+# UNix Y Combinator Script
+# Feeds stdout of process into stdin of a duplicate processes
+
+set -e
+
+# Delete pre-existing fifo
+if [ ! -z $UNYCS_PIPE ]; then
+	rm -r $(dirname $UNYCS_PIPE)
+fi
+
+export UNYCS_PIPE="$(mktemp -d)/pipe"
+export UNYCS_SLEEP=${UNYCS_SLEEP:-'0.3'}
+
+mkfifo $UNYCS_PIPE
+
+# Copy $1's stdout to pipe
+$(realpath $1) | tee $UNYCS_PIPE & 
+
+if [ $? -ne 0 ];
+	exit $?
+fi
+
+# Sleep while process fills the pipe
+sleep $UNYCS_SLEEP
+
+clear
+exec $0 $1 < "$UNYCS_PIPE"
