@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-printf | dmenu_color -p "Enter URL:" | xargs "$BROWSER"
+printf | dmenu_color -p "Enter URL:" | xargs -r "$BROWSER"
