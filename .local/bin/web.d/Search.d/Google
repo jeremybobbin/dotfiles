@@ -1,3 +1,3 @@
 #!/usr/bin/sh
 printf | dmenu_color -p 'Search Google:' |
-	xargs -rI{} "$BROWSER" "https://www.google.com/search?q=$url"
+	xargs -r0I{} "$BROWSER" "https://www.google.com/search?q={}"
