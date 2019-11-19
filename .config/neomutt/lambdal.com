@@ -11,4 +11,4 @@ unset trash
 set spoolfile=+Inbox
 set postponed=+Drafts
 
-mailboxes +Inbox "+All Mail" +Drafts +Important "+Sent Mail" +Spam +Starred +Trash
+mailboxes +Inbox +Drafts "+Sent Mail" +Spam +Trash
