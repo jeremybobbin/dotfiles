@@ -1,20 +1,6 @@
-call plug#begin('~/.vim')
-Plug 'chrisbra/csv.vim'
-Plug 'elzr/vim-json'
-Plug 'mxw/vim-jsx'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
-call plug#end()
-
 let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
-
 
 let mapleader = ""
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
