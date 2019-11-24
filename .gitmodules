@@ -1,0 +1,30 @@
+[submodule "/home/jer/.vim/pack/jer/start/csv.vim"]
+	path = /home/jer/.vim/pack/jer/start/csv.vim
+	url = https://github.com/chrisbra/csv.vim
+[submodule "/home/jer/.vim/pack/jer/start/vim-json"]
+	path = /home/jer/.vim/pack/jer/start/vim-json
+	url = https://github.com/elzr/vim-json
+[submodule "/home/jer/.vim/pack/jer/start/vim-jsx"]
+	path = /home/jer/.vim/pack/jer/start/vim-jsx
+	url = https://github.com/mxw/vim-jsx
+[submodule "/home/jer/.vim/pack/jer/start/haskell-vim"]
+	path = /home/jer/.vim/pack/jer/start/haskell-vim
+	url = https://github.com/neovimhaskell/haskell-vim
+[submodule "/home/jer/.vim/pack/jer/start/vim-javascript"]
+	path = /home/jer/.vim/pack/jer/start/vim-javascript
+	url = https://github.com/pangloss/vim-javascript
+[submodule "/home/jer/.vim/pack/jer/start/rust.vim"]
+	path = /home/jer/.vim/pack/jer/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
+[submodule "/home/jer/.vim/pack/jer/start/vim-repeat"]
+	path = /home/jer/.vim/pack/jer/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "/home/jer/.vim/pack/jer/start/vim-surround"]
+	path = /home/jer/.vim/pack/jer/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "/home/jer/.vim/pack/jer/start/vim-unimpaired"]
+	path = /home/jer/.vim/pack/jer/start/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule "/home/jer/.vim/pack/jer/start/vim-vinegar"]
+	path = /home/jer/.vim/pack/jer/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar
