@@ -6,6 +6,9 @@ set sleep_time=0
 set mailcap_path 	= ~/.config/neomutt/mailcap
 auto_view text/html
 
+set sort = threads
+set sort_aux = last-date-received
+
 
 folder-hook 'jer.cx' 'source ~/.config/neomutt/jer.cx'
 folder-hook 'lambdal.com' 'source ~/.config/neomutt/lambdal.com'
