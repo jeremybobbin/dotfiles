@@ -1,0 +1,79 @@
+#!/bin/sh
+
+cookies="$HOME/.local/share/lambda/orders"
+mkdir -p "$(dirname $cookies)"
+touch $cookies
+url='https://lambdalabs.com'
+
+usage() {
+	cat <<- "EOF"
+	$0 login <username> <password>
+	$0 search word[ word[ ...]]]
+	EOF
+}
+
+login() {
+	curl --cookie-jar "$cookies" \
+		--data "username=$1" \
+		--data "password=$2" \
+		--data 'csrfmiddlewaretoken=K8zEv9JlEK9cj0l2VIQv5g4N6AjDJ8Q0oPiVQWigbzNwlvie2QvYYMqshRE0LjyU' \
+		--data 'next=%2Ftools%2Forders' \
+		-H 'referer: https://lambdalabs.com/e7f83f0e74ab48fd99743be3de4c527b/admin/login/?next=/tools/orders' \
+		-H 'cookie: csrftoken=V0Z7htOhvOBhWjtoGb8ucgsqCN7pYVVQzHIoCgnc2DfBYOqANjNX5MO5N4sM06DK' \
+		-L "$url/e7f83f0e74ab48fd99743be3de4c527b/admin/login/?next=/tools/orders" 
+}
+
+search() {
+	curl --data-urlencode "search=$@" \
+		--cookie "$cookies" \
+		-G "$url/api/orders" | jq '.data'
+}
+
+pdf_dl() {
+	tmp=$(mktemp -d)
+	for path in $(search $@ | jq -r '[].pdf_url' | tr -d \"); do
+		out_file="$tmp/$(basename $path)"
+		curl --cookie "$cookies" \
+			-G "$url$path" -o $out_file 2> /dev/null
+
+		echo $out_file
+	done
+}
+
+build_dl() {
+	tmp=$(mktemp -d)
+	for path in $(search $@ | jq -r '[].build_sheet_url' | tr -d \"); do
+		out_file="$tmp/$(basename $path)"
+		curl --cookie "$cookies" \
+			-G "$url$path" -o $out_file 2> /dev/null
+
+		echo $out_file
+	done
+}
+
+main() {
+	case $1 in
+		login)
+			shift
+			login $1 $2
+			;;
+		search)
+			shift
+			search "$@"
+			;;
+		pdf)
+			shift
+			pdf_dl "$@"
+			;;
+		build)
+			shift
+			build_dl "$@"
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+main $@
