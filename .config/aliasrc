@@ -59,7 +59,7 @@ pcbpng	xc c -t image/png
 
 # Apps
 g	git
-sv	sudo -E nvim -O
+sv	sudo -E $EDITOR
 n	nnn
 z	zathura
 
@@ -139,4 +139,4 @@ rs	~/Projects/Rust
 msc	~/Media/Audio/Music
 img	~/Media/Images
 vdo	~/Media/Video
-vrcd	~/.config/nvim
+vvrcd	~/.vim
