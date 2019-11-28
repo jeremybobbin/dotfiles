@@ -6,6 +6,9 @@ let mapleader = ""
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 let g:lisp_rainbow = 1
 
+autocmd VimEnter * execute "normal i\<Esc>"
+
+
 
 filetype indent plugin on
 syntax on
