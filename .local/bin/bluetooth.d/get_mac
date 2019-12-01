@@ -7,6 +7,6 @@ mac_regex='([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'
 
 echo devices |
 	bluetoothctl |
-	grep -v '[NEW]' |
+	grep -Ev '\[.*\]' |
 	grep -Eio "$device_regexp" |
 	grep -Eio "$mac_regex"
