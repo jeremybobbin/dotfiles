@@ -14,4 +14,4 @@ else
 	action='connect'
 fi
 
-bluetooth "$action" "$1"
+bluetooth "$action" "$mac_address"
