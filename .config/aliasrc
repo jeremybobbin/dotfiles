@@ -11,7 +11,7 @@ lt		command ls -t
 new		(st -c "cd $PWD" &>/dev/null & disown)
 c		fasd_cd -d -i
 # Jenkins Operator |_
-_		xargs -n 1 -I{}
+_		xargs -n1
 
 # Corresponds with rm and cd_wrapper functions
 rm	rm_wrapper
