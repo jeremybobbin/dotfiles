@@ -11,6 +11,7 @@
 .cargo
 .ccache
 .dbus/
+.docker/
 .eclipse/
 .elinks/
 .esd_auth
@@ -28,6 +29,7 @@
 .ICEauthority
 .iourc
 .java/
+.jupyter/
 .keep/
 .keras
 .lesshst
@@ -48,9 +50,11 @@
 .nvidia-settings-rc
 .packettracer
 .paradox-launcher/
+.parallel/
 .passwords/
 .pki
 .psql_history
+.python_history
 .rnd
 .rustup
 .rusty-tags
@@ -100,7 +104,6 @@ file
 file2
 five9
 Five9/
-Personal
 five9_agent.webm
 hector
 hexes
@@ -117,6 +120,7 @@ Media
 netsapiens-tools/
 Notes
 pam.d/
+Personal
 posix
 Projects
 pt/
