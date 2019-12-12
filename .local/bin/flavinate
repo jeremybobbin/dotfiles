@@ -8,5 +8,5 @@ if [ -r "$1" ]; then
 		xwallpaper --stretch "$1"
 	fi
 else
-	(wal  -tso update_theme --theme  base16-cupcake)
+	(wal  -tso update_theme --theme  base16-dracula)
 fi
