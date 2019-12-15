@@ -1,39 +1,43 @@
 # Rust Related 
 # Need to escape so that alias generator doesn't evaluate
-vct	ct=$(ct) && v $ct
+ect	ct=$(ct) && e $ct
 
 
 # Shell
 o		"$XDG_BIN_HOME/open"
-e		exit
-ll		command ls -al
-lt		command ls -t
-new		(st -c "cd $PWD" &>/dev/null & disown)
+e		$EDITOR
 c		fasd_cd -d -i
+
+ls		ls --color=auto --group-directories-first -hN 
+la		command ls --color=auto -ahN --group-directories-first
+ll		command ls --color=auto -lhN --group-directories-first
+lt		command ls --color=auto -thN 
+
+new		($TERMINAL -c "cd $PWD" &>/dev/null & disown)
+
 # Jenkins Operator |_
 _		xargs -n 1 -I{}
 
-# Corresponds with rm and cd_wrapper functions
+# rm_wrapper function in ~/.bashrc
 rm	rm_wrapper
 
 
-sp	source ~/.profile
-sbrc	source ~/.bashrc
+sp	. ~/.profile
+sbrc	. ~/.bashrc
 
-vp	v ~/.profile
-vbp	v ~/.profile
-vxp	v ~/.xprofile
+ep	e ~/.profile
+ebp	e ~/.bash_profile
+exp	e ~/.xprofile
 
+ebrc	e ~/.bashrc
+eirc	e ~/.inputrc
+exrc	e ~/.xinitrc
+evrc	e ~/.vimrc
+evrcd	e ~/.vim
 
-vbrc	v ~/.bashrc
-virc	v ~/.inputrc
-vxrc	v ~/.xinitrc
-vmrc	v ~/.config/neomutt/neomuttrc
-vvrc	v ~/.vimrc
-vvrcd	v ~/.vim
-
-vxhk	v ~/.config/sxhkd/sxhkdrc
-varc	v ~/.config/aliasrc
+emrc	e ~/.config/neomutt/neomuttrc
+exhk	e ~/.config/sxhkd/sxhkdrc
+earc	e ~/.config/aliasrc
 
 # Administration
 sc	systemctl
@@ -49,33 +53,34 @@ cx	chmod a+x
 
 # Clipboard
 xc	xclip -selection
+
 cb	xc c
 pcb	xc p
-p2c	pcb -o - | cb
-c2p	cb -o - | pcb
+cbo	xc c -o
+pcbo	xc p -o
 
-cbpng	xc c -t image/png
-pcbpng	xc c -t image/png
+cbimg	xc c -t image
+pcbimg	xc p -t image
+
+p2c	pcbo | cb
+c2p	cbo | pcb
 
 # Apps
 g	git
-sv	sudo -E $EDITOR
+se	sudo -E $EDITOR
 n	nnn
 z	zathura
 
 # Make
+m	make
+smi	sudo make install
 rh	runhaskell
-
-# Big O vim for vertical windows
-vim	$EDITOR
-v	$EDITOR -O
 
 # Media
 rec	ffmpeg -video_size 1920x1080 -framerate 20 -f x11grab -i :0.0+0,0 "$HOME/Media/Video/ScreenCast/$(date +%s).mp4"
 pm	pulsemixer
 
 # Colors
-ls	ls --color=auto --group-directories-first -hN 
 ip	ip -c
 
 grep	grep --color=auto 
@@ -110,7 +115,7 @@ ipb	ip -br
 
 # Mail
 mutt	neomutt
-m		neomutt
+m	neomutt
 
 
 # Lambda
@@ -139,4 +144,3 @@ rs	~/Projects/Rust
 msc	~/Media/Audio/Music
 img	~/Media/Images
 vdo	~/Media/Video
-vvrcd	~/.vim
