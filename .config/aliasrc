@@ -8,9 +8,10 @@ o		"$XDG_BIN_HOME/open"
 e		$EDITOR
 c		fasd_cd -d -i
 
-ls		ls --color=auto --group-directories-first -hN 
+ls		command ls --color=auto --group-directories-first -hN 
 la		command ls --color=auto -ahN --group-directories-first
 ll		command ls --color=auto -lhN --group-directories-first
+lc		command ls --color=always -hN --group-directories-first 
 lt		command ls --color=auto -thN 
 
 new		($TERMINAL -c "cd $PWD" &>/dev/null & disown)
@@ -48,8 +49,6 @@ sscr	sudo systemctl restart
 ssce	sudo systemctl enable
 scur	systemctl --user restart
 scue	systemctl --user enable
-
-cx	chmod a+x
 
 # Clipboard
 xc	xclip -selection
