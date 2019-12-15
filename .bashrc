@@ -1,5 +1,8 @@
 #!/bin/bash
-echo $- | grep -v 'i' && return
+case $- in
+	*i*) ;;
+	*) return;;
+esac
 
 jump() {
 	cd "$(command jump "$@")" ||

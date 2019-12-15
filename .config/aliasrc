@@ -16,7 +16,7 @@ lt		command ls --color=auto -thN
 new		($TERMINAL -c "cd $PWD" &>/dev/null & disown)
 
 # Jenkins Operator |_
-_		xargs -n 1 -I{}
+_		xargs -n1
 
 # rm_wrapper function in ~/.bashrc
 rm	rm_wrapper
