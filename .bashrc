@@ -38,7 +38,8 @@ shopt -s globstar
 #shopt -s progcomp_alias
 
  # Infinite history.
-HISTSIZE= HISTFILESIZE=
+export HISTSIZE=
+export HISTFILESIZE=
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
