@@ -24,10 +24,11 @@ login() {
 	# Visit site once to extract CSRF and form "action" tag
 	page=$(mktemp)
 	curl --cookie-jar "$cookies" \
-		-L "$url/tools/orders" -o "$page" 2>/dev/null
+		-L "$url/tools/orders" \
+		-o "$page" 2>/dev/null
 
-	action=$(action $tmp)
-	csrf=$(csrf $tmp)
+	action=$(action $page)
+	csrf=$(csrf $page)
 
 	curl --cookie-jar "$cookies" \
 		-H "cookie: csrftoken=$csrf" \
