@@ -1,28 +1,15 @@
 #!/bin/sh
 
+url='https://lambdalabs.com'
 cookies="$HOME/.local/share/lambda/orders"
 mkdir -p "$(dirname $cookies)"
 touch $cookies
-url='https://lambdalabs.com'
-#url='localhost:8080'
-tmp=''
-CURL='curl_tee'
-
-curl_tee() {
-	[ -z "$tmp" ] && tmp=$(mktemp)
-	curl $* | tee $tmp
-}
 
 usage() {
 	cat <<- "EOF"
 	$0 login <username> <password>
 	$0 search word[ word[ ...]]]
 	EOF
-}
-
-metadata() {
-	$CURL --cookie-jar "$cookies" \
-		-L "$url/tools/orders" >/dev/null
 }
 
 action() {
@@ -34,30 +21,26 @@ csrf() {
 }
 
 login() {
-	metadata
-	echo URL "${url}$(action $tmp)"
-	echo USERNAME "$1"
-	echo PASSWORD "$2"
-	echo "csrfmiddlewaretoken=$(csrf $tmp)" 
+	# Visit site once to extract CSRF and form "action" tag
+	page=$(mktemp)
 	curl --cookie-jar "$cookies" \
-		-H "cookie: csrftoken=$(csrf $tmp)" \
+		-L "$url/tools/orders" -o "$page" 2>/dev/null
+
+	action=$(action $tmp)
+	csrf=$(csrf $tmp)
+
+	curl --cookie-jar "$cookies" \
+		-H "cookie: csrftoken=$csrf" \
 		-H 'referer: https://lambdalabs.com/e7f83f0e74ab48fd99743be3de4c527b/admin/login/?next=/tools/orders' \
 		--data-urlencode "username=$1" \
 		--data-urlencode "password=$2" \
-		--data "csrfmiddlewaretoken=$(csrf $tmp)" \
-		-L "${url}$(action $tmp)" 
-	echo POST LOGIN
-}
-
-search_raw() {
-	$CURL --data-urlencode "search=$@" \
-		--cookie "$cookies" \
-		-G "$url/api/orders"
+		--data "csrfmiddlewaretoken=$csrf" \
+		-L "$url$action"
 }
 
 search() {
 	if [ ! -f $cookies ]; then
-		cat 1>&2 <<- "EOF"
+		cat 1>&2 <<- EOF
 		$cookies file doesn't exist.
 		Please log in via `$0 login`
 		EOF
@@ -90,6 +73,7 @@ download_to_tmp() {
 	echo $path
 }
 
+# Downloads order PDFs to /tmp/<name>.pdf
 pdf_dl() {
 	tmp=$(mktemp -d)
 	for path in $(search $@ | jq -r '.data[].pdf_url' | tr -d \"); do
@@ -97,6 +81,7 @@ pdf_dl() {
 	done
 }
 
+# Downloads buildsheet PDFs to /tmp/<name>.pdf
 build_dl() {
 	tmp=$(mktemp -d)
 	for path in $(search $@ | jq -r '.data[].build_sheet_url' | tr -d \"); do
@@ -114,17 +99,9 @@ main() {
 			shift
 			search "$@"
 			;;
-		search_raw)
-			shift
-			search_raw "$@"
-			;;
 		pdf)
 			shift
 			pdf_dl "$@"
-			;;
-		metadata)
-			shift
-			metadata "$@"
 			;;
 		build)
 			shift
