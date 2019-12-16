@@ -4,6 +4,14 @@ cookies="$HOME/.local/share/lambda/orders"
 mkdir -p "$(dirname $cookies)"
 touch $cookies
 url='https://lambdalabs.com'
+#url='localhost:8080'
+tmp=''
+CURL='curl_tee'
+
+curl_tee() {
+	[ -z "$tmp" ] && tmp=$(mktemp)
+	curl $* | tee $tmp
+}
 
 usage() {
 	cat <<- "EOF"
@@ -12,42 +20,87 @@ usage() {
 	EOF
 }
 
+metadata() {
+	$CURL --cookie-jar "$cookies" \
+		-L "$url/tools/orders" >/dev/null
+}
+
+action() {
+	sed -En "/form/ s/.*action=\"([^\"]*)\".*/\1/p" $*
+}
+
+csrf() {
+	sed -En "/name='csrfmiddlewaretoken'/ s/.*value='([^']*)'.*/\1/p" $*
+}
+
 login() {
+	metadata
+	echo URL "${url}$(action $tmp)"
+	echo USERNAME "$1"
+	echo PASSWORD "$2"
+	echo "csrfmiddlewaretoken=$(csrf $tmp)" 
 	curl --cookie-jar "$cookies" \
-		--data "username=$1" \
-		--data "password=$2" \
-		--data 'csrfmiddlewaretoken=K8zEv9JlEK9cj0l2VIQv5g4N6AjDJ8Q0oPiVQWigbzNwlvie2QvYYMqshRE0LjyU' \
-		--data 'next=%2Ftools%2Forders' \
+		-H "cookie: csrftoken=$(csrf $tmp)" \
 		-H 'referer: https://lambdalabs.com/e7f83f0e74ab48fd99743be3de4c527b/admin/login/?next=/tools/orders' \
-		-H 'cookie: csrftoken=V0Z7htOhvOBhWjtoGb8ucgsqCN7pYVVQzHIoCgnc2DfBYOqANjNX5MO5N4sM06DK' \
-		-L "$url/e7f83f0e74ab48fd99743be3de4c527b/admin/login/?next=/tools/orders" 
+		--data-urlencode "username=$1" \
+		--data-urlencode "password=$2" \
+		--data "csrfmiddlewaretoken=$(csrf $tmp)" \
+		-L "${url}$(action $tmp)" 
+	echo POST LOGIN
+}
+
+search_raw() {
+	$CURL --data-urlencode "search=$@" \
+		--cookie "$cookies" \
+		-G "$url/api/orders"
 }
 
 search() {
+	if [ ! -f $cookies ]; then
+		cat 1>&2 <<- "EOF"
+		$cookies file doesn't exist.
+		Please log in via `$0 login`
+		EOF
+
+		exit 1
+	fi
+
 	curl --data-urlencode "search=$@" \
 		--cookie "$cookies" \
-		-G "$url/api/orders" | jq '.data'
+		-G "$url/api/orders"
+}
+
+download() {
+	curl -f --cookie "$cookies" \
+		-G "$1" -o - 2> /dev/null
+}
+
+download_to_tmp() {
+	if [ ! -d "$tmpdir" ] || [ -z "$tmpdir" ]; then
+		tmpdir=$(mktemp -d)
+	fi
+
+	path="$tmpdir/$(basename $1)"
+
+	download "$1" > "$path" || {
+		echo "Failed to download $(basename "$out_file")" 1>&2
+		return 1
+	}
+
+	echo $path
 }
 
 pdf_dl() {
 	tmp=$(mktemp -d)
-	for path in $(search $@ | jq -r '[].pdf_url' | tr -d \"); do
-		out_file="$tmp/$(basename $path)"
-		curl --cookie "$cookies" \
-			-G "$url$path" -o $out_file 2> /dev/null
-
-		echo $out_file
+	for path in $(search $@ | jq -r '.data[].pdf_url' | tr -d \"); do
+		download_to_tmp "$url$path"
 	done
 }
 
 build_dl() {
 	tmp=$(mktemp -d)
-	for path in $(search $@ | jq -r '[].build_sheet_url' | tr -d \"); do
-		out_file="$tmp/$(basename $path)"
-		curl --cookie "$cookies" \
-			-G "$url$path" -o $out_file 2> /dev/null
-
-		echo $out_file
+	for path in $(search $@ | jq -r '.data[].build_sheet_url' | tr -d \"); do
+		download_to_tmp "$url$path"
 	done
 }
 
@@ -55,15 +108,23 @@ main() {
 	case $1 in
 		login)
 			shift
-			login $1 $2
+			login "$1" "$2"
 			;;
 		search)
 			shift
 			search "$@"
 			;;
+		search_raw)
+			shift
+			search_raw "$@"
+			;;
 		pdf)
 			shift
 			pdf_dl "$@"
+			;;
+		metadata)
+			shift
+			metadata "$@"
 			;;
 		build)
 			shift
