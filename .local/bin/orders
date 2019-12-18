@@ -1,11 +1,12 @@
 #!/bin/sh
 
-cookies="$HOME/.local/share/lambda/orders"
+dir="$HOME/.local/share/lambda"
+cookies="$dir/orders"
+
 mkdir -p "$(dirname $cookies)"
 touch $cookies
 url='https://lambdalabs.com'
 #url='localhost:8080'
-tmp=''
 CURL='curl_tee'
 
 curl_tee() {
@@ -70,37 +71,46 @@ search() {
 		-G "$url/api/orders"
 }
 
-download() {
+download_with_cookies() {
 	curl -f --cookie "$cookies" \
 		-G "$1" -o - 2> /dev/null
 }
 
-download_to_tmp() {
-	if [ ! -d "$tmpdir" ] || [ -z "$tmpdir" ]; then
-		tmpdir=$(mktemp -d)
+# With cache
+download() {
+	out_dir="$dir/$1"
+
+	if [ ! -d $out_dir ]; then
+		mkdir -p "$out_dir"
 	fi
 
-	path="$tmpdir/$(basename $1)"
+	out_file="$out_dir/$(basename $2)"
 
-	download "$1" > "$path" || {
-		echo "Failed to download $(basename "$out_file")" 1>&2
-		return 1
+	if [ -f $out_file ]; then
+		echo $out_file
+		return 0
+	fi
+
+	download_with_cookies "$2" > "$out_file" || {
+		echo "Failed to download $(basename "$out_file")" 1>&2;
+		rm -f "$out_file"
+		return 1;
 	}
 
-	echo $path
+	echo $out_file
 }
 
 pdf_dl() {
 	tmp=$(mktemp -d)
 	for path in $(search $@ | jq -r '.data[].pdf_url' | tr -d \"); do
-		download_to_tmp "$url$path"
+		download 'invoice' "$url$path"
 	done
 }
 
 build_dl() {
 	tmp=$(mktemp -d)
 	for path in $(search $@ | jq -r '.data[].build_sheet_url' | tr -d \"); do
-		download_to_tmp "$url$path"
+		download 'build_sheet' "$url$path"
 	done
 }
 
