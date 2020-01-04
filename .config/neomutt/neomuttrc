@@ -1,7 +1,12 @@
+source vim-keys.rc
+
 set use_from=yes
 set pipe_decode=yes # Gets rid of '=' line breaks
-set sidebar_visible = yes
 set sleep_time=0
+
+# Bar
+set sidebar_visible = yes
+set sidebar_width = 15
 
 set mailcap_path 	= ~/.config/neomutt/mailcap
 auto_view text/html
@@ -24,14 +29,6 @@ macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><cha
 # Need to disown the browser process
 macro attach 'V' '<pipe-entry>view_xhtml<enter>'
 macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
-
-# Vim Keys
-bind pager j next-line
-bind pager k previous-line
-bind pager g top
-bind attach,index,pager G bottom
-bind attach,index,pager \CD next-page
-bind attach,index,pager \CU previous-page
 
 bind index,pager B sidebar-toggle-visible
 bind index "^" imap-fetch-mail
