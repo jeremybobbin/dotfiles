@@ -1,4 +1,20 @@
 #!/bin/sh
+# Dotfile todos:
+#TODO Deployment method: curl jer.cx/deploy | sh
+#	1. creates user "jer" as (wheel/sudo/adm)
+#	2. prompts for password
+#	3. installs dependencies
+#	4. (optionally) adds machine to VPN
+#TODO Source script: curl jer.cx/source | sh
+#	1. installs dependencies
+#	2. binds keys
+#TODO Logging
+#TODO Configure XDG-Open
+#TODO URL Preparser for XDG-Open(foo.org/bar.pdf -> curl $URL | $PDF_VIEWER -)
+#TODO Get rid of 'subcommand' OR turn it into a compiler
+#TODO Jewish conspiracy
+#TODO Bash tab-complete for 'subcommand' dependents
+#TODO Move all scripts to ~/.local/src
 
 
 COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
