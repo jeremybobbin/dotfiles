@@ -16,6 +16,7 @@ syntax on
 let g:mainruntimepath = $HOME . "/.vim"
 
 colorscheme delek
+set shellredir=>
 set autoindent
 set laststatus=2
 set confirm
