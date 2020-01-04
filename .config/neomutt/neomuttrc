@@ -1,28 +1,38 @@
-source vim-keys
 source colors
+source bindings
+source sidebar
+source lambdal.com # Default Mailbox
+
+set date_format="%m/%d/%y %I:%M%p"
+set index_format="%2C %zs %?X?A& ? %D %-15.15F %s (%-4.4c)"
+set help = no
+
+set sleep_time = 0
+set markers = no		# Disables the `+` displayed at line wraps
+set mark_old = no		# Unread mail stay unread until read
+set mime_forward = yes		# attachments are forwarded with mail
+
+set wait_key = no		# mutt won't ask "press key to continue"
+set fast_reply			# skip to compose when replying
+set fcc_attach			# save attachments with the body
+set forward_format = "Fwd: %s"	# format of subject when forwarding
+set forward_quote		# include message in forwards
+set reverse_name		# reply as whomever it was to
+set include			# include message in replies
 
 set use_from=yes
 set pipe_decode=yes # Gets rid of '=' line breaks
 set sleep_time=0
 
-# Bar
-set sidebar_visible = yes
-set sidebar_width = 15
 
-set mailcap_path 	= ~/.config/neomutt/mailcap
+set mailcap_path='~/.config/neomutt/mailcap'
 auto_view text/html
 
 set sort = threads
 set sort_aux = last-date-received
 
-
 folder-hook 'jer.cx' 'source ~/.config/neomutt/jer.cx'
 folder-hook 'lambdal.com' 'source ~/.config/neomutt/lambdal.com'
-
-# Default Box
-source ~/.config/neomutt/lambdal.com
-
-
 
 macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx<enter><change-folder>!<enter>'
 macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><change-folder>!<enter>'
@@ -31,5 +41,15 @@ macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><cha
 macro attach 'V' '<pipe-entry>view_xhtml<enter>'
 macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
 
+# Sidebar
+set sidebar_visible = yes
+set sidebar_width = 20
+set sidebar_short_path = yes
+set sidebar_next_new_wrap = yes
+set mail_check_stats
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
+macro index,pager \Cj '<sidebar-next><sidebar-open>'
+macro index,pager \Ck '<sidebar-prev><sidebar-open>'
+macro index,pager \Cn '<sidebar-next-new><sidebar-open>'
+macro index,pager \Cp '<sidebar-prev-new><sidebar-open>'
 bind index,pager B sidebar-toggle-visible
-bind index "^" imap-fetch-mail

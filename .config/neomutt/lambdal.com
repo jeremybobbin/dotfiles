@@ -1,3 +1,6 @@
+# vim: syntax=muttrc
+unmailboxes *
+set imap_check_subscribed = "yes"
 set folder="~/.mail/lambda"
 
 set from='jeremy@lambdal.com'
