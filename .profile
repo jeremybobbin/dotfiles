@@ -17,20 +17,18 @@
 #TODO Move all scripts to ~/.local/src
 
 
-COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
-
 appendpath() {
 	for i in $*; do
 		case ":$PATH:" in
 			*:"$i":*)
 				;;
 			*)
-				PATH="${PATH:+$PATH:}$1"
+				PATH="${PATH:+$PATH:}$i"
 		esac
 	done
 }
 
-is_tty() {
+isatty() {
 	case "$(tty)" in
 		/dev/tty*) return 0;;
 		*) return 1
@@ -56,17 +54,19 @@ PDF_VIEWER='zathura'
 TERMINAL='st'
 TERM=$TERMINAL
 VIDEO_PLAYER='mpv'
-
 HOME_PAGE='https://www.google.com'
 BLUETOOTH_DEVICE='AirPods'
 
-RUSTC_WRAPPER=""
-CARGO_CFG_COLOR='always'
-[ -x '/usr/bin/rustc' ] &&
-	RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
-
 TZ='US/Pacific'
 _JAVA_AWT_WM_NONREPARENTING=1
+
+CARGO_CFG_COLOR='always'
+RUSTC_WRAPPER=""
+
+COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
+
+[ -x '/usr/bin/rustc' ] &&
+	RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
 
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
@@ -91,6 +91,6 @@ esac
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
 	exec startx
-elif is_tty; then
+elif isatty; then
 	remap tty
 fi
