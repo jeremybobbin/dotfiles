@@ -20,12 +20,14 @@
 COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
 
 appendpath() {
-	case ":$PATH:" in
-		*:"$1":*)
-			;;
-		*)
-			PATH="${PATH:+$PATH:}$1"
-	esac
+	for i in $*; do
+		case ":$PATH:" in
+			*:"$i":*)
+				;;
+			*)
+				PATH="${PATH:+$PATH:}$1"
+		esac
+	done
 }
 
 is_tty() {
@@ -60,29 +62,32 @@ BLUETOOTH_DEVICE='AirPods'
 
 RUSTC_WRAPPER=""
 CARGO_CFG_COLOR='always'
-RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
+[ -x '/usr/bin/rustc' ] &&
+	RUST_SRC_PATH="$(/usr/bin/rustc --print sysroot)/lib/rustlib/src/rust/src/"
 
 TZ='US/Pacific'
 _JAVA_AWT_WM_NONREPARENTING=1
 
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
-if [ "$XDG_CONFIG_HOME/pathrc" -nt "$XDG_CACHE_HOME/jeros/path" ]; then
-	appendpath "$XDG_BIN_HOME"
-	for path in $(envsubst < "$XDG_CONFIG_HOME/pathrc")
-	do
-		appendpath "$path"
-	done
-	echo "$PATH" > $XDG_CACHE_HOME/jeros/path
-else
-	PATH=$(cat $XDG_CACHE_HOME/jeros/path)
-fi
+appendpath "
+$HOME/.cargo/bin
+$HOME/.local/bin
+$HOME/.yarn/bin
+/tmp/bin
+/usr/bin/
+/usr/sbin/
+/usr/local/bin
+/usr/local/sbin
+"
+
 set +a
 
+case $0 in
+	*bash) [ -r "$HOME/.bashrc" ] &&
+		. "$HOME/.bashrc";;
+esac
 
-if echo "$0" | grep bash > /dev/null && [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-fi
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
 	exec startx
