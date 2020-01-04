@@ -1,4 +1,5 @@
-source vim-keys.rc
+source vim-keys
+source colors
 
 set use_from=yes
 set pipe_decode=yes # Gets rid of '=' line breaks
@@ -32,20 +33,3 @@ macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
 
 bind index,pager B sidebar-toggle-visible
 bind index "^" imap-fetch-mail
-
-color hdrdefault blue default
-color quoted blue default
-color signature blue default
-color attachment red default
-color prompt brightmagenta default
-color message brightred default
-color error brightred default
-color indicator default red
-color status default blue
-color tree white default
-color normal white default
-color markers red default
-color search white default
-color tilde brightmagenta default
-color index blue default ~F
-color index red default "~N|~O"
