@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 url='https://lambdalabs.com'
 
@@ -9,10 +10,11 @@ mkdir -p "$(dirname $cookies)"
 touch $cookies
 
 usage() {
-	cat <<- "EOF"
+	cat 1>&2 <<- EOF
 	$0 login <username> <password>
 	$0 search word[ word[ ...]]]
 	EOF
+	exit 1
 }
 
 action() {
@@ -21,6 +23,11 @@ action() {
 
 csrf() {
 	sed -En "/name='csrfmiddlewaretoken'/ s/.*value='([^']*)'.*/\1/p" $*
+}
+
+die() {
+	printf "%s: %s\n" "$0" "$@" 2>&1
+	exit 1
 }
 
 login() {
@@ -32,6 +39,7 @@ login() {
 
 	action=$(action $page)
 	csrf=$(csrf $page)
+	failure="Please enter the correct username and password for a staff account. Note that both fields may be case-sensitive." 
 
 	curl --cookie-jar "$cookies" \
 		-H "cookie: csrftoken=$csrf" \
@@ -39,7 +47,13 @@ login() {
 		--data-urlencode "username=$1" \
 		--data-urlencode "password=$2" \
 		--data "csrfmiddlewaretoken=$csrf" \
-		-L "$url$action"
+		-L "$url$action" -f -v > $page 2>/dev/null
+	
+	if [ "$?" -ne 0 ] || grep -qF "$failure" "$page"; then
+		die "failed during log in"
+	fi
+
+	return 0
 }
 
 search() {
@@ -54,7 +68,7 @@ search() {
 
 	curl --data-urlencode "search=$@" \
 		--cookie "$cookies" \
-		-G "$url/api/orders"
+		-G "$url/api/orders" -f 2>/dev/null
 }
 
 download_with_cookies() {
@@ -72,14 +86,9 @@ download() {
 
 	out_file="$out_dir/$(basename $2)"
 
-	if [ -f $out_file ]; then
-		echo $out_file
-		return 0
-	fi
-
-	download_with_cookies "$2" > "$out_file" || {
+	[ -f $out_file ] || download_with_cookies "$2" > "$out_file" || {
 		echo "Failed to download $(basename "$out_file")" 1>&2;
-		rm -f "$out_file"
+		rm -f "$out_file";
 		return 1;
 	}
 
