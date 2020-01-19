@@ -11,15 +11,18 @@ set keymap vi-command
 
 Tab: alias-expand-line
 
-"\C-l":"Iclear; ls \eD\C-M"
-"\C-u":"Icd ..; clear; ls \eD\C-M"
+"\C-l":"I clear; ls \eD\C-M"
+"\C-u":"I cd ..; clear; ls \eD\C-M"
 
 "\el":"A | less"
 "\es":"Isudo "
+":":"cc vimctl '<C-W>:'\C-M\e"
+"]b":"cc vimctl -e 'bnext'\C-M\e"
+"[b":"cc vimctl -e 'bprev'\C-M\e"
 
 set keymap vi-insert
 
-"\C-l":"\eIclear; ls \eD\C-M"
+"\C-l":"\eI clear; ls \eD\C-M"
 "\C-u":"\eIcd ..; clear; ls \eD\C-M"
 
 "\el":"\eA | less"
