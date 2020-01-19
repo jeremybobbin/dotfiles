@@ -4,6 +4,25 @@ case $- in
 	*) return;;
 esac
 
+# EDITOR could be vim or nvim
+if which "$EDITOR" &>/dev/null && [ -z "$VIMRUNTIME" ]; then
+	[ "$EDITOR" = 'nvim' ] && exec "$EDITOR" -c ':terminal'
+	[ "$EDITOR" = 'vim'  ] && exec "$EDITOR" --servername "$$" -c ':terminal ++curwin'
+fi
+
+sendcmd() {
+	$EDITOR --servername $VIM_SERVERNAME --remote-send "<C-W>:$*<Enter>"
+}
+
+for cmd in e vsp Explore; do
+	alias $cmd="sendcmd $cmd"
+done
+
+cd() {
+	builtin cd "$@" || return 1
+	sendcmd cd "$@" || :
+}
+
 jump() {
 	cd "$(command jump "$@")" ||
 		return 1

@@ -23,6 +23,7 @@ set confirm
 set ignorecase
 set notimeout ttimeout ttimeoutlen=10
 set number
+set hidden
 set relativenumber
 set nohlsearch
 set showcmd
