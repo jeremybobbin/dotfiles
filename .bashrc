@@ -16,7 +16,7 @@ done
 
 cd() {
 	builtin cd "$@" || return 1
-	sendcmd cd "$@" || :
+	vimctl -e "cd $@" || :
 }
 
 jump() {
