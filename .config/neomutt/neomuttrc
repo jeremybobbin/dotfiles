@@ -13,6 +13,8 @@ set mime_forward = yes	        # attachments are forwarded with mail
 set pipe_decode=yes             # Gets rid of '=' line breaks
 set use_from=yes
 set sleep_time=0
+set rfc2047_parameters = yes
+
 
 set wait_key = no		# mutt won't ask "press key to continue"
 set fast_reply			# skip to compose when replying
