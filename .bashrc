@@ -10,12 +10,8 @@ if which "$EDITOR" &>/dev/null && [ -z "$VIMRUNTIME" ]; then
 	[ "$EDITOR" = 'vim'  ] && exec "$EDITOR" --servername "$$" -c ':terminal ++curwin'
 fi
 
-sendcmd() {
-	$EDITOR --servername $VIM_SERVERNAME --remote-send "<C-W>:$*<Enter>"
-}
-
 for cmd in e vsp Explore; do
-	alias $cmd="sendcmd $cmd"
+	alias $cmd="vimctl -e $cmd"
 done
 
 cd() {
@@ -59,9 +55,13 @@ shopt -s extglob
 shopt -s globstar
 #shopt -s progcomp_alias
 
+
  # Infinite history.
 export HISTSIZE=
 export HISTFILESIZE=
+
+# But ignore commands prefixed with a ' '
+export HISTCONTROL="ignorespace${HISTCONTROL:+:$HISTCONTROL}"
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"

@@ -1,2 +1,0 @@
-#!/bin/sh -e
-$EDITOR --servername $VIM_SERVERNAME --remote-send "<C-W>:$*<Enter>"
