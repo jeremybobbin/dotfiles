@@ -83,14 +83,15 @@ $HOME/.yarn/bin
 
 set +a
 
+if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
+	exec startx
+elif isatty; then
+	remap tty
+fi
+
 case $0 in
 	*bash) [ -r "$HOME/.bashrc" ] &&
 		. "$HOME/.bashrc";;
 esac
 
 
-if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
-	exec startx
-elif isatty; then
-	remap tty
-fi
