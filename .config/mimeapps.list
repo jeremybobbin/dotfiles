@@ -1,12 +1,12 @@
 [Default Applications]
-application/pdf=pdf.desktop;
-image/gif=img.desktop;
-image/jpeg=img.desktop;
-image/png=img.desktop;
-text/html=web.desktop
-text/plain=text.desktop;
-text/x-shellscript=text.desktop;
-x-scheme-handler/http=web.desktop;
-x-scheme-handler/https=web.desktop;
+application/pdf=zathura.desktop;
+image/gif=sxiv.desktop;
+image/jpeg=sxiv.desktop;
+image/png=sxiv.desktop;
+text/html=surf.desktop
+text/plain=vim.desktop;
+text/x-shellscript=vim.desktop;
+x-scheme-handler/http=surf.desktop;
+x-scheme-handler/https=surf.desktop;
 x-scheme-handler/magnet=torrent.desktop;
-x-scheme-handler/mailto=mail.desktop;
+x-scheme-handler/mailto=neomutt.desktop;
