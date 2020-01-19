@@ -5,7 +5,6 @@ ect	ct=$(ct) && e $ct
 
 # Shell
 o		"$XDG_BIN_HOME/open"
-e		$EDITOR
 c		fasd_cd -d -i
 
 ls		command ls --color=auto --group-directories-first -hN 
@@ -134,12 +133,12 @@ ulb	~/.local/bin
 cfg ~/.config
 cch ~/.cache
 
-dl	~/Downloads
-mda	~/Media
-doc	~/Media/Documents
-nts	~/Notes
-prj	~/Projects
-rs	~/Projects/Rust
-msc	~/Media/Audio/Music
-img	~/Media/Images
-vdo	~/Media/Video
+dl	cd ~/Downloads
+mda	cd ~/Media
+doc	cd ~/Media/Documents
+nts	cd ~/Notes
+prj	cd ~/Projects
+rs	cd ~/Projects/Rust
+msc	cd ~/Media/Audio/Music
+img	cd ~/Media/Images
+vdo	cd ~/Media/Video
