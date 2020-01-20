@@ -1,0 +1,2 @@
+#!/bin/sh
+man -Tpdf "$1" | ${PDF_VIEWER:-'mupdf'} -
