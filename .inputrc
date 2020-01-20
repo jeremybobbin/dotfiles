@@ -20,6 +20,10 @@ Tab: alias-expand-line
 "-":"cc vimctl -e 'Explore .'\C-M\e"
 "]b":"cc vimctl -e 'bnext'\C-M\e"
 "[b":"cc vimctl -e 'bprev'\C-M\e"
+"]B":"cc vimctl -e 'blast'\C-M\e"
+"[B":"cc vimctl -e 'bfirst'\C-M\e"
+"gt":"cc vimctl -e 'tabnext'\C-M\e"
+"gT":"cc vimctl -e 'tabprev'\C-M\e"
 
 set keymap vi-insert
 
