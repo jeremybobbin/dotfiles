@@ -20,7 +20,7 @@ set shellredir=>
 set autoindent
 set laststatus=2
 set confirm
-set ignorecase
+set smartcase
 set notimeout ttimeout ttimeoutlen=10
 set number
 set hidden
@@ -55,6 +55,6 @@ vnoremap <Space> "xd0/<++><CR>v3l"xp
 
 " Terminal
 nnoremap <M-t> :vsplit term://bash<CR>
-tnoremap <M-n> <C-\><C-N>
+tnoremap <C-n> <C-\><C-N>
 
 "autocmd BufNewFile *.sh,~/.local/bin/* r ~/.config/nvim/templates/sh/skeleton.sh
