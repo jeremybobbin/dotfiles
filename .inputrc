@@ -17,6 +17,7 @@ Tab: alias-expand-line
 "\el":"A | less"
 "\es":"Isudo "
 ":":"cc vimctl '<C-W>:'\C-M\e"
+"-":"cc vimctl -e 'Explore .'\C-M\e"
 "]b":"cc vimctl -e 'bnext'\C-M\e"
 "[b":"cc vimctl -e 'bprev'\C-M\e"
 
