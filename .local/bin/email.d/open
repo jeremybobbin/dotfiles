@@ -1,6 +1,0 @@
-#!/bin/sh
-if [ "$#" -eq 0 ]; then
-	$TERMINAL -e neomutt
-else
-	$TERMINAL -e neomutt -f "$HOME/.mail/$1/Inbox"
-fi

@@ -1,1 +1,1 @@
-* * * * * PATH="$PATH:$HOME/.local/bin:/usr/local/bin" email check cron
+* * * * * PATH="$PATH:$HOME/.local/bin:/usr/local/bin" email -Sn

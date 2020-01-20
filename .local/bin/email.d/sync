@@ -1,2 +1,0 @@
-#!/bin/sh
-msmtp-runqueue.sh && mbsync -a && exit 0 || exit 1

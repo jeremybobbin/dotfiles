@@ -1,2 +1,0 @@
-#!/bin/sh
-find /home/jer/.mail -name Inbox | xargs -i find '{}/new' -type f 

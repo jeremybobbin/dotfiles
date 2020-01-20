@@ -1,1 +1,137 @@
-#!/usr/bin/subcommand
+#!/bin/sh
+# Sync notify: email -Sn 
+# Count all: email -Ca 
+
+MAIL_DIR="$HOME/.mail"
+CACHE_DIR="$HOME/.cache/jeros"
+
+stderr() {
+	echo "$*" 2>&1
+}
+
+die() {
+	stderr "$0: $*"
+	exit 1
+}
+
+unread() {
+	find "$MAIL_DIR"/*/Inbox/new -type f
+}
+
+is_new_mail() {
+	stderr "Checking for new mail..."
+	mkdir -p "$CACHE_DIR"
+	# latest is based on the premise that email file names are
+	# prefixed with their Unix timestamp
+	latest=$(unread | sort -nr | head -n1)
+
+	# The one we saw on the last invocation of is_new_mail
+	saw_last_time=$(cat "$CACHE_DIR/email_notify")
+	MAIL_COUNT=$(unread | wc -l)
+
+	echo "$latest" > "$CACHE_DIR/email_notify"
+
+	[ "$latest" != "$saw_last_time" ] && [ "$MAIL_COUNT" -gt 0 ] ||
+		return 1
+
+}
+
+sync() {
+	stderr "Syncing..."
+
+	for opt in $opts; do
+		case $opt in 
+			# Interactive - let user know we're checking mail
+			i) interactive='true' ;;
+			n) notify='true' ;;
+			*) die "unrecognized flag - '$opt'"
+		esac
+	done
+
+	if [ "$interactive" ]; then
+		notify 'Mail' "Syncing mail..."
+	fi
+
+	msmtp-runqueue.sh && mbsync -a || return "$?"
+
+	if "$notify" && is_new_mail || "$interactive"; then
+		[ "$MAIL_COUNT" -eq 0 ] && count='no' || count="$MAIL_COUNT"
+		notify 'Mail' "You've got $count new mail."
+		play "$HOME/Media/Audio/Recordings/bow.mp3" vol 0.25
+	fi
+}
+
+file_count() {
+	find "$@" -type f | wc -l
+}
+
+count() {
+	stderr "Counting..."
+	to_count="$MAIL_DIR"
+	for opt in $opts; do
+		case "$opt" in 
+			'a') # all
+				to_count="$MAIL_DIR";;
+			'n') # new
+				to_count=$MAIL_DIR/*/Inbox/new;;
+			*)
+				die "unrecognized fag - '$opt'"
+		esac
+	done
+
+	file_count $to_count
+}
+
+open() {
+	stderr "Openning..."
+
+	cmd="$EMAIL_CLIENT"
+	for opt in $opts; do
+		case $opt in 
+			c) # Open in the current terminal
+				[ "$term" ] && die "can't use option 'c' with option 't'"
+				term=current
+				;;
+			t) # Open in a new terminal
+				[ "$term" ] && die "can't use option 'c' with option 't'"
+				term="new"
+				;;
+			m) # Mailbox
+				;;
+			*) die "unrecognized flag - '$opt'"
+		esac
+	done
+
+	[ "$m_arg" ] &&
+		cmd="$cmd -f $MAIL_DIR/$m_arg/Inbox"
+
+	[ "$term" = "new" ] &&
+		cmd="$TERMINAL -e $cmd"
+
+	echo COMMAND $cmd
+	exec $cmd
+}
+
+set_action() {
+	[ -n "$ACTION" ] &&
+		die "only one operation may be used at a time"
+	
+	ACTION="$*"
+}
+
+main() {
+	while getopts ":SCOciatnem:" opt; do
+		case $opt in 
+			S) set_action sync;;
+			C) set_action count;;
+			O) set_action open;;
+			a|e|i|c|n|t) opts="$opts $opt";;
+			m) m_arg=$OPTARG;;
+			*) die "getopts returned '$opt'";;
+		esac
+	done
+	$ACTION
+}
+
+# Check if its being sourced before running
+echo "$0" | grep -Eq '/bin/(ba|z|k)?sh$' || main "$@"

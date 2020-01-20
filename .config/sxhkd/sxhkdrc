@@ -32,7 +32,7 @@ super + w; super + { w, s, g, b, u, c }
 # dwm...
 # email + check, work, personal
 super + e; super + { e, c, w, p }
-	email { open, check, open lambda, open jer }
+	email { -Ot, -Si, -Otm lambda, -Otm jer }
 
 # Bluetooth
 super + b; super + { b, t, c, d, s }
