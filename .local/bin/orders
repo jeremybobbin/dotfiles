@@ -3,8 +3,8 @@ set -e
 
 url='https://lambdalabs.com'
 
-dir="$HOME/.local/share/lambda"
-cookies="$dir/orders"
+dir="$HOME/.local/share/lambda/orders"
+cookies="$dir/cookies"
 
 mkdir -p "$(dirname $cookies)"
 touch $cookies
@@ -99,7 +99,7 @@ download() {
 pdf_dl() {
 	tmp=$(mktemp -d)
 	for path in $(search $@ | jq -r '.data[].pdf_url' | tr -d \"); do
-		download 'invoice' "$url$path"
+		download 'invoices' "$url$path"
 	done
 }
 
@@ -107,9 +107,20 @@ pdf_dl() {
 build_dl() {
 	tmp=$(mktemp -d)
 	for path in $(search $@ | jq -r '.data[].build_sheet_url' | tr -d \"); do
-		download 'build_sheet' "$url$path"
+		download 'build_sheets' "$url$path"
 	done
 }
+
+# Put each order in temp file & echo temp file name
+json() {
+	temp="$(mktemp -d)"
+	search $@ | tee "$temp/json" | jq -r '.data[].id' > "$temp/ids"
+	for id in $(cat $temp/ids); do
+		jq -r ".data[] | select(.id==\"$id\")" "$temp/json" > "$temp/$id"
+		echo "$temp/$id"
+	done
+}
+
 
 main() {
 	case $1 in
@@ -128,6 +139,10 @@ main() {
 		build)
 			shift
 			build_dl "$@"
+			;;
+		json)
+			shift
+			json "$@"
 			;;
 		*)
 			usage
