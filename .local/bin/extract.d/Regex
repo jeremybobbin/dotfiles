@@ -1,4 +1,0 @@
-#!/usr/bin/sh
-regex=$(printf | dmenu_color -p "Regex:")
-[ "$?" -ne 0 ] && exit 1
-grep -Eo "$regex"

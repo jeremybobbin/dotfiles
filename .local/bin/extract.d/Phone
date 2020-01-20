@@ -1,2 +1,0 @@
-#!/usr/bin/sh
-grep -Eo '[0-9]{10}'

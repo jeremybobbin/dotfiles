@@ -1,1 +1,27 @@
-#!/usr/bin/subcommand
+#!/bin/sh
+# Grep using regexes in $XDG_DATA_HOME/regex
+# Is otherwise a wrapper around grep
+#
+# extract IPv4 -R ~/.mail/jer/
+# extract URL < message | dmenu | xargs xdg-open
+#
+
+regexes="${XDG_DATA_HOME:-"$HOME/.config"}/regex"
+
+case $1 in 
+	-l|--list) ls "$regexes"; exit
+esac
+
+if [ "$#" -eq 0 ]; then
+	echo "$0: requires pattern" 
+	exit 1
+elif [ ! -r "$regexes/$1" ]; then
+	echo "$0: the '$1' pattern does not exist. Use one of the following:" 
+	ls "$regexes"
+	exit 1
+fi 1>&2
+
+pattern="$1"
+shift
+
+exec grep -hoEf "$regexes/$pattern" "$@"

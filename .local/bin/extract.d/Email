@@ -1,7 +1,0 @@
-#!/usr/bin/sh
-level='[:alnum:].\-_~#!\(\)\*'
-
-# Top Level Domain
-tld='[a-zA-Z\.]{2,}'
-
-grep -Eo "[$level.]+@[$level]+\.$tld"
