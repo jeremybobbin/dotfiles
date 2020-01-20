@@ -1,11 +1,10 @@
 #!/bin/sh
-if [ "$#" -gt 1 ];
-then
-	tmp="$(mktemp).$1"
-	shift
-else
-	tmp=$(mktemp)
-fi
-
+# peek - run command on stdin. Almost a wrapper around xargs.
+# For apps that don't accept '-' as an argument.
+#
+# md2html < attachment.md | peek $BROWSER
+# sed '/^#/d' .bashrc | peek -I% cp % .bashrc
+#
+tmp="$(mktemp)"
 cat > "$tmp"
-$@ $tmp
+exec echo "$tmp" | xargs "$@"
