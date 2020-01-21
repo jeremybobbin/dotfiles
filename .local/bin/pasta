@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 url='https://www.jer.cx/pasta/'
 
 if [ "$1" ]; then

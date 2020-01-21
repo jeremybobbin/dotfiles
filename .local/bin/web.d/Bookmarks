@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 bookmarks="$XDG_CONFIG_HOME/bookmarks"
 prompt() {
 	tac "$bookmarks" | unique | cut -f1 |

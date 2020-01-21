@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 [ $(id -u) == 0 ] ||
 	echo "You must be root to run this script" &&

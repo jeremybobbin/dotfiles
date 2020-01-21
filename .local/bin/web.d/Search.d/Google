@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 query="$(: | dmenu_color -p 'Search Google:')"
 
 [ -n "$query" ] &&

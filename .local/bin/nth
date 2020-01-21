@@ -1,2 +1,2 @@
-#!/usr/bin/sh
+#!/bin/sh
 sed -n "$(echo $@ | tr ' ' '\n' | xargs  -I{} printf '{}p;' )"

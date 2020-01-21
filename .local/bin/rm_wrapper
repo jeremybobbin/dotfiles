@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 path="$HOME/.trash/$(date +%F)/"
 # make dir titled wiht date

@@ -1,2 +1,2 @@
-#!/usr/bin/sh
+#!/bin/sh
  tr '[:upper:]' '[:lower:]' | tr ' ' '_'

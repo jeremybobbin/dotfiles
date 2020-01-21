@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 if [ -x "$(which xmodmap)" ]; then
 	xmodmap "$HOME/.xmodmaprc"
 elif [ -x "$(which setxkbmap)" ]; then

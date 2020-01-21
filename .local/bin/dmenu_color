@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 cache="${XDG_CACHE_HOME:-"$HOME/.cache"}"
 . "$cache/wal/colors.sh"
 

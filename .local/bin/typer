@@ -1,2 +1,2 @@
-#!/usr/bin/sh
+#!/bin/sh
 sed -E "s/(.)/xdotool type '\1'\n/g;" | sh

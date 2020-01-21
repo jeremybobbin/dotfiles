@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # Which package owns this file/executible?
 #
 # $ owns lsblk

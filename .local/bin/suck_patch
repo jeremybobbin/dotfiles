@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 project=${1:-"dwm"}
 patches="$project.suckless.org/patches/"
 

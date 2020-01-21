@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # TODO - just delete this shit
 if [ -z "$@" ]; then
 	method=$(extract -l | dmenu_cache avail_methods -i -p 'How to extract:')
