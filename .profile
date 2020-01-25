@@ -17,13 +17,13 @@
 #TODO Move all scripts to ~/.local/src
 
 
-appendpath() {
-	for i in $*; do
+prependpath() {
+	for i; do
 		case ":$PATH:" in
 			*:"$i":*)
 				;;
 			*)
-				PATH="${PATH:+$PATH:}$i"
+				PATH="$i${PATH:+$PATH:}"
 		esac
 	done
 }
@@ -70,15 +70,15 @@ COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
 
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
-appendpath "
-$HOME/.cargo/bin
-$HOME/.local/bin
-$HOME/.yarn/bin
-/tmp/bin
+prependpath "
 /usr/bin/
 /usr/sbin/
 /usr/local/bin
 /usr/local/sbin
+$HOME/.yarn/bin
+$HOME/.cargo/bin
+$HOME/.local/bin
+/tmp/bin
 "
 
 set +a
@@ -93,5 +93,3 @@ case $0 in
 	*bash) [ -r "$HOME/.bashrc" ] &&
 		. "$HOME/.bashrc";;
 esac
-
-
