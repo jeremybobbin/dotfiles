@@ -55,6 +55,6 @@ vnoremap <Space> "xd0/<++><CR>v3l"xp
 
 " Terminal
 nnoremap <M-t> :vsplit term://bash<CR>
-tnoremap <C-n> <C-\><C-N>
+"tnoremap <C-n> <C-\><C-N>
 
 "autocmd BufNewFile *.sh,~/.local/bin/* r ~/.config/nvim/templates/sh/skeleton.sh
