@@ -1,26 +1,32 @@
 #!/bin/sh
 
-send() {
-	if [ $EDITOR = 'vim' ]; then
-		$EDITOR --servername $VIM_SERVERNAME --remote-send "$*"
-	elif [ $EDITOR = 'nvim' ]; then
-		 nvr --servername $VIM_SERVERNAME --remote-send "$*"
-	fi
-}
-
-# send ex command
-excmd() {
-	send "<C-W>:$*<Enter>"
-}
+if [ "$#" -eq 0 ]; then
+	die "provide arguments"
+fi
 
 die() {
 	echo "$0: $*" 1>&2
 	exit 1
 }
 
-if [ "$#" -eq 0 ]; then
-	die "provide arguments"
+if [ $EDITOR = 'vim' ]; then
+	REMOTE="vim --servername $VIM_SERVERNAME "
+elif [ $EDITOR = 'nvim' ] && [ -x "$(command -v rnvr)" ]; then
+	REMOTE="rnvr"
+elif [ -x "$(command -v nvr)" ]; then
+	REMOTE="nvr --servername $NVIM_LISTEN_ADDRESS"
+else
+	die "I don't know how to handle this."
 fi
+
+remote() {
+	$REMOTE "$@";
+}
+
+# send ex command
+excmd() {
+	$REMOTE --remote-expr "execute('$*')";
+}
 
 if getopts ":e" opt; then 
 	shift $((OPTIND - 1))
@@ -33,5 +39,5 @@ if getopts ":e" opt; then
 			;;
 	esac
 else
-	send "$*"
+	remote --remote-send "$*"
 fi
