@@ -18,12 +18,12 @@
 
 
 prependpath() {
-	for i; do
+	for i in $*; do
 		case ":$PATH:" in
 			*:"$i":*)
 				;;
 			*)
-				PATH="$i${PATH:+$PATH:}"
+				PATH=$i${PATH+":$PATH"};;
 		esac
 	done
 }
@@ -48,7 +48,7 @@ AUDIO_PLAYER='mpv'
 MUSIC_PLAYER='ncmpcpp'
 IRC_CLIENT='weechat'
 BROWSER='surf'
-EDITOR='vim'
+EDITOR='nvim'
 EMAIL_CLIENT='neomutt'
 PDF_VIEWER='zathura'
 TERMINAL='st'
