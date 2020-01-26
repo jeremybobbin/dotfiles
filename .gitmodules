@@ -28,3 +28,6 @@
 [submodule ".vim/pack/jer/start/vim-vinegar"]
 	path = .vim/pack/jer/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
+[submodule ".local/src/rnvr"]
+	path = .local/src/rnvr
+	url = git@github.com:jeremybobbin/rnvr.git
