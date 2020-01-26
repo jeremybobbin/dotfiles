@@ -121,6 +121,11 @@ json() {
 	done
 }
 
+shipping() {
+	s='.ship_to_address'
+	orders json aramco  | xargs cat | jq -r " $s.name, $s.line_1, $s.line_2, $s.line_3, \"\($s.city), \($s.state) \($s.zipcode)\", .ship_to_email, .ship_to_phone"
+}
+
 
 main() {
 	case $1 in
@@ -143,6 +148,10 @@ main() {
 		json)
 			shift
 			json "$@"
+			;;
+		ship)
+			shift
+			shipping "$@"
 			;;
 		*)
 			usage
