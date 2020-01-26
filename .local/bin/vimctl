@@ -1,6 +1,11 @@
 #!/bin/sh
+
 send() {
-	$EDITOR --servername $VIM_SERVERNAME --remote-send "$*"
+	if [ $EDITOR = 'vim' ]; then
+		$EDITOR --servername $VIM_SERVERNAME --remote-send "$*"
+	elif [ $EDITOR = 'nvim' ]; then
+		 nvr --servername $VIM_SERVERNAME --remote-send "$*"
+	fi
 }
 
 # send ex command
