@@ -1,0 +1,14 @@
+#!/bin/sh
+SOURCE_DIR="$HOME/.local/src"
+PREFIX=${PREFIX:-"$HOME/.local"}
+
+# compile & install executibles
+for i in $(find $SOURCE_DIR/* -maxdepth 0 -type d); do
+	echo installing "$i" 1>&2
+	cd "$i"
+	make install "PREFIX=$PREFIX"
+	cd ..
+done
+
+# crontab
+crontab "$HOME/.config/crontab"
