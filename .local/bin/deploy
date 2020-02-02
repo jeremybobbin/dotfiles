@@ -1,6 +1,11 @@
 #!/bin/sh
+
 SOURCE_DIR="$HOME/.local/src"
 PREFIX=${PREFIX:-"$HOME/.local"}
+
+# pull submodules
+echo initializing submodules 1>&2
+git submodule update --init --recursive
 
 # compile & install executibles
 for i in $(find $SOURCE_DIR/* -maxdepth 0 -type d); do
@@ -11,4 +16,5 @@ for i in $(find $SOURCE_DIR/* -maxdepth 0 -type d); do
 done
 
 # crontab
+echo sourcing crontab 1>&2
 crontab "$HOME/.config/crontab"
