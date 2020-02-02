@@ -74,6 +74,3 @@ fi
 if [ ! "$SSH_AUTH_SOCK" ]; then
     . "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
-
-
-eval "$(fasd --init auto)"
