@@ -1,32 +1,32 @@
 [submodule ".vim/pack/jer/start/csv.vim"]
-	path = .vim/pack/jer/start/csv.vim
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/csv.vim
 	url = https://github.com/chrisbra/csv.vim
 [submodule ".vim/pack/jer/start/vim-json"]
-	path = .vim/pack/jer/start/vim-json
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-json
 	url = https://github.com/elzr/vim-json
 [submodule ".vim/pack/jer/start/vim-jsx"]
-	path = .vim/pack/jer/start/vim-jsx
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-jsx
 	url = https://github.com/mxw/vim-jsx
 [submodule ".vim/pack/jer/start/haskell-vim"]
-	path = .vim/pack/jer/start/haskell-vim
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/haskell-vim
 	url = https://github.com/neovimhaskell/haskell-vim
 [submodule ".vim/pack/jer/start/vim-javascript"]
-	path = .vim/pack/jer/start/vim-javascript
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript
 [submodule ".vim/pack/jer/start/rust.vim"]
-	path = .vim/pack/jer/start/rust.vim
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
 [submodule ".vim/pack/jer/start/vim-repeat"]
-	path = .vim/pack/jer/start/vim-repeat
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat
 [submodule ".vim/pack/jer/start/vim-surround"]
-	path = .vim/pack/jer/start/vim-surround
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule ".vim/pack/jer/start/vim-unimpaired"]
-	path = .vim/pack/jer/start/vim-unimpaired
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
 [submodule ".vim/pack/jer/start/vim-vinegar"]
-	path = .vim/pack/jer/start/vim-vinegar
+	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
 [submodule ".local/src/rnvr"]
 	path = .local/src/rnvr
