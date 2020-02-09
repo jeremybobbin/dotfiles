@@ -29,8 +29,8 @@
 	path = .local/src/dotfiles/etc/skel/.vim/pack/jer/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
 [submodule ".local/src/rnvr"]
-	path = .local/src/rnvr
+	path = .local/src/dotfiles/src/rnvr
 	url = git@github.com:jeremybobbin/rnvr.git
 [submodule ".local/src/subcommand"]
-	path = .local/src/subcommand
+	path = .local/src/dotfiles/src/subcommand
 	url = https://github.com/jeremybobbin/subcommand
