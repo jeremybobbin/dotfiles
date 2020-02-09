@@ -1,6 +1,6 @@
-#!/bin/sh
-
-SOURCE_DIR="$HOME/.local/src"
+#!/bin/sh 
+SOURCE="$PWD"
+DEPS="$HOME/.local/src"
 PREFIX=${PREFIX:-"$HOME/.local"}
 
 # pull submodules
@@ -8,12 +8,16 @@ echo initializing submodules 1>&2
 git submodule update --init --recursive
 
 # compile & install executibles
-for i in $(find $SOURCE_DIR/* -maxdepth 0 -type d); do
+for i in $(find $DEPS/* -maxdepth 0 -type d); do
 	echo installing "$i" 1>&2
 	cd "$i"
 	make install "PREFIX=$PREFIX"
 	cd ..
 done
+
+# copy dotfiles
+[ -d "$SOURCE/etc/skel/" ] &&
+cp -a "$SOURCE/etc/skel/." "$HOME"
 
 # crontab
 echo sourcing crontab 1>&2
