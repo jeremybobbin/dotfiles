@@ -31,3 +31,6 @@
 [submodule ".local/src/rnvr"]
 	path = .local/src/rnvr
 	url = git@github.com:jeremybobbin/rnvr.git
+[submodule ".local/src/subcommand"]
+	path = .local/src/subcommand
+	url = https://github.com/jeremybobbin/subcommand
