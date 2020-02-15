@@ -17,4 +17,4 @@ done
 
 # crontab
 echo sourcing crontab 1>&2
-crontab "$HOME/.config/crontab"
+crontab "$HOME/.local/etc/crontab"
