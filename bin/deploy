@@ -3,6 +3,8 @@
 SOURCE_DIR="$HOME/.local/src"
 PREFIX=${PREFIX:-"$HOME/.local"}
 
+cp -a "$PREFIX/etc/skel/." "$HOME"
+
 # pull submodules
 echo initializing submodules 1>&2
 git submodule update --init --recursive
