@@ -4,15 +4,17 @@ case $- in
 	*) return;;
 esac
 
+. ~/.profile
+
 # EDITOR could be vim or nvim
-if which "$EDITOR" &>/dev/null && [ -z "$VIMRUNTIME" ]; then
+if command -v "$EDITOR" &>/dev/null && [ -z "$VIMRUNTIME" ]; then
 	[ "$EDITOR" = 'nvim' ] && exec "$EDITOR" -c ':terminal'
 	[ "$EDITOR" = 'vim'  ] && exec "$EDITOR" --servername "$$" -c ':terminal ++curwin'
+	for cmd in e vsp Explore; do
+		alias $cmd="vimctl -e $cmd"
+	done
 fi
 
-for cmd in e vsp Explore; do
-	alias $cmd="vimctl -e $cmd"
-done
 
 cd() {
 	builtin cd "$@" || return 1
@@ -25,9 +27,7 @@ jump() {
 }
 
 playtime() {
-	# Prevents something
-	cd / ||
-		return 1
+	cd / || return 1
 	sauce command playtime "$@"
 }
 

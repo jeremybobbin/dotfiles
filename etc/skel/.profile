@@ -88,8 +88,3 @@ if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x
 elif isatty; then
 	remap tty
 fi
-
-case $0 in
-	*bash) [ -r "$HOME/.bashrc" ] &&
-		. "$HOME/.bashrc";;
-esac
