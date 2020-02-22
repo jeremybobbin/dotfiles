@@ -5,19 +5,21 @@ case $- in
 esac
 
 # EDITOR could be vim or nvim
-if command -v "$EDITOR" &>/dev/null && [ -z "$VIMRUNTIME" ]; then
-	[ "$EDITOR" = 'nvim' ] && exec "$EDITOR" -c ':terminal'
-	[ "$EDITOR" = 'vim'  ] && exec "$EDITOR" --servername "$$" -c ':terminal ++curwin'
-	for cmd in e vsp Explore; do
-		alias $cmd="vimctl -e $cmd"
-	done
+if command -v "$EDITOR" > /dev/null 2>&1; then
+	if [ -z "$VIMRUNTIME" ]; then
+		[ "$EDITOR" = 'nvim' ] && exec "$EDITOR" -c ':terminal'
+		[ "$EDITOR" = 'vim'  ] && exec "$EDITOR" --servername "$$" -c ':terminal ++curwin'
+	elif command -v vimctl > /dev/null 2>&1; then
+		for cmd in e vsp Explore; do
+			alias $cmd="vimctl -e $cmd"
+		done
+		cd() {
+			builtin cd "$@" || return 1
+			vimctl -e "cd $@" || :
+		}
+	fi
 fi
 
-
-cd() {
-	builtin cd "$@" || return 1
-	vimctl -e "cd $@" || :
-}
 
 jump() {
 	cd "$(command jump "$@")" ||
@@ -61,7 +63,7 @@ export HISTFILESIZE=
 # But ignore commands prefixed with a ' '
 export HISTCONTROL="ignorespace${HISTCONTROL:+:$HISTCONTROL}"
 
-if  command -v ssh-agent 2> /dev/null && ! pgrep -u "$USER" ssh-agent > /dev/null; then
+if (command -v ssh-agent && ! pgrep -u "$USER" ssh-agent) > /dev/null 2>&1 ; then
     ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
