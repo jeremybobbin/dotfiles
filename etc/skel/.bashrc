@@ -63,7 +63,7 @@ export HISTFILESIZE=
 # But ignore commands prefixed with a ' '
 export HISTCONTROL="ignorespace${HISTCONTROL:+:$HISTCONTROL}"
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+if  command -v ssh-agent 2> /dev/null && ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
