@@ -4,8 +4,6 @@ case $- in
 	*) return;;
 esac
 
-. ~/.profile
-
 # EDITOR could be vim or nvim
 if command -v "$EDITOR" &>/dev/null && [ -z "$VIMRUNTIME" ]; then
 	[ "$EDITOR" = 'nvim' ] && exec "$EDITOR" -c ':terminal'
