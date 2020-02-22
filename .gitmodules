@@ -30,7 +30,7 @@
 	url = https://github.com/tpope/vim-vinegar
 [submodule ".local/src/rnvr"]
 	path = .local/src/rnvr
-	url = https://github.com/jeremybobbin/rnvr.git
+	url = git@github.com:jeremybobbin/rnvr.git
 [submodule ".local/src/subcommand"]
 	path = .local/src/subcommand
 	url = https://github.com/jeremybobbin/subcommand
