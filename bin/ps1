@@ -14,7 +14,7 @@ blue=$(escape_tput setaf 6)
 white=$(escape_tput setaf 7)
 none=$(escape_tput sgr0)
 
-if tty | grep tty; then
+if tty | grep tty > /dev/null 2>&1; then
 	bold=''
 else 
 	bold=$(escape_tput bold)
