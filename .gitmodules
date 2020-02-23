@@ -34,3 +34,6 @@
 [submodule "src/subcommand"]
 	path = src/subcommand
 	url = https://github.com/jeremybobbin/subcommand
+[submodule "src/st"]
+	path = src/st
+	url = https://github.com/jeremybobbin/st
