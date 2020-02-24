@@ -43,3 +43,6 @@
 [submodule "src/dmenu"]
 	path = src/dmenu
 	url = https://www.github.com/jeremybobbin/dmenu
+[submodule "src/surf"]
+	path = src/surf
+	url = https://www.github.com/jeremybobbin/surf
