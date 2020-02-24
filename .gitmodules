@@ -37,3 +37,9 @@
 [submodule "src/st"]
 	path = src/st
 	url = https://github.com/jeremybobbin/st
+[submodule "src/dwm"]
+	path = src/dwm
+	url = https://www.github.com/jeremybobbin/dwm
+[submodule "src/dmenu"]
+	path = src/dmenu
+	url = https://www.github.com/jeremybobbin/dmenu
