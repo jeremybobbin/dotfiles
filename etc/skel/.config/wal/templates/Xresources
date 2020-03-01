@@ -1,9 +1,20 @@
+dwm.font: Source Code Pro:pixelsize=18:antialias=true:autohint=true
 dwm.normfgcolor: {color15}
 dwm.normbgcolor: {color0}
 dwm.normbordercolor: {color8}
 dwm.selfgcolor: {color15}
 dwm.selbgcolor: {color1}
 dwm.selbordercolor: {color1}
+dwm.topbar: 1
+
+dmenu.font: Source Code Pro:pixelsize=18:antialias=true:autohint=true
+dmenu.normfgcolor: {color15}
+dmenu.normbgcolor:{color0}
+dmenu.selfgcolor: {color15}
+dmenu.selbgcolor: {color1}
+dmenu.borderfgcolor: {color8}
+dmenu.borderbgcolor: {color1}
+dmenu.topbar: 1
 
 st.font: Source Code Pro:pixelsize=18:antialias=true:autohint=true
 st.alpha: 0.95
