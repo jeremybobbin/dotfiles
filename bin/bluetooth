@@ -1,1 +1,63 @@
-#!/usr/bin/env subcommand
+#!/bin/bash
+die() {
+	echo "$(basename "$0"): $*"
+	exit 1
+}
+
+connect() {
+	notify-send 'Bluetooth' "Connecting to $device"
+	echo "connect $mac" | bluetoothctl
+}
+
+connected() {
+	echo "info $mac" | bluetoothctl | grep -q 'Connected: yes'
+}
+
+disconnect() {
+	notify-send 'Bluetooth' "Disconnecting from $device"
+	echo "disconnect $mac" | bluetoothctl
+}
+
+mac() {
+	# Outputs mac address of from bluetoothctl
+	#mac="([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}"
+
+	# bluetoothctl output expected:
+	# Device MAC NAME
+	echo devices | bluetoothctl |
+		awk -v "device=$device" '$1 ~ /Device/ &&
+		$2 ~ mac && $3 ~ device { print $2 }' 
+}
+
+main() {
+	if [ "$#" -lt 1 ]; then
+		echo "usage: $(basename "$0") { connect | disconnect | toggle | mac | status } [device]"
+		exit 1
+	fi
+
+	echo power on | bluetoothctl ||
+		die "could not power on"
+
+	device="${2:-$BLUETOOTH_DEVICE}"
+	mac="$(mac "$device")"
+
+	[ -z "$mac" ] &&
+		die "could not determine MAC address of $device"
+
+	case "$1" in
+		connect) connect;;
+		disconnect) disconnect;;
+		toggle) if connected; then disconnect; else connect; fi;;
+		status) if connected; then
+			notify-send 'Bluetooth' "Currently connected to $device"
+		else
+			notify-send 'Bluetooth' "Not connected to $device"
+			fi;;
+		mac) mac;;
+		list) echo devices | bluetoothctl |
+			awk -v "device=$*" '$1 ~ /Device/ &&
+			$2 ~ mac && $3 ~ device { print $3 }';;
+	esac
+}
+
+main "$@"
