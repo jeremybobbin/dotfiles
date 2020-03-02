@@ -1,1 +1,13 @@
-#!/usr/bin/env subcommand
+#!/bin/sh
+engines="${XDG_DATA_HOME:-"$HOME/.local/share"}/search"
+if [ $# -gt 1 -a -r "$engines/$1" ]; then
+	engine="$1"
+else
+	engine="$(ls "$engines" | dmenu -i -p "Engines")"
+fi
+
+[ -n $engine ] && exit 1
+
+# delete new line in engine URL
+cat "$engines/$engine" | tr -d '\n'
+: | dmenu -i -p "Search $engine:" | urlencode

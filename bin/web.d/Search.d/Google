@@ -1,5 +1,0 @@
-#!/bin/sh
-query="$(: | dmenu_color -p 'Search Google:')"
-
-[ -n "$query" ] &&
-	"$BROWSER" "https://www.google.com/search?q=$query"

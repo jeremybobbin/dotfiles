@@ -1,14 +1,10 @@
 #!/bin/sh
-bookmarks="$XDG_CONFIG_HOME/bookmarks"
-prompt() {
-	tac "$bookmarks" | unique | cut -f1 |
-		dmenu -i -l 10 -p "Please select: "
-}
-
-chosen=$(prompt)
+bookmarks="${XDG_CONFIG_HOME:-"$HOME/.config"}/bookmarks"
+chosen=$(tac "$bookmarks" | unique | cut -f1 |
+		dmenu -i -l 10 -p "Please select: ")
 
 if [ "$?" -ne 0 ]; then
 	exit 1
 fi
 
-$BROWSER "$(grep "$chosen" "$bookmarks" | cut -f2)"
+grep "$chosen" "$bookmarks" | cut -f2

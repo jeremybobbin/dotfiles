@@ -1,2 +1,0 @@
-#!/bin/sh
-echo "https://www.google.com/search?q=$@"
