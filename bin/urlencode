@@ -1,0 +1,4 @@
+#!/bin/sh
+xxd -plain | tr -d '\n' | sed 's/\(..\)/%\1/g'
+# Thank you, josch.
+# https://stackoverflow.com/users/784669/josch
