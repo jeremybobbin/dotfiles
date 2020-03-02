@@ -1,2 +1,0 @@
-#!/bin/sh
-"$BROWSER" https://lambdalabs.com/tools/orders 2>&1 > /dev/null &
