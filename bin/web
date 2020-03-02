@@ -10,8 +10,10 @@ main() {
 	fi
 
 	[ -n "$origins" ] || return 1
+
 	url="$("$origins/$origin" $*)"
-	[ -n "$url" ] && $BROWSER $url
+	[ "$?" -eq 0 -a -n "$url" ] &&
+		$BROWSER $url
 }
 
 main "$@"
