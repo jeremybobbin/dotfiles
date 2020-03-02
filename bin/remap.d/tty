@@ -1,5 +1,0 @@
-#!/bin/sh
-if [ ! -u "/bin/loadkeys" ]; then
-	"$XDG_BIN_HOME/remap" authorize
-fi
-loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"

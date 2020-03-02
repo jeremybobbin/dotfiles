@@ -1,1 +1,38 @@
-#!/usr/bin/env subcommand
+#!/bin/sh -e
+export loadkeys=$(command -v loadkeys)
+
+authorize() {
+
+	(envsubst | sudo sh) <<- "EOF"
+	groupadd -f loadkeys
+	usermod "$USER" -aG loadkeys
+	chgrp loadkeys "$loadkeys"
+	chmod 4750 "$loadkeys"
+	EOF
+
+	echo "$(basename "$0"): logout for changes to take effect." 1>&2
+
+}
+
+tty() {
+	if [ ! -x "$loadkeys" ]; then
+		echo  "$0: loadkeys not executable" 1>&2
+	elif [ ! -u "/bin/loadkeys" ]; then
+		authorize
+	fi
+	loadkeys "$XDG_CONFIG_HOME/ttymaps.kmap"
+}
+
+xorg() {
+	if [ -x "$(command -v xmodmap)" ]; then
+		xmodmap "$HOME/.xmodmaprc"
+	elif [ -x "$(command -v setxkbmap)" ]; then
+		setxkbmap -option caps:escape
+	fi
+}
+
+case "$1" in
+	tty) tty;;
+	xorg) xorg;;
+	*) echo "usage: $(basename "$0") { xorg | tty }"
+esac
