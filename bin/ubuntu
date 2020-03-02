@@ -1,1 +1,23 @@
-#!/usr/bin/env subcommand
+#!/bin/sh
+versions() {
+	cat <<- EOF
+	19.10 Eoan
+	19.04 Disco
+	18.10 Cosmic
+	18.04 Bionic
+	16.10 Xenial
+	14.04 Trusty
+	12.04 Precise
+	EOF
+
+	exit 0
+}
+
+while getopts ":v" opt; do
+	case "$opt" in
+		v) versions;;
+	esac
+done
+
+echo "usage: $(basename "$0") -v" 2>&1
+exit 1
