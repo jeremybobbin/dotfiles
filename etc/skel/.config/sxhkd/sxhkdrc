@@ -2,7 +2,7 @@
 
 # Apps
 super + d
-	dmenu_run_color
+	dmenu_run
 
 super + shift + Return
 	$TERMINAL
