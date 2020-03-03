@@ -1,0 +1,37 @@
+#!/bin/sh
+
+image() {
+	wal_options=""
+	if [ -r "$1" ]; then
+		wal --backend schemer2 -ts -i "$1" 
+		if [ command -v feh >/dev/null 2>&1]; then
+			feh --bg-fill "$1"
+		elif [ command -v xwallpaper >/dev/null 2>&1 ]; then
+			xwallpaper --stretch "$1"
+		fi
+	else
+		wal  -tso update_theme --theme  base16-dracula >/dev/null 2>&1
+	fi
+	update
+}
+
+reset() {
+	bg_dir="$HOME/Media/Images/Backgrounds"
+	find "$bg_dir" -type f | sort -R | head -n 1 | xargs -I{} xwallpaper --stretch {}
+	# image "$HOME/Media/Audio/Music/Car Bomb/Mordial/cover.jpg"
+}
+
+update() {
+	xrdb -merge ~/.Xresources
+	xdotool key super+F5 alt+F5
+}
+
+[ "$#" -ge 1 ] || exit
+
+argv0="$1"
+shift
+case "$argv0" in
+	image) image "$@";;
+	reset) reset "$@";;
+	update) update "$@";;
+esac

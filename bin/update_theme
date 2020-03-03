@@ -1,3 +1,0 @@
-#!/bin/sh
-xrdb ~/.Xresources
-xdotool key super+F5

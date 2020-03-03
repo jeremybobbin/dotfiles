@@ -1,4 +1,0 @@
-#!/bin/sh
-#bg_dir="$HOME/Media/Images/Backgrounds"
-#find "$bg_dir" -type f | sort -R | head -n 1 | xargs -I{} xwallpaper --stretch {}
-flavinate # "$HOME/Media/Audio/Music/Car Bomb/Mordial/cover.jpg"
