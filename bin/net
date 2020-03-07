@@ -1,6 +1,0 @@
-#!/bin/sh
-sum() {
-	cut -f1 $1 | paste -sd+ | bc
-}
-
-echo $(sum Assets) - $(sum Liabilities) | bc
