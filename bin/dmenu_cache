@@ -1,6 +1,4 @@
-#!/bin/bash
-name="$(basename $0)"
-
+#!/bin/sh -e
 # Name is either passed in from sourcing script like
 #
 # command | . dmenu_cache
@@ -11,44 +9,50 @@ name="$(basename $0)"
 # -s for strict.
 # only displays from stdin. No arbitrary cached options displayed.
 if [ "$1" = '-s' ]; then
-	strict='0'
+	strict='true'
 	shift
-else
-	strict='1'
 fi
 
-if [ "$name" = 'sh' ] || [ "$name" = 'bash' ] || [ "$name" = 'dmenu_cache' ]; then
-	if [ -z "$1" ]; then
-		echo 'Please either "| . dmenu_cache" or "dmenu_cache <name>"'
-		exit 1
-	else
+name="$(basename $0)"
+case "$name" in
+	bash|dmenu_cache|sh) 
+		if [ -z "$1" ]; then
+			echo 'either "| . dmenu_cache" or "dmenu_cache <name>"' 1>&2
+			exit 1
+		fi
 		name="$1"
 		shift
-	fi
-fi
+		;;
+esac
 
-cache="$XDG_CACHE_HOME/dmenu_cache/$name"
+cache="${XDG_CACHE_HOME:-"$HOME/.cache"}/dmenu_cache/$name"
 
 touch "$cache"
+choices=$(mktemp)
 
 # tac the cache and pipe stdin into dmenu
 # append the answer to the cache file.
-
-if [ "$strict" = '0' ]; then
-	{
-		tac "$cache";
-		cat - | xargs -I{} printf '{}\n{}\n';
-	} | nl | sort -k2 | uniq -df1 | sort -nk1 | cut -f2- |  dmenu_color "$@" | tee -a "$cache"
-else 
-	{
-		tac "$cache";
-		cat -;
-	} | unique |  dmenu_color "$@" | tee -a "$cache"
-fi
-
-for stat in "${PIPESTATUS[@]}"
-do
-	[ "$stat" -ne 0 ] && exit 1
-done
-
-exit 0
+{
+	tac "$cache";
+	tee "$choices";
+} | awk '!x[$0]++' |  dmenu "$@" | if [ -n "$strict" ]; then
+	awk -v "choices_file=$choices" -v "cache_file=$cache" '
+		BEGIN { for (i = 0; getline < choices_file > 0; i++)
+				choices[$0] = i;
+			for (i = 0; getline < cache_file   > 0 && $0 in choices; i++)
+				cache[$0] = i;
+			len = i;
+		} {	if (!($0 in choices)) {
+				printf "\"%s\" is not a choice\n", $0 > "/dev/stderr";
+				exit 1;
+			}
+			sel = $0;
+			print;
+		} END {	for (s in cache)
+				sorted[cache[s]] = s;
+			for (i = 0; i < len && sorted[i]; i++)
+				print sorted[i] > cache_file;
+			if (sel) print sel > cache_file }'
+else
+	tee -a "$cache"
+fi 
