@@ -1,1 +1,2 @@
-chmod +x $*
+#!/bin/sh
+chmod +x "$@"
