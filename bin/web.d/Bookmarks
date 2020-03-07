@@ -1,10 +1,5 @@
-#!/bin/sh
-bookmarks="${XDG_CONFIG_HOME:-"$HOME/.config"}/bookmarks"
-chosen=$(tac "$bookmarks" | unique | cut -f1 |
-		dmenu -i -l 10 -p "Please select: ")
-
-if [ "$?" -ne 0 ]; then
-	exit 1
-fi
-
-grep "$chosen" "$bookmarks" | cut -f2
+#!/bin/sh -e
+bookmarks="${XDG_DATA_HOME:-"$HOME/.local/share"}/bookmarks"
+mkdir -p "$bookmarks"
+chosen=$(ls "$bookmarks" | . dmenu_cache -i -l 10 -p "Please select: ")
+cat "$bookmarks/$chosen"
