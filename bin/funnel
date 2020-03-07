@@ -1,0 +1,5 @@
+#!/bin/sh
+temp=$(mktemp)
+produce > "$temp"
+consume < "$temp"
+rm "$temp"
