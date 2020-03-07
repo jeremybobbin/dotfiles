@@ -46,3 +46,6 @@
 [submodule "src/surf"]
 	path = src/surf
 	url = https://www.github.com/jeremybobbin/surf
+[submodule "src/support"]
+	path = src/support
+	url = https://github.com/jeremybobbin/support
