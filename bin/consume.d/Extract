@@ -1,6 +1,4 @@
 #!/bin/sh
 method="$(extract -l | dmenu)"
-echo method: $method
 chosen="$(extract "$method" | dmenu)"
-echo chosen: $chosen
 echo "$chosen" | consume
