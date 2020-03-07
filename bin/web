@@ -1,6 +1,4 @@
 #!/bin/sh -e
 url=$(produce "$@")
-echo "\$?: $?"
-echo "\$url: $url"
 [ "$?" -eq 0 -a -n "$url" ] || exit 1
 "$BROWSER" "$url"
