@@ -1,2 +1,0 @@
-#!/bin/bash
-tee >(xargs -i echo "$@" | sh)

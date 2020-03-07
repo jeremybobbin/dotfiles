@@ -1,2 +1,0 @@
-#!/bin/sh
-ls /tmp/mpv_* | xargs -I{} sh -c 'echo "{ \"command\": [\"set_property\", \"pause\", false] }" | socat - {}'
