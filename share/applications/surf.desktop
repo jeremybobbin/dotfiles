@@ -1,5 +1,5 @@
 [Desktop Entry]
 Type=Application
 Name=surf
-Exec=/usr/bin/surf %u
+Exec=/usr/bin/env surf %u
 MimeType=x-scheme-handler/unknown;x-scheme-handler/about;x-scheme-handler/https;x-scheme-handler/http;text/html;
