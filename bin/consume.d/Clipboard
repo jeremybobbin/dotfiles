@@ -1,0 +1,6 @@
+#!/bin/sh
+case "$(printf "Primary\nSecondary\n" | dmenu)" in
+	Primary) xclip -sel p;;
+	Secondary) xclip -sel c;;
+	*) exit 1;;
+esac

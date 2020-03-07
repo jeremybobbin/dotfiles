@@ -1,0 +1,17 @@
+#!/bin/sh -e
+consumers="${XDG_BIN_HOME:-"$HOME/.local/bin"}/consume.d"
+
+main() {
+	if [ $# -ge 1 ]; then 
+		consumer="$1"
+		shift
+	else
+		consumer="$(ls "$consumers" | dmenu -i)"
+	fi
+
+	[ -n "$consumer" ] || return 1
+
+	"$consumers/$consumer" "$@"
+}
+
+main "$@"

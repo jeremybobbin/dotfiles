@@ -1,0 +1,17 @@
+#!/bin/sh -e
+producers="${XDG_BIN_HOME:-"$HOME/.local/bin"}/produce.d"
+
+main() {
+	if [ $# -ge 1 ]; then 
+		producer="$1"
+		shift
+	else
+		producer="$(ls "$producers" | dmenu -i)"
+	fi
+
+	[ -n "$producer" ] || return 1
+
+	"$producers/$producer" "$@"
+}
+
+main "$@"

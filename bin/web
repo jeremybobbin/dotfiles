@@ -1,19 +1,6 @@
 #!/bin/sh -e
-origins="${XDG_BIN_HOME:-"$HOME/.local/bin"}/web.d"
-
-main() {
-	if [ $# -ge 1 ]; then 
-		origin="$1"
-		shift
-	else
-		origin="$(ls "$origins" | dmenu -i)"
-	fi
-
-	[ -n "$origins" ] || return 1
-
-	url="$("$origins/$origin" $*)"
-	[ "$?" -eq 0 -a -n "$url" ] &&
-		$BROWSER $url
-}
-
-main "$@"
+url=$(produce "$@")
+echo "\$?: $?"
+echo "\$url: $url"
+[ "$?" -eq 0 -a -n "$url" ] || exit 1
+"$BROWSER" "$url"
