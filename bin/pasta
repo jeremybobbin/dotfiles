@@ -1,13 +1,17 @@
 #!/bin/sh
-url='https://www.jer.cx/pasta/'
+url='https://www.jer.cx/pasta'
 
-if [ "$1" ]; then
+if [ -n "$1" ]; then
 	post="$url?ext=$1"
+elif [ -n "$FILETYPE" ]; then
+	post="$url?ext=$FILETYPE"
 else
 	post="$url"
 fi
 
-{
-	printf "$url";
-	curl --data-binary @- "$post";
-}
+echo "$url/$(curl --data-binary @- "$post")" | if [ -t 1 ]; then
+	xclip -sel c
+	echo "$(basename "$0"): copied to clipboard" 1>&2
+else
+	cat
+fi
