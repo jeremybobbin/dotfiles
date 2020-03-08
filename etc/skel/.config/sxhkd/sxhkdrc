@@ -24,7 +24,7 @@ super + a
 
 # Web
 super + w; super + { w, s, g, b, u, c }
-	dmenu_prompt web { _, Search, Search Google, Bookmarks, URL, Clipboard }
+	web { , Search, Search Google, Bookmarks, URL, Clipboard }
 
 # sxhkd won't listen for 
 # super + e; super + j
@@ -37,8 +37,6 @@ super + e; super + { e, c, w, p }
 # Bluetooth
 super + b; super + { b, t, c, d, s }
 	bluetooth { toggle, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
-
-
 
 XF86AudioPlay
 	mpc toggle
@@ -75,4 +73,4 @@ super + grave
 	emoji | xclip -selection c
 
 super + F4
-	reset_theme
+	theme reset
