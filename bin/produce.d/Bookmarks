@@ -1,5 +1,5 @@
 #!/bin/sh -e
 bookmarks="${XDG_DATA_HOME:-"$HOME/.local/share"}/bookmarks"
 mkdir -p "$bookmarks"
-chosen=$(ls "$bookmarks" | . dmenu_cache -i -l 10 -p "Please select: ")
+chosen=$(ls "$bookmarks" | dmenu_cache Bookmarks -i -l 10 -p "Please select: ")
 cat "$bookmarks/$chosen"
