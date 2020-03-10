@@ -23,7 +23,7 @@ is_new_mail() {
 	mkdir -p "$CACHE_DIR"
 	# latest is based on the premise that email file names are
 	# prefixed with their Unix timestamp
-	latest=$(unread | sort -nr | head -n1)
+	latest=$(unread | sort -nr | head -n1 | cut -d. -f1)
 
 	# The one we saw on the last invocation of is_new_mail
 	saw_last_time=$(cat "$CACHE_DIR/email_notify")
@@ -31,7 +31,7 @@ is_new_mail() {
 
 	echo "$latest" > "$CACHE_DIR/email_notify"
 
-	[ "$latest" != "$saw_last_time" ] && [ "$MAIL_COUNT" -gt 0 ] ||
+	[ "$latest" -gt "$saw_last_time" ] && [ "$MAIL_COUNT" -gt 0 ] ||
 		return 1
 
 }
@@ -119,6 +119,7 @@ set_action() {
 	ACTION="$*"
 }
 
+# TODO: Use while (argc > 0) shift loop
 main() {
 	while getopts ":SCOciatnem:" opt; do
 		case $opt in 
