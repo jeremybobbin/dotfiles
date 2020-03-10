@@ -15,8 +15,10 @@ lt		command ls --color=auto -thN
 
 new		($TERMINAL -c "cd $PWD" &>/dev/null & disown)
 
-# Jenkins Operator |_
+# Lolipop & Jenkins Operator
+-o		xargs -n1
 _		xargs -n1
+
 
 # rm_wrapper function in ~/.bashrc
 rm	rm_wrapper
@@ -59,6 +61,11 @@ pcbo	xc p -o
 
 cbimg	xc c -t image
 pcbimg	xc p -t image
+
+cbojpg	xc c -t image | jpg
+pcbojpg	xc p -t image | jpg
+cbopng	xc c -t image | jpg
+pcbopng	xc p -t image | jpg
 
 p2c	pcbo | cb
 c2p	cbo | pcb
