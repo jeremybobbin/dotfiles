@@ -1,8 +1,8 @@
 #!/usr/bin/sh
 bar &
-reset_theme &
+theme reset
 compton -c -r 2 -e1 -l 2 -t 2 --no-fading-openclose &
 xrdb $HOME/.Xresources &
 remap xorg
-sxhkd &
+INTERACTIVE=true sxhkd &
 dunst &

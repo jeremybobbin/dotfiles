@@ -52,10 +52,12 @@ EDITOR='nvim'
 EMAIL_CLIENT='neomutt'
 PDF_VIEWER='zathura'
 TERMINAL='st'
+
+BLUETOOTH_DEVICE='AirPods'
+DEFAULT_MAILBOX='lambda'
+HOME_PAGE='https://www.google.com'
 TERM=$TERMINAL
 VIDEO_PLAYER='mpv'
-HOME_PAGE='https://www.google.com'
-BLUETOOTH_DEVICE='AirPods'
 
 TZ='US/Pacific'
 _JAVA_AWT_WM_NONREPARENTING=1
@@ -89,6 +91,6 @@ elif isatty; then
 	remap tty
 fi
 
-case $0 in
+case "$0" in
 	*bash) . ~/.bashrc;;
 esac
