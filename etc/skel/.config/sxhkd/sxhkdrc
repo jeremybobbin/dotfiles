@@ -1,26 +1,27 @@
 #!/usr/bin/sh
+INTERACTIVE='true'
 
 # Apps
 super + d
 	dmenu_run
 
 super + shift + Return
-	$TERMINAL
+	"$TERMINAL"
 	
 super + shift + Escape
-	$TERMINAL
+	"$TERMINAL"
 
 super + p
-	$TERMINAL -e htop
+	"$TERMINAL" -e htop
 
 super + i
-	$TERMINAL -e $IRC_CLIENT
+	"$TERMINAL" -e "$IRC_CLIENT"
 	
 super + m
-	$TERMINAL -e $MUSIC_PLAYER
+	"$TERMINAL" -e "$MUSIC_PLAYER"
 	
 super + a
-	$TERMINAL -e pulsemixer
+	"$TERMINAL" -e pulsemixer
 
 # Web
 super + w; super + { w, s, g, b, u, c }
@@ -31,12 +32,12 @@ super + w; super + { w, s, g, b, u, c }
 # because super + j is taken by
 # dwm...
 # email + check, work, personal
-super + e; super + { e, c, w, p }
-	email { -Ot, -Si, -Otm lambda, -Otm jer }
+super + e; super + { e, w, p, s }
+	email { -O "$DEFAULT_MAILBOX",  -O lambda, -O jer, -S }
 
 # Bluetooth
 super + b; super + { b, t, c, d, s }
-	bluetooth { toggle, toggle, connect, disconnect, status } $BLUETOOTH_DEVICE
+	bluetooth { toggle, toggle, connect, disconnect, status } "$BLUETOOTH_DEVICE"
 
 XF86AudioPlay
 	mpc toggle
