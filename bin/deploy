@@ -6,9 +6,13 @@ PREFIX=${PREFIX:-"$HOME/.local"}
 cp -a "$PREFIX/etc/skel/." "$HOME"
 
 # compile & install executibles
-for i in $(find $SOURCE_DIR/* -maxdepth 0 -type d); do
-	echo installing "$i" 1>&2
-	cd "$i"
+cd "$SOURCE_DIR"
+for dir in $(ls); do
+	echo "installing $dir" 1>&2
+	cd "$dir"
+	if [ -x configure ]; then
+		./configure
+	fi
 	make install "PREFIX=$PREFIX"
 	cd ..
 done

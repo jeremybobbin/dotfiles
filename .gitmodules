@@ -49,3 +49,9 @@
 [submodule "src/support"]
 	path = src/support
 	url = https://github.com/jeremybobbin/support
+[submodule "src/abduco"]
+	path = src/abduco
+	url = https://github.com/jeremybobbin/abduco
+[submodule "src/dvtm"]
+	path = src/dvtm
+	url = https://github.com/jeremybobbin/dvtm
