@@ -59,6 +59,11 @@ HOME_PAGE='https://www.google.com'
 TERM=$TERMINAL
 VIDEO_PLAYER='mpv'
 
+DVTM_CMD_FIFO="$(mktemp -u)"
+DVTM_STATUS_FIFO="$(mktemp -u)"
+DWM_CMD_FIFO="$(mktemp -u)"
+DWM_STATUS_FIFO="$(mktemp -u)"
+
 TZ='US/Pacific'
 _JAVA_AWT_WM_NONREPARENTING=1
 
