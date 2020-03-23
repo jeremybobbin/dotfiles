@@ -75,3 +75,48 @@ super + grave
 
 super + F4
 	theme reset
+
+super + 0
+	echo viewall > "$DWM_CMD_FIFO"
+
+super + {1-9}
+	echo view {0-8} > "$DWM_CMD_FIFO"
+
+super + shift + 0
+	echo tagall > "$DWM_CMD_FIFO"
+
+super + shift + {1-9}
+	echo tag {0-8} > "$DWM_CMD_FIFO"
+
+super + control + {1-9}
+	echo toggleview {0-8} > "$DWM_CMD_FIFO"
+
+super + control + shift + {1-9}
+	echo toggletag {0-8} > "$DWM_CMD_FIFO"
+
+super + {comma,period}
+	echo focusmon {-,+}1 > "$DWM_CMD_FIFO"
+
+super + {h,l}
+	echo setmfact {-,+}0.05 > "$DWM_CMD_FIFO"
+
+super + {j,k}
+	echo focusstack {-,+}1 > "$DWM_CMD_FIFO"
+
+super + shift + {d,i}
+	echo incnmaster {-,+}1 > "$DWM_CMD_FIFO"
+
+super + shift + c
+	echo killclient > "$DWM_CMD_FIFO"
+
+super + shift + b
+	echo togglebar > "$DWM_CMD_FIFO"
+
+super + shift + q
+	echo quit > "$DWM_CMD_FIFO"
+
+super + Tab
+	echo toggletagset > "$DWM_CMD_FIFO"
+
+super + Return
+	echo zoom > "$DWM_CMD_FIFO"
