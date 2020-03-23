@@ -7,7 +7,7 @@ esac
 # EDITOR could be vim or nvim
 if command -v dvtm > /dev/null 2>&1 && command -v abduco > /dev/null 2>&1; then
 	if [ -z "$ABDUCO_SESSION" ] && [ -z "$DVTM" ]; then
-		exec abduco -A dvtm-session dvtm -s "$DVTM_STATUS_FIFO"
+		exec abduco -A dvtm-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
 	fi
 fi
 
