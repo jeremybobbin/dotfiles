@@ -1,11 +1,5 @@
-# Rust Related 
-# Need to escape so that alias generator doesn't evaluate
-ect	ct=$(ct) && e $ct
-
-
 # Shell
 o		"$XDG_BIN_HOME/open"
-c		fasd_cd -d -i
 
 ls		command ls --color=auto --group-directories-first -hN 
 la		command ls --color=auto -ahN --group-directories-first
@@ -15,9 +9,8 @@ lt		command ls --color=auto -thN
 
 new		($TERMINAL -c "cd $PWD" &>/dev/null & disown)
 
-# Lolipop & Jenkins Operator
--o		xargs -n1
-_		xargs -n1
+# Jenkins Operator
+_		xargs
 
 
 # rm_wrapper function in ~/.bashrc
@@ -116,7 +109,13 @@ p8	ping 8.8.8.8
 p42	ping 4.2.2.2
 t8	traceroute 8.8.8.8
 t42	traceroute 4.2.2.2
+ipash	ip address show
+iplish	ip link show
+iprosh	ip link show
 ipb	ip -br
+ipbash	ip -br address show
+ipblish	ip -br link show
+ipbrosh	ip link show
 
 # Mail
 mutt	neomutt
@@ -125,7 +124,7 @@ m	neomutt
 
 # Lambda
 # Dialpad Number
-dpn		echo 6502886100
+dpn	echo 6502886100
 # Lambda Dialpad Number
 ldpn	echo 6504795530
 
@@ -144,7 +143,6 @@ mda	cd ~/Media
 doc	cd ~/Media/Documents
 nts	cd ~/Notes
 prj	cd ~/Projects
-rs	cd ~/Projects/Rust
 msc	cd ~/Media/Audio/Music
 img	cd ~/Media/Images
 vdo	cd ~/Media/Video
