@@ -4,39 +4,25 @@ case $- in
 	*) return;;
 esac
 
-# EDITOR could be vim or nvim
-if command -v dvtm > /dev/null 2>&1 && command -v abduco > /dev/null 2>&1; then
-	if [ -z "$ABDUCO_SESSION" ] && [ -z "$DVTM" ]; then
+installed() {
+	for p; do
+		command -v "$p" > /dev/null 2>&1 || return 1
+	done
+}
+
+# abduco/dvtm session
+if installed abduco dvtm && [ -z "$ABDUCO_SESSION" ] && [ -z "$DVTM" ]; then
+	if [ -z "$SSH_CILENT" ] ; then
 		exec abduco -A dvtm-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
+	elif [ -n "$FORCE_DVTM"]; then
+		exec abduco -A dvtm-ssh-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
+	else
+		exec abduco -A ssh-session
 	fi
 fi
 
-
-jump() {
-	cd "$(command jump "$@")" ||
-		return 1
-}
-
-playtime() {
-	cd / || return 1
-	sauce command playtime "$@"
-}
-
-sauce() {
-	local pipe=$(mktemp -u)
-	mkfifo "$pipe"
-	(eval "$@" > "$pipe" &)
-	. "$pipe"
-	command rm -R "$pipe"
-}
-
-source_aliases() {
-	local rc="$XDG_CONFIG_HOME/aliasrc"
-	sauce "cat $rc | sed -E '/^$/d; /#.*$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\''\2'\''/g'"
-}
-
 PS1=$(ps1)
-source_aliases
+eval "$(sed -E '/^$/d; /#.*$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\''\2'\''/g' "$XDG_CONFIG_HOME/aliasrc")"
 
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd # Unknown command defaults to cd <command>
@@ -54,7 +40,7 @@ export HISTFILESIZE=
 # But ignore commands prefixed with a ' '
 export HISTCONTROL="ignorespace${HISTCONTROL:+:$HISTCONTROL}"
 
-if (command -v ssh-agent && ! pgrep -u "$USER" ssh-agent) > /dev/null 2>&1 ; then
+if installed ssh-agent && ! pgrep -u "$USER" ssh-agent > /dev/null 2>&1; then
     ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
