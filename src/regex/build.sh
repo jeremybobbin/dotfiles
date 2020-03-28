@@ -1,5 +1,5 @@
-#!/bin/sh
-OUT="${PREFIX?}/share/regex"
+#!/bin/sh -e
+OUT="${PREFIX:-"/usr"}/share/regex"
 
 mkdir -p "$OUT"
 cd src
