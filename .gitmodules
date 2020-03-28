@@ -57,4 +57,4 @@
 	url = https://github.com/jeremybobbin/dvtm
 [submodule "src/nnn"]
 	path = src/nnn
-	url = https://github.com/jeremybobbin/nnn
+	url = https://github.com/jarun/nnn
