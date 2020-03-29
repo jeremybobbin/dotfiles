@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Mail
-Exec=/usr/bin/env terminal neomutt %u
+Exec=/usr/bin/env terminal nnn %u
