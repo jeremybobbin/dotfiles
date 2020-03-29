@@ -21,7 +21,7 @@ set autoindent
 set laststatus=2
 set confirm
 set smartcase
-set notimeout ttimeout ttimeoutlen=10
+set notimeout ttimeout
 set number
 set hidden
 set relativenumber

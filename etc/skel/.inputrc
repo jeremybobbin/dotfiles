@@ -1,6 +1,4 @@
 $include /etc/inputrc
-set keyseq-timeout 10
-
 set editing-mode vi
 
 set show-mode-in-prompt on
