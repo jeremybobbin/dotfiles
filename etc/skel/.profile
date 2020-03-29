@@ -92,7 +92,7 @@ $HOME/.local/bin
 set +a
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
-	exec startx
+	LD_BACKUP="$LD_LIBRARY_PATH" exec startx
 elif isatty; then
 	remap tty
 fi

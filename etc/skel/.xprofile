@@ -1,4 +1,7 @@
 #!/usr/bin/sh
+export LD_LIBRARY_PATH=$LD_BACKUP
+unset LD_BACKUP
+
 bar &
 theme reset
 compton -c -r 2 -e1 -l 2 -t 2 --no-fading-openclose &
