@@ -1,2 +1,2 @@
 #!/bin/sh
-CONFIG_OPTS="--without-cxx --enable-widec --prefix=$PREFIX"
+CONFIG_OPTS="--enable-ext-mouse --enable-widec --prefix=PREFIX --with-gpm --with-normal --with-shared --with-sysmouse --without-ada --without-cxx --without-cxx-binding"

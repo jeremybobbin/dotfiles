@@ -6,7 +6,7 @@ PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
 CONFIG_OPTS=''
-MAKE_OPTS="PREFIX=$PREFIX"
+MAKE_OPTS="PREFIX=$PREFIX CFLAGS+=-I$PREFIX/include CFLAGS+=-I$PREFIX/include/ncurses LDFLAGS+=-L$PREFIX/lib"
 
 install() {
 	src="$1"
@@ -14,6 +14,7 @@ install() {
 		echo "$0: $src doesn't exist" 1>&2;
 		return;
 	}
+
 	# source overrides for "{CONFIG,MAKE}_OPTS"
 	overrides="$PACKAGES/$src/overrides"
 	if [ -f "$overrides" ]; then
@@ -23,6 +24,8 @@ install() {
 	if [ -x configure ] && ([ ! -f Makefile ] || [ configure -nt Makefile ]); then
 		./configure $CONFIG_OPTS
 	fi
+	CFLAGS="-I$PREFIX/include -I$PREFIX/include/ncurses"
+	LDFLAGS="-L$PREFIX/lib -L/usr/lib"
 	make install $MAKE_OPTS
 }
 
@@ -34,12 +37,13 @@ packages() {
 			# prepare input for tsort
 			xargs printf "$pkg %s\n" < "$pkg/deps" 
 		fi
-	done | tsort - | tac | tee $HOME/installing
+	done | tsort - | tac
 }
 
 main() {
-	cp -a "$PREFIX/etc/skel/." "$HOME"
+	export CFLAGS LDFLAGS
 
+	cp -a "$PREFIX/etc/skel/." "$HOME"
 	# compile & install executibles
 	cd "$SOURCE_DIR"
 	for src in $(packages); do

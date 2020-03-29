@@ -35,6 +35,8 @@ isatty() {
 
 
 set -a
+LD_LIBRARY_PATH="$HOME/.local/lib"
+
 XDG_BIN_HOME="$HOME/.local/bin"
 XDG_CACHE_HOME="$HOME/.cache"
 XDG_CONFIG_DIRS='/etc/xdg'
@@ -58,16 +60,16 @@ HOME_PAGE='https://www.google.com'
 TERM=$TERMINAL
 VIDEO_PLAYER='mpv'
 
-DVTM_CMD_FIFO="$(mktemp -u)"
-DVTM_STATUS_FIFO="$(mktemp -u)"
-DWM_CMD_FIFO="$(mktemp -u)"
-DWM_STATUS_FIFO="$(mktemp -u)"
-
 TZ='US/Pacific'
 _JAVA_AWT_WM_NONREPARENTING=1
 
 CARGO_CFG_COLOR='always'
 RUSTC_WRAPPER=""
+
+DVTM_CMD_FIFO="$(mktemp -u)"
+DVTM_STATUS_FIFO="$(mktemp -u)"
+DWM_CMD_FIFO="$(mktemp -u)"
+DWM_STATUS_FIFO="$(mktemp -u)"
 
 COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
 
