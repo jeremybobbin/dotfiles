@@ -20,10 +20,8 @@
 prependpath() {
 	for i in $*; do
 		case ":$PATH:" in
-			*:"$i":*)
-				;;
-			*)
-				PATH=$i${PATH+":$PATH"};;
+			*:"$i":*) ;;
+			*) PATH=$i${PATH+":$PATH"};;
 		esac
 	done
 }
@@ -37,19 +35,19 @@ isatty() {
 
 
 set -a
-XDG_CONFIG_HOME="$HOME/.config"
-XDG_CACHE_HOME="$HOME/.cache"
-XDG_DATA_HOME="$HOME/.local/share"
 XDG_BIN_HOME="$HOME/.local/bin"
-XDG_DATA_DIRS="$XDG_DATA_HOME:/usr/local/share/:/usr/share/"
+XDG_CACHE_HOME="$HOME/.cache"
 XDG_CONFIG_DIRS='/etc/xdg'
+XDG_CONFIG_HOME="$HOME/.config"
+XDG_DATA_DIRS="$XDG_DATA_HOME:/usr/local/share/:/usr/share/"
+XDG_DATA_HOME="$HOME/.local/share"
 
 AUDIO_PLAYER='mpv'
-MUSIC_PLAYER='ncmpcpp'
-IRC_CLIENT='weechat'
 BROWSER='surf'
 EDITOR='nvim'
 EMAIL_CLIENT='neomutt'
+IRC_CLIENT='weechat'
+MUSIC_PLAYER='ncmpcpp'
 PDF_VIEWER='zathura'
 TERMINAL='st'
 
