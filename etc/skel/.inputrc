@@ -12,16 +12,12 @@ Tab: alias-expand-line
 "\C-l":"I clear; ls \eD\C-M"
 "\C-u":"I cd ..; clear; ls \eD\C-M"
 
-"\el":"A | less"
-"\es":"Isudo "
+"v": nop
 "-":"cc exec xdg-open .\C-M\e"
 set keymap vi-insert
 
 "\C-l":"\eI clear; ls \eD\C-M"
 "\C-u":"\eIcd ..; clear; ls \eD\C-M"
-
-"\el":"\eA | less"
-"\es":"\eIsudo "
 
 # Color files by types
 set colored-stats On
