@@ -1,22 +1,54 @@
-#!/bin/sh
+#!/bin/sh -ex
 
 SOURCE_DIR="$HOME/.local/src"
 PREFIX=${PREFIX:-"$HOME/.local"}
+PACKAGES="$PREFIX/var/packages"
 
-cp -a "$PREFIX/etc/skel/." "$HOME"
+# to be overridden by "overrides" 
+CONFIG_OPTS=''
+MAKE_OPTS="PREFIX=$PREFIX"
 
-# compile & install executibles
-cd "$SOURCE_DIR"
-for dir in $(ls); do
-	echo "installing $dir" 1>&2
-	cd "$dir"
-	if [ -x configure ]; then
-		./configure
+install() {
+	src="$1"
+	cd "$src" || {
+		echo "$0: $src doesn't exist" 1>&2;
+		return;
+	}
+	# source overrides for "{CONFIG,MAKE}_OPTS"
+	overrides="$PACKAGES/$src/overrides"
+	if [ -f "$overrides" ]; then
+		. "$overrides"
 	fi
-	make install "PREFIX=$PREFIX"
-	cd ..
-done
+	# don't run configure if the Makefile already exists
+	if [ -x configure ] && ([ ! -f Makefile ] || [ configure -nt Makefile ]); then
+		./configure $CONFIG_OPTS
+	fi
+	make install $MAKE_OPTS
+}
 
-# crontab
-echo sourcing crontab 1>&2
-crontab "$HOME/.local/etc/crontab"
+# print packages in optimal order of compilation 
+packages() {
+	cd "$PACKAGES"
+	for pkg in *; do
+		if [ -f "$pkg/deps" ]; then
+			# prepare input for tsort
+			xargs printf "$pkg %s\n" < "$pkg/deps" 
+		fi
+	done | tsort - | tac | tee $HOME/installing
+}
+
+main() {
+	cp -a "$PREFIX/etc/skel/." "$HOME"
+
+	# compile & install executibles
+	cd "$SOURCE_DIR"
+	for src in $(packages); do
+		(install "$src")
+	done
+
+	# crontab
+	echo sourcing crontab 1>&2
+	crontab "$HOME/.local/etc/crontab"
+}
+
+main
