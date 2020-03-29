@@ -55,3 +55,6 @@
 [submodule "src/nnn"]
 	path = src/nnn
 	url = https://github.com/jarun/nnn
+[submodule "src/ncurses"]
+	path = src/ncurses
+	url = https://github.com/jeremybobbin/ncurses
