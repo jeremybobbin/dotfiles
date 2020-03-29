@@ -5,7 +5,7 @@ deploy: install
 
 install: submodules
 	mkdir -p ${PREFIX}
-	cp -r bin etc share src ${PREFIX}
+	cp -a bin etc share src var ${PREFIX}
 
 submodules:
 	@echo initializing submodules
