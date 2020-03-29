@@ -1,0 +1,7 @@
+#!/bin/sh -e
+# Thanks, anton-rh
+# https://unix.stackexchange.com/questions/283478/how-to-display-dependencies-given-in-a-makefile-as-a-tree
+dbg="`make -dn "$@"`"
+all="`echo -n "$dbg" | sed -rn "s/^ *Considering target file '(.+)'\.$/\1/p"`"
+mks="`echo -n "$dbg" | sed -rn "s/^ *Reading makefile '([^']+)'.*$/\1/p"`"
+echo -n "$all" | grep -vxF "$mks"
