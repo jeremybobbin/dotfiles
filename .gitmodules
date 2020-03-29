@@ -28,9 +28,6 @@
 [submodule "etc/skel/.vim/pack/jer/start/vim-vinegar"]
 	path = etc/skel/.vim/pack/jer/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
-[submodule "src/rnvr"]
-	path = src/rnvr
-	url = https://github.com/jeremybobbin/rnvr.git
 [submodule "src/subcommand"]
 	path = src/subcommand
 	url = https://github.com/jeremybobbin/subcommand
