@@ -1,0 +1,1 @@
+CONFIG_OPTS="--with-curses --enable-readline --prefix=$PREFIX"

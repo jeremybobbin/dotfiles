@@ -58,3 +58,9 @@
 [submodule "src/ncurses"]
 	path = src/ncurses
 	url = https://github.com/jeremybobbin/ncurses
+[submodule "src/readline"]
+	path = src/readline
+	url = https://github.com/jeremybobbin/readline
+[submodule "src/bash"]
+	path = src/bash
+	url = http://git.savannah.gnu.org/git/bash
