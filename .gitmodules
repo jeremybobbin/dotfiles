@@ -54,7 +54,7 @@
 	url = https://github.com/jeremybobbin/dvtm
 [submodule "src/nnn"]
 	path = src/nnn
-	url = https://github.com/jarun/nnn
+	url = https://github.com/jeremybobbin/nnn
 [submodule "src/ncurses"]
 	path = src/ncurses
 	url = https://github.com/jeremybobbin/ncurses
