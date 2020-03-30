@@ -64,3 +64,9 @@
 [submodule "src/bash"]
 	path = src/bash
 	url = http://git.savannah.gnu.org/git/bash
+[submodule "src/vis"]
+	path = src/vis
+	url = https://github.com/jeremybobbin/vis
+[submodule "etc/skel/.config/vis/plugins/vis-ctags"]
+	path = etc/skel/.config/vis/plugins/vis-ctags
+	url = https://github.com/jeremybobbin/vis-ctags

@@ -1,5 +1,6 @@
 -- load standard vis module, providing parts of the Lua API
 require('vis')
+require('plugins/vis-ctags')
 
 vis.events.subscribe(vis.events.INIT, function()
 	vis:command('set theme default-16')

@@ -46,7 +46,7 @@ XDG_DATA_HOME="$HOME/.local/share"
 
 AUDIO_PLAYER='mpv'
 BROWSER='surf'
-EDITOR='nvim'
+EDITOR='vis'
 EMAIL_CLIENT='neomutt'
 FILE_BROWSER='nnn'
 IRC_CLIENT='weechat'
