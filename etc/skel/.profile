@@ -60,11 +60,11 @@ HOME_PAGE='https://www.google.com'
 TERM=$TERMINAL
 VIDEO_PLAYER='mpv'
 
-TZ='US/Pacific'
-_JAVA_AWT_WM_NONREPARENTING=1
-
 CARGO_CFG_COLOR='always'
+ESCDELAY=0
+_JAVA_AWT_WM_NONREPARENTING=1
 RUSTC_WRAPPER=""
+TZ='US/Pacific'
 
 DVTM_CMD_FIFO="$(mktemp -u)"
 DVTM_STATUS_FIFO="$(mktemp -u)"
