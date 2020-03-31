@@ -24,7 +24,7 @@ install() {
 	if [ -x configure ] && ([ ! -f Makefile ] || [ configure -nt Makefile ]); then
 		./configure $CONFIG_OPTS
 	fi
-	CFLAGS="-Wl,-rpath=$HOME/.local/lib -I$PREFIX/include -I$PREFIX/include/ncurses"
+	CFLAGS="-Wl,-rpath=$HOME/.local/lib -I$PREFIX/include"
 	LDFLAGS="-L$PREFIX/lib -L/usr/lib"
 	make install $MAKE_OPTS
 }
