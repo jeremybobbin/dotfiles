@@ -1,17 +1,32 @@
 #!/bin/sh -ex
 
-SOURCE_DIR="$HOME/.local/src"
 PREFIX=${PREFIX:-"$HOME/.local"}
+SOURCE_DIR="$PREFIX/src"
 PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
 CONFIG_OPTS=''
-MAKE_OPTS="PREFIX=$PREFIX CFLAGS+=-I$PREFIX/include CFLAGS+=-I$PREFIX/include/ncurses LDFLAGS+=-L$PREFIX/lib"
+CFLAGS="-Wl,-rpath=$PREFIX/lib -I$PREFIX/include"
+LDFLAGS="-L$PREFIX/lib -L$/usr/lib"
+export CFLAGS LDFLAGS PREFIX
+
+
+build() {
+	# don't run configure if the Makefile already exists
+	if [ -x configure ] && ([ ! -f Makefile ] || [ configure -nt Makefile ]); then
+		./configure $CONFIG_OPTS
+	fi
+}
+
+package() {
+	make install $MAKE_OPTS
+}
 
 install() {
 	src="$1"
 	cd "$src" || {
 		echo "$0: $src doesn't exist" 1>&2;
+		# don't exit if "/var/packages/$pkg" doesn't exist
 		return;
 	}
 
@@ -20,13 +35,8 @@ install() {
 	if [ -f "$overrides" ]; then
 		. "$overrides"
 	fi
-	# don't run configure if the Makefile already exists
-	if [ -x configure ] && ([ ! -f Makefile ] || [ configure -nt Makefile ]); then
-		./configure $CONFIG_OPTS
-	fi
-	CFLAGS="-Wl,-rpath=$HOME/.local/lib -I$PREFIX/include"
-	LDFLAGS="-L$PREFIX/lib -L/usr/lib"
-	make install $MAKE_OPTS
+	build
+	package
 }
 
 # print packages in optimal order of compilation 
@@ -41,8 +51,6 @@ packages() {
 }
 
 main() {
-	export CFLAGS LDFLAGS
-
 	cp -a "$PREFIX/etc/skel/." "$HOME"
 	# compile & install executibles
 	cd "$SOURCE_DIR"
