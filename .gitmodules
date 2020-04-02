@@ -70,3 +70,9 @@
 [submodule "etc/skel/.config/vis/plugins/vis-ctags"]
 	path = etc/skel/.config/vis/plugins/vis-ctags
 	url = https://github.com/jeremybobbin/vis-ctags
+[submodule "src/lua"]
+	path = src/lua
+	url = https://github.com/jeremybobbin/lua
+[submodule "src/lpeg"]
+	path = src/lpeg
+	url = https://github.com/jeremybobbin/lpeg
