@@ -1,2 +1,2 @@
 #!/bin/sh
-CONFIG_OPTS="--with-curses --enable-shared"
+CONFIG_OPTS="--with-curses --with-shared --enable-shared"
