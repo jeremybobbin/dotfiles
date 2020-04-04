@@ -10,6 +10,11 @@ CFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib"
 LDFLAGS="-I$PREFIX/include"
 export CC CFLAGS LDFLAGS PREFIX
 
+prebuild() {
+	if [ -r autogen.sh ]; then
+		./autogen.sh
+	fi
+}
 
 build() {
 	# don't run configure if the Makefile already exists
@@ -35,6 +40,7 @@ install() {
 	if [ -f "$overrides" ]; then
 		. "$overrides"
 	fi
+	prebuild
 	build
 	package
 }
@@ -45,7 +51,7 @@ packages() {
 	for pkg in *; do
 		if [ -f "$pkg/deps" ]; then
 			# prepare input for tsort
-			xargs printf "$pkg %s\n" < "$pkg/deps" 
+			xargs -r printf "$pkg %s\n" < "$pkg/deps" 
 		fi
 	done | tsort - | tac
 }
