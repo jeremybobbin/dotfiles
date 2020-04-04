@@ -62,16 +62,16 @@ sync() {
 	fi
 }
 
+# TODO: open in dvtm terminal
 open() {
 	stderr "openning"
 	if [ -t 0 ] && [ -t 1 ] && [ -t 2 ]; then
-		"$EMAIL_CLIENT" -f "$MAIL_DIR/$1/Inbox"
+		exec "$EMAIL_CLIENT" -f "$MAIL_DIR/$1/Inbox"
 	else 
-		"$TERMINAL" -e "$EMAIL_CLIENT" -f "$MAIL_DIR/$1/Inbox"
+		exec "$TERMINAL" -e "$EMAIL_CLIENT" -f "$MAIL_DIR/$1/Inbox"
 	fi
 }
 
-# TODO: Use while (argc > 0) shift loop
 main() {
 	while getopts ":SO:" opt; do
 		case "$opt" in 
