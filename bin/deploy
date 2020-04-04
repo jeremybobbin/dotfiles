@@ -5,21 +5,21 @@ SOURCE_DIR="$PREFIX/src"
 PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
-CONFIG_OPTS=''
-CFLAGS="-Wl,-rpath=$PREFIX/lib -I$PREFIX/include"
-LDFLAGS="-L$PREFIX/lib -L$/usr/lib"
-export CFLAGS LDFLAGS PREFIX
+CC=gcc
+CFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib"
+LDFLAGS="-I$PREFIX/include"
+export CC CFLAGS LDFLAGS PREFIX
 
 
 build() {
 	# don't run configure if the Makefile already exists
 	if [ -x configure ] && ([ ! -f Makefile ] || [ configure -nt Makefile ]); then
-		./configure $CONFIG_OPTS
+		./configure "--prefix=$PREFIX" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" $CONFIG_OPTS
 	fi
 }
 
 package() {
-	make install $MAKE_OPTS
+	make install "PREFIX=$PREFIX" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "CC=$CC" $MAKE_OPTS
 }
 
 install() {
