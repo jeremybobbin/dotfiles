@@ -11,7 +11,7 @@ main() {
 
 	[ -n "$producer" ] || return 1
 
-	"$producers/$producer" "$@"
+	exec "$producers/$producer" "$@"
 }
 
 main "$@"
