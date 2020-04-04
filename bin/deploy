@@ -6,8 +6,8 @@ PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
 CC=gcc
-CFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib"
-LDFLAGS="-I$PREFIX/include"
+CFLAGS="-Wl,-rpath=$PREFIX/lib -L$PREFIX/lib -I$PREFIX/include"
+LDFLAGS=""
 export CC CFLAGS LDFLAGS PREFIX
 
 prebuild() {
@@ -36,7 +36,7 @@ install() {
 	}
 
 	# source overrides for "{CONFIG,MAKE}_OPTS"
-	overrides="$PACKAGES/$src/overrides"
+	overrides="$PACKAGES/$(basename "$src")/overrides"
 	if [ -f "$overrides" ]; then
 		. "$overrides"
 	fi
@@ -59,14 +59,20 @@ packages() {
 main() {
 	cp -a "$PREFIX/etc/skel/." "$HOME"
 	# compile & install executibles
-	cd "$SOURCE_DIR"
-	for src in $(packages); do
-		(install "$src")
-	done
+	if [ $# -gt 0 ]; then
+		realpath "$@" | while read src; do
+			(install "$src")
+		done
+	else
+		cd "$PREFIX/src"
+		for src in $(packages); do
+			(install "$src")
+		done
+	fi
 
 	# crontab
 	echo sourcing crontab 1>&2
 	crontab "$HOME/.local/etc/crontab"
 }
 
-main
+main "$@"
