@@ -1,2 +1,2 @@
 #!/bin/sh
-CONFIG_OPTS="--prefix=$PREFIX --with-curses --enable-shared"
+CONFIG_OPTS="--with-curses --enable-shared"
