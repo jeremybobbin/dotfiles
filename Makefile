@@ -1,9 +1,12 @@
 include config.mk
 
-deploy: install
+deploy: submodules install
 	${PREFIX}/bin/deploy
 
-install: submodules
+test: install
+	${PREFIX}/bin/deploy
+
+install:
 	mkdir -p ${PREFIX}
 	cp -a bin etc share src var ${PREFIX}
 
