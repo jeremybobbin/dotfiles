@@ -6,8 +6,8 @@ PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
 CC=gcc
-CFLAGS="-Wl,-rpath=$PREFIX/lib"
-LDFLAGS="-L$PREFIX/lib -I$PREFIX/include"
+CFLAGS="-Wl,-rpath=$PREFIX/lib -I$PREFIX/include"
+LDFLAGS="-L$PREFIX/lib"
 export CC CFLAGS LDFLAGS PREFIX
 
 prebuild() {
