@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 export LD_LIBRARY_PATH=$LD_BACKUP
 unset LD_BACKUP
 
