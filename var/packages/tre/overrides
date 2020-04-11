@@ -1,4 +1,1 @@
-#!/bin/sh
-prebuild() {
-	./utils/autogen.sh
-}
+CFLAGS="$CFLAGS -DHAVE_WCHAR_H -DHAVE_WCTYPE_H -DHAVE_MBRTOWC"

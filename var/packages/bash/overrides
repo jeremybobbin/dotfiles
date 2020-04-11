@@ -1,1 +1,2 @@
 CONFIG_OPTS="--with-curses --enable-readline"
+MAKE_OPTS="LOCAL_LIBS=-ltre"
