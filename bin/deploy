@@ -6,8 +6,9 @@ PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
 CC=gcc
-CFLAGS="-Wl,-rpath=$PREFIX/lib -I$PREFIX/include"
+CFLAGS="-Wl,-rpath=$PREFIX/lib,-fPIC -I$PREFIX/include"
 LDFLAGS="-L$PREFIX/lib"
+NPROC=$(nproc)
 
 case "$(uname)" in
 	Linux) CFLAGS="$CFLAGS -fPIC";;
@@ -25,12 +26,12 @@ prebuild() {
 build() {
 	# don't run configure if the Makefile already exists
 	if [ -x configure ] && ([ ! -f Makefile ] || [ configure -nt Makefile ]); then
-		./configure "--prefix=$PREFIX" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" $CONFIG_OPTS
+		./configure "CC=$CC" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "LIBS=$LIBS" "--prefix=$PREFIX" $CONFIG_OPTS
 	fi
 }
 
 package() {
-	make install "PREFIX=$PREFIX" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "CC=$CC" $MAKE_OPTS
+	make install -j "$NPROC" "CC=$CC" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "LIBS=$LIBS" "PREFIX=$PREFIX" $MAKE_OPTS
 }
 
 install() {
