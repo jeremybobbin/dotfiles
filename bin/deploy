@@ -9,7 +9,13 @@ CC=gcc
 CFLAGS="-Wl,-rpath=$PREFIX/lib,-fPIC -I$PREFIX/include"
 LDFLAGS="-L$PREFIX/lib"
 NPROC=$(nproc)
-export CC CFLAGS LDFLAGS LIBS PREFIX
+
+case "$(uname)" in
+	Linux) CFLAGS="$CFLAGS -fPIC";;
+	*)
+esac
+
+export CC CFLAGS LDFLAGS PREFIX
 
 prebuild() {
 	if [ -r autogen.sh ]; then
