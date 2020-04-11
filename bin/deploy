@@ -8,6 +8,12 @@ PACKAGES="$PREFIX/var/packages"
 CC=gcc
 CFLAGS="-Wl,-rpath=$PREFIX/lib -I$PREFIX/include"
 LDFLAGS="-L$PREFIX/lib"
+
+case "$(uname)" in
+	Linux) CFLAGS="$CFLAGS -fPIC";;
+	*)
+esac
+
 export CC CFLAGS LDFLAGS PREFIX
 
 prebuild() {
