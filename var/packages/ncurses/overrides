@@ -1,2 +1,3 @@
 #!/bin/sh
-CONFIG_OPTS="--enable-ext-mouse --enable-widec --with-gpm --with-normal --with-shared --with-sysmouse --without-ada --without-cxx --without-cxx-binding"
+CONFIG_OPTS="--enable-ext-mouse --enable-widec --with-gpm --with-termlib --with-normal --with-shared --with-sysmouse --without-ada --without-cxx --without-cxx-binding"
+CFLAGS="-fPIC"
