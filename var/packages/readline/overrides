@@ -1,2 +1,9 @@
 #!/bin/sh
-CONFIG_OPTS="--with-curses --with-shared --enable-shared"
+build() {
+	TLDFLAGS=$LDFLAGS
+	TCFLAGS=$CFLAGS
+	unset CFLAGS LDFLAGS
+	
+	./configure --prefix="$PREFIX" --with-curses --enable-shared "LDFLAGS=-L $PREFIX/lib"
+	make SHLIB_LIBS=-lncursesw SHOBJ_LIBS=-lncursesw "LDFLAGS=$TLDFLAGS" "CFLAGS=$TCFLAGS" 
+}

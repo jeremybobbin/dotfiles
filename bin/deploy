@@ -6,7 +6,7 @@ PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
 CC=gcc
-CFLAGS="-Wl,-rpath=$PREFIX/lib,-fPIC -I$PREFIX/include"
+CFLAGS="-Wl,-rpath=$PREFIX/lib,-fPIC -I$PREFIX/include -I."
 LDFLAGS="-L$PREFIX/lib"
 NPROC=$(nproc)
 
