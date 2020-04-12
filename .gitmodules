@@ -79,3 +79,6 @@
 [submodule "src/tre"]
 	path = src/tre
 	url = https://github.com/jeremybobbin/tre
+[submodule "src/libtermkey"]
+	path = src/libtermkey
+	url = https://github.com/jeremybobbin/libtermkey
