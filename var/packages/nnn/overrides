@@ -1,2 +1,3 @@
 #!/bin/sh
-CFLAGS="$CFLAGS -ltre"
+CFLAGS="-fPIC -I$PREFIX/include/ncursesw $CFLAGS -ltre"
+LDFLAGS="-shared $LDFLAGS -ltre"

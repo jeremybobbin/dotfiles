@@ -1,3 +1,17 @@
 #!/bin/sh
-CONFIG_OPTS="--enable-ext-mouse --enable-widec --with-gpm --with-termlib --with-normal --with-shared --with-sysmouse --without-ada --without-cxx --without-cxx-binding"
-CFLAGS="-fPIC"
+CONFIG_OPTS="--enable-ext-mouse --enable-overwrite --enable-widec --with-gpm --with-normal --with-shared --with-sysmouse --without-ada --without-cxx --without-cxx-binding"
+LIBS=-ldl
+version() {
+	set $(cat VERSION)
+	echo "$2"
+}
+
+package() {
+	ver=$(version)
+	make install -j "$NPROC" "CC=$CC" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "LIBS=$LIBS" "PREFIX=$PREFIX" $MAKE_OPTS
+	for lib in tic ticw tinfo tinfow curses ncurses; do
+		echo "INPUT(libncursesw.so.$ver)" > "$PREFIX/lib/lib$lib.so"
+		ln -sf libncursesw.so.$ver "$PREFIX/lib/lib$lib.so.$ver"
+	done
+}
+
