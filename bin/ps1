@@ -1,7 +1,7 @@
 #!/bin/sh
 
 escape_tput() {
-	echo "\[$(tput "$@")\]"
+	echo "\[$(tput "$@" 2>/dev/null)\]"
 }
 
 black=$(escape_tput setaf 0)
@@ -23,7 +23,8 @@ fi
 username=$(id -u -n)
 hostname=$(hostname -s 2>/dev/null || cat /etc/hostname 2> /dev/null || :)
 level="\$( [ $(id -u) = 0 ] && echo '#' || echo '$' )"
-cwd="\$(pwd | sed \"s.$HOME.\~.g\" | grep -o '[^/]*$')"
+#cwd="\$(pwd | sed \"s.$HOME.\~.g\" | grep -Eo '[^/]*$')"
+cwd="\$(pwd | sed \"s#$HOME#\~#; s#.*/##\")"
 
 PS1="$bold$black[$green$username$black@"
 
