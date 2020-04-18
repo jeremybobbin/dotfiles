@@ -8,7 +8,7 @@ test: install
 
 install:
 	mkdir -p ${PREFIX}
-	cp -a bin etc share src var ${PREFIX}
+	cp -af bin etc share src var ${PREFIX}
 
 submodules:
 	@echo initializing submodules

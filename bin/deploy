@@ -64,7 +64,7 @@ packages() {
 }
 
 main() {
-	cp -a "$PREFIX/etc/skel/." "$HOME"
+	cp -af "$PREFIX/etc/skel/." "$HOME"
 	# compile & install executibles
 	if [ $# -gt 0 ]; then
 		realpath "$@" | while read src; do
