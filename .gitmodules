@@ -55,9 +55,6 @@
 [submodule "src/nnn"]
 	path = src/nnn
 	url = https://github.com/jeremybobbin/nnn
-[submodule "src/ncurses"]
-	path = src/ncurses
-	url = https://github.com/jeremybobbin/ncurses
 [submodule "src/readline"]
 	path = src/readline
 	url = https://github.com/jeremybobbin/readline
@@ -82,3 +79,6 @@
 [submodule "src/libtermkey"]
 	path = src/libtermkey
 	url = https://github.com/jeremybobbin/libtermkey
+[submodule "src/netbsd-curses"]
+	path = src/netbsd-curses
+	url = https://github.com/sabotage-linux/netbsd-curses
