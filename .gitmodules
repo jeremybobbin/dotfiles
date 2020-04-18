@@ -82,3 +82,9 @@
 [submodule "src/netbsd-curses"]
 	path = src/netbsd-curses
 	url = https://github.com/sabotage-linux/netbsd-curses
+[submodule "src/musl"]
+	path = src/musl
+	url = https://github.com/bminor/musl
+[submodule "src/sbase"]
+	path = src/sbase
+	url = https://github.com/michaelforney/sbase

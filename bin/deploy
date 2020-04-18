@@ -5,7 +5,7 @@ SOURCE_DIR="$PREFIX/src"
 PACKAGES="$PREFIX/var/packages"
 
 # to be overridden by "overrides" 
-CC=gcc
+CC=musl-gcc
 CFLAGS="-Wl,-rpath=$PREFIX/lib -I$PREFIX/include -I."
 LDFLAGS="-L$PREFIX/lib"
 NPROC=$(nproc)

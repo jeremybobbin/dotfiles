@@ -1,4 +1,2 @@
 #!/bin/sh
 CONFIG_OPTS="--enable-curses --enable-lua --enable-lpeg-static --enable-tre"
-CFLAGS="-I$PREFIX/include/ncurses $CFLAGS"
-LDFLAGS="-fPIC -shared $LDFLAGS"

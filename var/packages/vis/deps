@@ -2,4 +2,5 @@ libtermkey
 lpeg
 lua
 netbsd-curses
+sbase
 tre
