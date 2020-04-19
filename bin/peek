@@ -2,9 +2,15 @@
 # peek - run command on stdin. Almost a wrapper around xargs.
 # For apps that don't accept '-' as an argument.
 #
-# md2html < attachment.md | peek $BROWSER
+# md2html < attachment.md | EXTENSION=html peek $BROWSER
 # sed '/^#/d' .bashrc | peek -I% cp % .bashrc
 #
-tmp="$(mktemp)"
+
+if [ -n "$EXT" ]; then
+	tmp="$(mktemp -p /tmp XXXXXXXXXX.$EXT)"
+else
+	tmp="$(mktemp)"
+fi
+
 cat > "$tmp"
-exec echo "$tmp" | xargs "$@"
+echo "$tmp" | xargs "$@"
