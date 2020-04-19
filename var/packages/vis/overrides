@@ -1,2 +1,3 @@
 #!/bin/sh
 CONFIG_OPTS="--enable-curses --enable-lua --enable-lpeg-static --enable-tre"
+LDFLAGS="-lc $LDFLAGS"

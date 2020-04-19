@@ -1,0 +1,10 @@
+#!/bin/sh
+CC=cc
+MAKE_OPTS="syslibdir=$PREFIX/lib"
+VERSION="$(cat VERSION)"
+
+package() {
+	make install -j "$NPROC" "CC=$CC" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "PREFIX=$PREFIX" $MAKE_OPTS
+	ln -sf libc.so "libc.so.${VERSION%%.*}"
+	cp -af "libc.so.${VERSION%%.*}" "$PREFIX/lib"
+}
