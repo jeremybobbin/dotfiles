@@ -33,8 +33,7 @@ shopt -s extglob
 shopt -s globstar
 #shopt -s progcomp_alias
 
-
- # Infinite history.
+# Infinite history.
 export HISTSIZE=
 export HISTFILESIZE=
 
@@ -42,13 +41,13 @@ export HISTFILESIZE=
 export HISTCONTROL="ignorespace${HISTCONTROL:+:$HISTCONTROL}"
 
 if installed ssh-agent && ! pgrep -u "$USER" ssh-agent > /dev/null 2>&1; then
-    ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
+	ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
-if [ -r '/etc/bash_completion' ]; then
-	. /etc/bash_completion
+if [ -r '/usr/share/bash_completion' ]; then
+	. /usr/share/bash-completion/bash_completion
 fi
 
 if [ ! "$SSH_AUTH_SOCK" ]; then
-    . "$XDG_RUNTIME_DIR/ssh-agent.env"
+	. "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
