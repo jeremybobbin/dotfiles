@@ -57,7 +57,7 @@ TERMINAL='st'
 BLUETOOTH_DEVICE='AirPods'
 DEFAULT_MAILBOX='lambda'
 HOME_PAGE='https://www.google.com'
-TERM=$TERMINAL
+TERM=xterm-256color
 VIDEO_PLAYER='mpv'
 
 CARGO_CFG_COLOR='always'
