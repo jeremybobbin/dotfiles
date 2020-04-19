@@ -1,11 +1,21 @@
 #!/bin/sh
 
-path="$HOME/.trash/$(date +%F)/"
+path="$HOME/.trash/$(date +%F)"
 # make dir titled wiht date
 mkdir -p "$path"
 # Let mv handle duplicate names
 
+new_name() {
+	base="$(basename "$from")"
+	to="$path/$base"
+	seq 1000000 | until [ ! -e "$to" ] && echo "$to"; do
+		read n
+		to="$path/$base.$n"
+	done
+}
+
 while [ $# -gt 0 ]; do
-	VERSION_CONTROL="numbered" mv --backup "$1" "$path"
+	from="$1"
+	mv "$from" "$(new_name)"
 	shift
 done

@@ -1,4 +1,4 @@
 #!/bin/sh -e
 url=$(produce "$@")
-[ "$?" -eq 0 -a -n "$url" ] || exit 1
+[ "$?" -eq 0 ] && [ -n "$url" ] || exit 1
 exec "$BROWSER" "$url"

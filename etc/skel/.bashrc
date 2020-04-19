@@ -21,8 +21,9 @@ if installed abduco dvtm && [ -z "$ABDUCO_SESSION" ] && [ -z "$DVTM" ]; then
 	fi
 fi
 
-PS1=$(ps1)
-eval "$(sed -E '/^$/d; /#.*$/d; s/([^ \t]+)[ \t]+(.*)/alias \1='\''\2'\''/g' "$XDG_CONFIG_HOME/aliasrc")"
+PS1="$(ps1)"
+TAB="$(printf '\t')"
+eval "$(sed -E "/^$/d; /#.*$/d; s/([^ $TAB]+)[ $TAB]+(.*)/alias \1='\2'/g" "$XDG_CONFIG_HOME/aliasrc")"
 
 stty -ixon # Disable ctrl-s and ctrl-q.
 shopt -s autocd # Unknown command defaults to cd <command>

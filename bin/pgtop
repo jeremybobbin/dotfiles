@@ -1,6 +1,9 @@
 #!/bin/sh
-top_args=$(pgrep "$@"  | awk 'NR <= 20 { print "-p " $1 }')
+args="$(pgrep "$@" | xargs printf "-p %s ")"
 
-[ "$top_args" ] &&
-	top $top_args ||
-	echo "No matches" >&2
+if [ -z "$args" ]; then
+	echo "$0: no matching processes"
+	exit 1
+fi
+
+exec top $args

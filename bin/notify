@@ -1,5 +1,5 @@
 #!/bin/sh
-export DBUS_SESSION_BUS_ADDRESS=$(pidof dbus-daemon | awk  '{ printf "/proc/%s/environ", $1 }' | xargs sed -zn 's|DBUS_SESSION_BUS_ADDRESS=\(.*\)|\1|p' | tr '\0' '\n')
-export DISPLAY=:0
+eval "$(printf '/proc/%s/environ\n' $(pidof dbus-daemon) | stest -r |
+	xargs cat | tr '[:cntrl:]' '\n' | grep DBUS_SESSION_BUS_ADDRESS)"
 
 dunstify "$@"

@@ -1,9 +1,5 @@
 #!/bin/sh
-
-ls /sys/class/net/ |
-	grep -Ev '(lo|tap.*|wwp*)' |
-	xargs -I{} sh -c "printf '{} ' &&
-		ping -I {} -W 5 -qc1 8.8.8.8 2>&1 |
-		tail -n 1 |
-		cut -d'/' -f5"
-
+ls /sys/class/net | grep -Ev '^(lo|tap).*' | while read iface; do
+	latency=$(ping -I "$iface" -W 4 -c1 8.8.8.8 2>&1 | sed -En 's/.*\S+=(\S+).*/\1/p')
+	printf "%s %s\n" "$iface" "${latency:-failed}"
+done

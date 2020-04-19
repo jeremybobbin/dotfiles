@@ -1,13 +1,11 @@
 # Shell
 o		"$XDG_BIN_HOME/open"
 
-ls		command ls --color=auto --group-directories-first -hN 
-la		command ls --color=auto -ahN --group-directories-first
-ll		command ls --color=auto -lhN --group-directories-first
-lc		command ls --color=always -hN --group-directories-first 
-lt		command ls --color=auto -thN 
-
-new		($TERMINAL -c "cd $PWD" &>/dev/null & disown)
+la		/bin/ls --color=auto -ahN --group-directories-first
+lc		/bin/ls --color=always -hN --group-directories-first 
+ll		/bin/ls --color=auto -lhN --group-directories-first
+ls		/bin/ls --color=auto --group-directories-first -hN 
+lt		/bin/ls --color=auto -thN 
 
 # Jenkins Operator
 _		xargs
@@ -16,20 +14,18 @@ _		xargs
 # rm_wrapper function in ~/.bashrc
 rm	rm_wrapper
 
-
 sp	. ~/.profile
 sbrc	. ~/.bashrc
 
 e	terminal $EDITOR
-ep	e ~/.profile
 ebp	e ~/.bash_profile
-exp	e ~/.xprofile
-
 ebrc	e ~/.bashrc
 eirc	e ~/.inputrc
-exrc	e ~/.xinitrc
+ep	e ~/.profile
 evrc	e ~/.vimrc
 evrcd	e ~/.vim
+exp	e ~/.xprofile
+exrc	e ~/.xinitrc
 
 emrc	e ~/.config/neomutt/neomuttrc
 exhk	e ~/.config/sxhkd/sxhkdrc
@@ -37,32 +33,32 @@ earc	e ~/.config/aliasrc
 
 # Administration
 sc	systemctl
-ssc	sudo systemctl
 scu	systemctl --user
-
-sscr	sudo systemctl restart
-ssce	sudo systemctl enable
-scur	systemctl --user restart
 scue	systemctl --user enable
+scur	systemctl --user restart
+ssc	sudo systemctl
+ssce	sudo systemctl enable
+sscr	sudo systemctl restart
 
 # Clipboard
-xc	xclip -selection
+cb	xclip -selection c
+pcb	xclip -selection p
+scb	xclip -selection s
 
-cb	xc c
-pcb	xc p
-cbo	xc c -o
-pcbo	xc p -o
+cb	xclip -selection c
+pcb	xclip -selection p
+scb	xclip -selection s
 
-cbimg	xc c -t image
-pcbimg	xc p -t image
+cbimg	xclip -selection c -t image -o
+pcbimg	xclip -selection p -t image -o
+scbimg	xclip -selection s -t image -o
 
-cbojpg	xc c -t image | jpg
-pcbojpg	xc p -t image | jpg
-cbopng	xc c -t image | jpg
-pcbopng	xc p -t image | jpg
-
-p2c	pcbo | cb
-c2p	cbo | pcb
+c2p	cb -o  | pcb
+c2s	cb -o  | scb
+p2c	pcb -o | cb
+p2s	pcb -o | scb
+s2c	pcb -o | cb
+s2p	pcb -o | pcb
 
 # Apps
 g	git
@@ -71,8 +67,8 @@ n	nnn
 z	zathura
 
 # Make
-m	make
-smi	sudo make install
+mk	make
+smki	sudo make install
 rh	runhaskell
 
 # Media
@@ -80,21 +76,17 @@ rec	ffmpeg -video_size 1920x1080 -framerate 20 -f x11grab -i :0.0+0,0 "$HOME/Med
 pm	pulsemixer
 
 # Colors
-ip	ip -c
-
-grep	grep --color=auto 
-yay	yay --color=auto
+catc	highlight --out-format=ansi 
 diff	diff --color=auto
+diffc	/bin/diff --color=always
+grep	/bin/grep --color=auto 
+grepc	/bin/grep --color=always 
+ip	ip -c
+less	less -R
 pacman	pacman --color auto
-
-grepc	grep --color=always 
-diffc	diff --color=always
-yayc	yay --color=always
 pacmanc	pacman --color always
-
-less	less -R
-highlight	highlight --out-format=ansi 
-less	less -R
+yay	yay --color=auto
+yayc	yay --color=always
 
 mpv mpv --input-ipc-server="/tmp/mpv_$(date +%s%N)"
 
@@ -110,13 +102,14 @@ p8	ping 8.8.8.8
 p42	ping 4.2.2.2
 t8	traceroute 8.8.8.8
 t42	traceroute 4.2.2.2
+
 ipash	ip address show
-iplish	ip link show
-iprosh	ip link show
 ipb	ip -br
 ipbash	ip -br address show
 ipblish	ip -br link show
 ipbrosh	ip link show
+iplish	ip link show
+iprosh	ip link show
 
 # Mail
 mutt	neomutt
@@ -126,24 +119,23 @@ m	neomutt
 # Lambda
 # Dialpad Number
 dpn	echo 6502886100
+
 # Lambda Dialpad Number
 ldpn	echo 6504795530
-
-
 
 # Temp
 vps		echo 45.77.215.144
 
 # Common Dir
-uls	cd ~/.local/share
-ulb	cd ~/.local/bin
-cfg	cd ~/.config
 cch	cd ~/.cache
+cfg	cd ~/.config
 dl	cd ~/Downloads
-mda	cd ~/Media
 doc	cd ~/Media/Documents
+img	cd ~/Media/Images
+mda	cd ~/Media
+msc	cd ~/Media/Audio/Music
 nts	cd ~/Notes
 prj	cd ~/Projects
-msc	cd ~/Media/Audio/Music
-img	cd ~/Media/Images
+ulb	cd ~/.local/bin
+uls	cd ~/.local/share
 vdo	cd ~/Media/Video
