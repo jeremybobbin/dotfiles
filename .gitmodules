@@ -43,9 +43,6 @@
 [submodule "src/surf"]
 	path = src/surf
 	url = https://www.github.com/jeremybobbin/surf
-[submodule "src/support"]
-	path = src/support
-	url = https://github.com/jeremybobbin/support
 [submodule "src/abduco"]
 	path = src/abduco
 	url = https://github.com/jeremybobbin/abduco
@@ -88,3 +85,6 @@
 [submodule "src/sbase"]
 	path = src/sbase
 	url = https://github.com/michaelforney/sbase
+[submodule "src/support"]
+	path = src/support
+	url = https://github.com/LambdaLabs/support
