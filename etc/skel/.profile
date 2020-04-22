@@ -1,20 +1,43 @@
 #!/bin/sh
 # Dotfile todos:
-#TODO Deployment method: curl jer.cx/deploy | sh
+#TODO Deployment method: `curl jer.sh/deploy | sh`
+#TODO `curl jer.sh/root | sh`
 #	1. creates user "jer" as (wheel/sudo/adm)
-#	2. prompts for password
-#	3. installs dependencies
-#	4. (optionally) adds machine to VPN
-#TODO Source script: curl jer.cx/source | sh
-#	1. installs dependencies
-#	2. binds keys
+#	2. (optionally) adds machine to VPN
+#
+#TODO `curl jer.sh/basic | sh` - binds keys, sets locale & environment
 #TODO Logging
-#TODO Configure XDG-Open
-#TODO URL Preparser for XDG-Open(foo.org/bar.pdf -> curl $URL | $PDF_VIEWER -)
-#TODO Get rid of 'subcommand' OR turn it into a compiler
 #TODO Jewish conspiracy
-#TODO Bash tab-complete for 'subcommand' dependents
-#TODO Move all scripts to ~/.local/src
+#TODO Bash tab-completion for bins/*
+#TODO Standardize options & help menu for bins/*
+#	Issues: say we want to update all initcpio's with Debian's `update-initramfs`
+#		- "Standard":  update-initramfs -u -k all
+#		- GNU:         update-initramfs -ukall
+#		- Long Opts:   update-initramfs --update --kernal all
+#
+#TODO pdksh: Implement tab-completion
+#TODO netbsd-ncurses: rebase with upstream
+#TODO src: +noemutt, isync, msmtp
+#TODO src: +ubase
+#TODO NeoMutt: replace tcl configure scripts with sh
+#TODO NeoMutt: swap out file browser with $FILEBROWSER
+#TODO NeoMutt: consider swapping configuration with Lua
+#TODO Lua: reimplement parser in (Berkley)YACC(like it once was)
+#TODO src: +byacc, maybe also bsdmake
+#TODO Move var/packages/*/{deps,overrides} to var/lib/$pkg, with a POSIX-complient PKGBUILD style
+#TODO "Plan9 plumbing"-like alternative(or frontend) to XDG-Open
+#TODO {consume,produce} should pass around file paths(potentially also URLs)
+#TODO DVTM: port src/st/st.c to src/dvtm/vt.c for better rendering
+#TODO sbase: `cp -af sl1 sl2`(sl[12] point to the same file) should not err
+#TODO vis: vis-surround
+#TODO vis: client-server architecture
+#TODO src/dmenufb: should be a seperate repo
+#TODO deploy: rename to pkj(packajer)
+#TODO pkj: only install {st,dmenu,dwm,surf} if Xlib is installed
+#TODO compile all dependencies with TCC
+#TODO write `menu` - X/TTY ignorant wrapper around {dmenu,vis-open}
+#TODO support/orders: not extensible - it should just be a frontend for curl & jq
+#TODO +
 
 
 prependpath() {
