@@ -1,0 +1,10 @@
+#!/bin/sh -ex
+browse() {
+	printf "/%s" "$1"
+	if [ -d "$1" ]; then
+		cd "$1"
+		browse "$(ls -a | dmenu -p "$1" -i $DMENU_ARGS)"
+	fi
+}
+
+browse "$1"
