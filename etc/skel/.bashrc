@@ -44,7 +44,7 @@ if installed ssh-agent && ! pgrep -u "$USER" ssh-agent > /dev/null 2>&1; then
 	ssh-agent | sed -E '/^echo/d' > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 
-if [ -r '/usr/share/bash_completion' ]; then
+if [ -r '/usr/share/bash-completion' ]; then
 	. /usr/share/bash-completion/bash_completion
 fi
 
