@@ -11,15 +11,20 @@ installed() {
 }
 
 # abduco/dvtm session
-if installed abduco dvtm && [ -z "$ABDUCO_SESSION" ] && [ -z "$DVTM" ]; then
-	if [ -z "$SSH_CILENT" ] ; then
-		exec abduco -A dvtm-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
-	elif [ -n "$FORCE_DVTM"]; then
-		exec abduco -A dvtm-ssh-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
-	else
-		exec abduco -A ssh-session
-	fi
+#if installed abduco dvtm && [ -z "$ABDUCO_SESSION" ] && [ -z "$DVTM" ]; then
+#	if [ -z "$SSH_CILENT" ] ; then
+#		exec abduco -A dvtm-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
+#	elif [ -n "$FORCE_DVTM"]; then
+#		exec abduco -A dvtm-ssh-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
+#	else
+#		exec abduco -A ssh-session
+#	fi
+#fi
+
+if installed abduco && [ -z "$ABDUCO_SESSION" ]; then
+	exec abduco -A dvtm-session bash
 fi
+
 
 PS1="$(ps1)"
 TAB="$(printf '\t')"
