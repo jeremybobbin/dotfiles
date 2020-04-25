@@ -1,4 +1,5 @@
-include config.mk
+PREFIX = ${HOME}/.local
+MANPREFIX = ${PREFIX}/share/man
 
 deploy: submodules install
 	${PREFIX}/bin/deploy
