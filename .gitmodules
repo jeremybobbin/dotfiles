@@ -88,3 +88,6 @@
 [submodule "src/support"]
 	path = src/support
 	url = https://github.com/LambdaLabs/support
+[submodule "src/menutils"]
+	path = src/menutils
+	url = https://github.com/jeremybobbin/menutils

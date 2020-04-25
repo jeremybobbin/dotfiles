@@ -1,4 +1,4 @@
 #!/bin/sh -e
 bookmarks="${XDG_DATA_HOME:-"$HOME/.local/share"}/bookmarks"
 mkdir -p "$bookmarks"
-cat "$(dmenufb "$bookmarks")"
+cat "$(menu-fb "$bookmarks")"

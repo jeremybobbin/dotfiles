@@ -1,1 +1,15 @@
-../web-search
+#!/bin/sh
+engines="${XDG_DATA_HOME:-"$HOME/.local/share"}/search"
+if [ $# -ge 1 -a -r "$engines/$1" ]; then
+	engine="$1"
+else
+	engine="$(ls "$engines" | menu -i -p "Engines")"
+	[ "$?" -eq 0 ] || exit 1
+fi
+
+url=$(: | menu -i -p "Search $engine:")
+[ "$?" -eq 0 ] || exit 1
+
+# delete new line in engine URL
+cat "$engines/$engine" | tr -d '\n'
+echo $url | urlencode

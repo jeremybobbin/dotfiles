@@ -6,7 +6,7 @@ main() {
 		consumer="$1"
 		shift
 	else
-		consumer="$(ls "$consumers" | dmenu -i)"
+		consumer="$(ls "$consumers" | menu -i)"
 	fi
 
 	[ -n "$consumer" ] || return 1
