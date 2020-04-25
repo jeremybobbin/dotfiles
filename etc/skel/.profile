@@ -31,13 +31,10 @@
 #TODO sbase: `cp -af sl1 sl2`(sl[12] point to the same file) should not err
 #TODO vis: vis-surround
 #TODO vis: client-server architecture
-#TODO src/dmenufb: should be a seperate repo
 #TODO deploy: rename to pkj(packajer)
 #TODO pkj: only install {st,dmenu,dwm,surf} if Xlib is installed
 #TODO compile all dependencies with TCC
-#TODO write `menu` - X/TTY ignorant wrapper around {dmenu,vis-open}
 #TODO support/orders: not extensible - it should just be a frontend for curl & jq
-#TODO +
 
 
 prependpath() {
