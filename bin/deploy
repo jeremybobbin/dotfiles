@@ -2,7 +2,7 @@
 
 PREFIX=${PREFIX:-"$HOME/.local"}
 SOURCE_DIR="$PREFIX/src"
-PACKAGES="$PREFIX/var/packages"
+PACKAGES="$PREFIX/var/lib/packages"
 
 # to be overridden by "overrides" 
 CC=musl-gcc
@@ -43,7 +43,7 @@ install() {
 	}
 
 	# source overrides for "{CONFIG,MAKE}_OPTS"
-	overrides="$PACKAGES/$(basename "$src")/overrides"
+	overrides="$PACKAGES/overrides/${src##*/}"
 	if [ -f "$overrides" ]; then
 		. "$overrides"
 	fi
@@ -56,9 +56,9 @@ install() {
 packages() {
 	cd "$PACKAGES"
 	for pkg in *; do
-		if [ -f "$pkg/deps" ]; then
+		if [ -f "deps/$pkg" ]; then
 			# prepare input for tsort
-			xargs -r printf "$pkg %s\n" < "$pkg/deps" 
+			xargs -r printf "$pkg %s\n" < "deps/$pkg" 
 		fi
 	done | tsort - | tac
 }

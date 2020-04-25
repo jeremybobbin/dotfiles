@@ -24,7 +24,7 @@
 #TODO NeoMutt: consider swapping configuration with Lua
 #TODO Lua: reimplement parser in (Berkley)YACC(like it once was)
 #TODO src: +byacc, maybe also bsdmake
-#TODO Move var/packages/*/{deps,overrides} to var/lib/$pkg, with a POSIX-complient PKGBUILD style
+#TODO give var/lib/overrides/* a POSIX-complient PKGBUILD style
 #TODO "Plan9 plumbing"-like alternative(or frontend) to XDG-Open
 #TODO {consume,produce} should pass around file paths(potentially also URLs)
 #TODO DVTM: port src/st/st.c to src/dvtm/vt.c for better rendering
