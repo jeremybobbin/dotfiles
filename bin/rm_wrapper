@@ -1,21 +1,16 @@
-#!/bin/sh
-
-path="$HOME/.trash/$(date +%F)"
-# make dir titled wiht date
-mkdir -p "$path"
-# Let mv handle duplicate names
-
-new_name() {
-	base="$(basename "$from")"
-	to="$path/$base"
-	seq 1000000 | until [ ! -e "$to" ] && echo "$to"; do
-		read n
-		to="$path/$base.$n"
-	done
-}
+#!/bin/sh -ex
+# this is just gross; maybe rewrite this in awk.
+trash="${TRASH-"$HOME/.trash"}/$(date +%F)"
+mkdir -p "$trash"
 
 while [ $# -gt 0 ]; do
 	from="$1"
-	mv "$from" "$(new_name)"
+	base="$(basename "$from")"
+	while [ -e "${to="$trash/$base"}" ]; do
+		to="$trash/$base.${n=0}"
+		n="$((n+1))"
+	done
+	mv "$from" "$to"
 	shift
 done
+
