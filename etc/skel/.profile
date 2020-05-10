@@ -39,11 +39,12 @@
 #TODO srews(subst regex with stream): program that substitutes regex with stdin
 #TODO sthkd: simple terminal hot key daemon
 #TODO grec: global regex color
+#TODO ssam: stream sam
 #TODO bluetooth: keybindings to switch bluetooth profiles
 
 
 prependpath() {
-	for i in $*; do
+	for i; do
 		case ":$PATH:" in
 			*:"$i":*) ;;
 			*) PATH=$i${PATH+":$PATH"};;
@@ -68,6 +69,7 @@ XDG_CONFIG_DIRS='/etc/xdg'
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_DATA_DIRS="$XDG_DATA_HOME:/usr/local/share/:/usr/share/"
 XDG_DATA_HOME="$HOME/.local/share"
+XDG_RUN_HOME="$HOME/.local/run"
 
 AUDIO_PLAYER='mpv'
 BROWSER='surf'
@@ -79,7 +81,7 @@ MUSIC_PLAYER='ncmpcpp'
 PDF_VIEWER='zathura'
 TERMINAL='st'
 
-BLUETOOTH_DEVICE='AirPods'
+BLUETOOTH_DEVICE='Jabra Elite 75t'
 DEFAULT_MAILBOX='lambda'
 HOME_PAGE='https://www.google.com'
 TERM=xterm-256color
@@ -95,6 +97,10 @@ DVTM_CMD_FIFO="$(mktemp -u)"
 DVTM_STATUS_FIFO="$(mktemp -u)"
 DWM_CMD_FIFO="$(mktemp -u)"
 DWM_STATUS_FIFO="$(mktemp -u)"
+
+for pipe in "$DVTM_CMD_FIFO" "$DVTM_STATUS_FIFO" "$DWM_CMD_FIFO" "$DWM_STATUS_FIFO"; do
+	[ -p "$pipe" ] || rm -f "$pipe" && mkfifo "$pipe"
+done
 
 COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
 
