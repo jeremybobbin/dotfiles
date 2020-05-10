@@ -1,5 +1,2 @@
 #!/bin/sh
-eval "$(printf '/proc/%s/environ\n' $(pidof dbus-daemon) | stest -r |
-	xargs cat | tr '[:cntrl:]' '\n' | grep DBUS_SESSION_BUS_ADDRESS)"
-
-dunstify "$@"
+exec dunstify "$@"

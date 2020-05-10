@@ -1,0 +1,8 @@
+#!/bin/sh
+# necessary for display: dunst, dmenu, etc;
+pidof dbus-daemon | xargs printf '/proc/%s/environ\n' | while read path; do
+	[ -r "$path" ] && cat "$path"
+done | tr '[:cntrl:]' '\n' | sed -n '/DBUS_SESSION_BUS_ADDRESS/ s/^/export /p'
+
+# TODO: make this dynamic somehow
+echo export DISPLAY=:0
