@@ -18,18 +18,12 @@ unread() {
 	find "$MAIL_DIR"/*/Inbox/new -type f
 }
 
-mail_count() {
-	if [ -z "$MAIL_COUNT" ]; then
-		MAIL_COUNT="$(unread | wc -l)"
-	fi
-	echo "$MAIL_COUNT"
-}
-
 is_new_mail() {
 	stderr "checking for new mail"
 	mkdir -p "$CACHE_DIR"
 	# latest is based on the premise that email file names are
 	# prefixed with their Unix timestamp
+	# this awk invocation is derives the basename(same as xargs -n1 basename) 
 	latest=$(unread | sort -nr | awk -F '/' '{ print $(NF); exit; }')
 
 	# the one we saw on the last invocation of is_new_mail
@@ -37,7 +31,7 @@ is_new_mail() {
 
 	echo "$latest" > "$CACHE_DIR/email_notify"
 
-	[ "$latest" -gt "$saw_last_time" ] && [ "$(mail_count)" -gt 0 ] ||
+	[ "$latest" -gt "$saw_last_time" ] && [ "$(unread | wc -l)" -gt 0 ] ||
 		return 1
 
 }
@@ -51,11 +45,9 @@ sync() {
 	msmtp-runqueue.sh && mbsync -a || return "$?"
 
 	if is_new_mail || [ -n "$INTERACTIVE" ]; then
-		if [ "$MAIL_COUNT" -eq 0 ]; then
+		count="$(unread | wc -l)"
+		if [ $count -eq 0 ]; then
 			count='no'
-		else
-			# TODO this sets count to "" - fix me
-			count="$MAIL_COUNT"
 		fi
 		notify 'Mail' "You've got $count new mail."
 		play "$HOME/Media/Audio/Recordings/bow.mp3" vol 0.25
