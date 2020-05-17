@@ -56,3 +56,8 @@ fi
 if [ ! "$SSH_AUTH_SOCK" ]; then
 	. "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
+
+if [ "$0" = "/bin/bash" ]; then
+	# /bin/bash crashes when dyn linked against libreadline (dyn linked against muslgcc)?
+	exec "$(which bash)" "$@"
+fi
