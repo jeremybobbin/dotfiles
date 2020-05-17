@@ -11,7 +11,7 @@ set sendmail="msmtp-enqueue.sh -a lambdal.com"
 
 unset record
 unset trash
-set spoolfile=+Inbox
 set postponed=+Drafts
+set spoolfile=+Inbox
 
-mailboxes +Inbox +Drafts "+Sent Mail" +Spam +Trash
+mailboxes "+All Mail" +Drafts +Important +Inbox "+Sent Mail" +Spam +Starred +Trash

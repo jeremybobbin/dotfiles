@@ -3,7 +3,7 @@ source bindings
 source lambdal.com # Default Mailbox
 
 set date_format="%m/%d/%y %I:%M%p"
-set index_format="%2C %zs %?X?A& ? %D %-15.15F %s (%-4.4c)"
+set index_format="%5C %zs%zt%?X?A& ? %D %-15.15F %s (%-4.4c)"
 
 set help = no
 set sleep_time = 0
