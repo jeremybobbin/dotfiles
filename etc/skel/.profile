@@ -44,12 +44,10 @@
 
 
 prependpath() {
-	for i; do
-		case ":$PATH:" in
-			*:"$i":*) ;;
-			*) PATH=$i${PATH+":$PATH"};;
-		esac
-	done
+	case ":$PATH:" in
+		*:"$1":*) ;;
+		*) PATH=$1${PATH+":$PATH"};;
+	esac
 }
 
 isatty() {
@@ -109,16 +107,14 @@ COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
 
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
-prependpath "
-/usr/bin/
-/usr/sbin/
-/usr/local/bin
-/usr/local/sbin
-$HOME/.yarn/bin
-$HOME/.cargo/bin
-$HOME/.local/bin
-/tmp/bin
-"
+prependpath /usr/bin/
+prependpath /usr/sbin/
+prependpath /usr/local/bin
+prependpath /usr/local/sbin
+prependpath $HOME/.yarn/bin
+prependpath $HOME/.cargo/bin
+prependpath $HOME/.local/bin
+prependpath /tmp/bin
 
 set +a
 
