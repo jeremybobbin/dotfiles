@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/make
 
 PREFIX=${PREFIX:-"$HOME/.local"}
 SOURCE_DIR="$PREFIX/src"
