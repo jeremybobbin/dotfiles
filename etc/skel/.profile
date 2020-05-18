@@ -31,8 +31,7 @@
 #TODO sbase: `cp -af sl1 sl2`(sl[12] point to the same file) should not err
 #TODO vis: vis-surround
 #TODO vis: client-server architecture
-#TODO deploy: rename to pkj(packajer)
-#TODO pkj: only install {st,dmenu,dwm,surf} if Xlib is installed
+#TODO deploy: turn into Makefile
 #TODO compile all dependencies with TCC
 #TODO support/orders: not extensible - it should just be a frontend for curl & jq
 #TODO src: +dietline; dietline standalone
