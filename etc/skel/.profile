@@ -36,7 +36,6 @@
 #TODO compile all dependencies with TCC
 #TODO support/orders: not extensible - it should just be a frontend for curl & jq
 #TODO src: +dietline; dietline standalone
-#TODO srews(subst regex with stream): program that substitutes regex with stdin
 #TODO sthkd: simple terminal hot key daemon
 #TODO grec: global regex color
 #TODO ssam: stream sam

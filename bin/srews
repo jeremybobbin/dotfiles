@@ -1,0 +1,13 @@
+#!/bin/sh
+# Substitute Regular Expression With Stream
+# 
+# srews <regex> <file> [<file1> [<file2> ...]]
+# 
+# my numbers in todo.txt are mis-ordered
+# seq 1000 | srews '[0-9]+' todo.txt
+#
+#
+regex=$1; shift
+
+awk 'FNR==NR { a[n++] = $0 }
+	FNR!=NR { while (i < n && sub(/'"$regex"'/, a[i], $0)) i++; print }' - "$@"
