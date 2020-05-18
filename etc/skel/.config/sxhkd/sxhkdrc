@@ -24,8 +24,8 @@ super + a
 	"$TERMINAL" -e pulsemixer
 
 # Web
-super + w; super + { w, s, g, b, u, c }
-	web { , Search, Search Google, Bookmarks, URL, Clipboard }
+super + w; super + { w, s, g, b, r, c }
+	web { , Search, Search Google, Bookmarks, Raw, Clipboard }
 
 # sxhkd won't listen for 
 # super + e; super + j
