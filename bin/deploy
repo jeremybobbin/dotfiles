@@ -1,85 +1,91 @@
 #!/bin/make
+PREFIX = /usr
+SRC = $(PREFIX)/src
+BIN = $(PREFIX)/src
+DEPLOY_CFLAGS = -Wl,-rpath=$(PREFIX)/lib -I$(PREFIX)/include -I. $(CFLAGS)
+DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
+CC = musl-gcc
 
-PREFIX=${PREFIX:-"$HOME/.local"}
-SOURCE_DIR="$PREFIX/src"
-PACKAGES="$PREFIX/var/lib/packages"
+# I'm not aware of any other POSIX complient way of doing this that doesn't suck
+# https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html#tag_04_84_13_05
+# 
+# I could write a makefile-gen script and then makefile-gen | make - 
+# But maintaining that'd be a bitch
+$(SRC)/abduco:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/abduco
 
-# to be overridden by "overrides" 
-CC=musl-gcc
-CFLAGS="-Wl,-rpath=$PREFIX/lib -I$PREFIX/include -I."
-LDFLAGS="-L$PREFIX/lib"
-NPROC=$(nproc)
+$(SRC)/bash:
+	cd $(SRC)
+	git clone http://git.savannah.gnu.org/git/bash
 
-case "$(uname)" in
-	Linux) CFLAGS="$CFLAGS -fPIC";;
-	*)
-esac
+$(SRC)/dmenu:
+	cd $(SRC)
+	git clone https://www.github.com/jeremybobbin/dmenu
 
-export CC CFLAGS LDFLAGS PREFIX
+$(SRC)/dvtm:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/dvtm
 
-prebuild() {
-	if [ -r autogen.sh ]; then
-		./autogen.sh
-	fi
-}
+$(SRC)/dwm:
+	cd $(SRC)
+	git clone https://www.github.com/jeremybobbin/dwm
 
-build() {
-	# don't run configure if the Makefile already exists
-	if [ -x configure ]; then
-		./configure "CC=$CC" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "--prefix=$PREFIX" $CONFIG_OPTS
-	fi
-}
+$(SRC)/libtermkey:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/libtermkey
 
-package() {
-	make install -j "$NPROC" "CC=$CC" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" "PREFIX=$PREFIX" $MAKE_OPTS
-}
+$(SRC)/lpeg:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/lpeg
 
-install() {
-	src="$1"
-	cd "$src" || {
-		echo "$0: $src doesn't exist" 1>&2;
-		# don't exit if "/var/packages/$pkg" doesn't exist
-		return;
-	}
+$(SRC)/lua:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/lua
 
-	# source overrides for "{CONFIG,MAKE}_OPTS"
-	overrides="$PACKAGES/overrides/${src##*/}"
-	if [ -f "$overrides" ]; then
-		. "$overrides"
-	fi
-	prebuild
-	build
-	package
-}
+$(SRC)/menutils:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/menutils
 
-# print packages in optimal order of compilation 
-packages() {
-	cd "$PACKAGES"
-	for pkg in *; do
-		if [ -f "deps/$pkg" ]; then
-			# prepare input for tsort
-			xargs -r printf "$pkg %s\n" < "deps/$pkg" 
-		fi
-	done | tsort - | tac
-}
+$(SRC)/musl:
+	cd $(SRC)
+	git clone https://github.com/bminor/musl
 
-main() {
-	cp -af "$PREFIX/etc/skel/." "$HOME"
-	# compile & install executibles
-	if [ $# -gt 0 ]; then
-		realpath "$@" | while read src; do
-			(install "$src")
-		done
-	else
-		cd "$PREFIX/src"
-		for src in $(packages); do
-			(install "$src")
-		done
-	fi
+$(SRC)/netbsd-curses:
+	cd $(SRC)
+	git clone https://github.com/sabotage-linux/netbsd-curses
 
-	# crontab
-	echo sourcing crontab 1>&2
-	crontab "$HOME/.local/etc/crontab"
-}
+$(SRC)/nnn:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/nnn
 
-main "$@"
+$(SRC)/readline:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/readline
+
+$(SRC)/sbase:
+	cd $(SRC)
+	git clone https://github.com/michaelforney/sbase
+
+$(SRC)/st:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/st
+
+$(SRC)/support:
+	cd $(SRC)
+	git clone https://github.com/LambdaLabs/support
+
+$(SRC)/surf:
+	cd $(SRC)
+	git clone https://www.github.com/jeremybobbin/surf
+
+$(SRC)/tre:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/tre
+
+$(SRC)/vis:
+	cd $(SRC)
+	git clone https://github.com/jeremybobbin/vis
+
+deploy:
+	crontab "$(PREFIX)/etc/crontab"
