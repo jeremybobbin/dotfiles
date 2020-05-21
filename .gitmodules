@@ -28,66 +28,6 @@
 [submodule "etc/skel/.vim/pack/jer/start/vim-vinegar"]
 	path = etc/skel/.vim/pack/jer/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
-[submodule "src/subcommand"]
-	path = src/subcommand
-	url = https://github.com/jeremybobbin/subcommand
-[submodule "src/st"]
-	path = src/st
-	url = https://github.com/jeremybobbin/st
-[submodule "src/dwm"]
-	path = src/dwm
-	url = https://www.github.com/jeremybobbin/dwm
-[submodule "src/dmenu"]
-	path = src/dmenu
-	url = https://www.github.com/jeremybobbin/dmenu
-[submodule "src/surf"]
-	path = src/surf
-	url = https://www.github.com/jeremybobbin/surf
-[submodule "src/abduco"]
-	path = src/abduco
-	url = https://github.com/jeremybobbin/abduco
-[submodule "src/dvtm"]
-	path = src/dvtm
-	url = https://github.com/jeremybobbin/dvtm
-[submodule "src/nnn"]
-	path = src/nnn
-	url = https://github.com/jeremybobbin/nnn
-[submodule "src/readline"]
-	path = src/readline
-	url = https://github.com/jeremybobbin/readline
-[submodule "src/bash"]
-	path = src/bash
-	url = http://git.savannah.gnu.org/git/bash
-[submodule "src/vis"]
-	path = src/vis
-	url = https://github.com/jeremybobbin/vis
 [submodule "etc/skel/.config/vis/plugins/vis-ctags"]
 	path = etc/skel/.config/vis/plugins/vis-ctags
 	url = https://github.com/jeremybobbin/vis-ctags
-[submodule "src/lua"]
-	path = src/lua
-	url = https://github.com/jeremybobbin/lua
-[submodule "src/lpeg"]
-	path = src/lpeg
-	url = https://github.com/jeremybobbin/lpeg
-[submodule "src/tre"]
-	path = src/tre
-	url = https://github.com/jeremybobbin/tre
-[submodule "src/libtermkey"]
-	path = src/libtermkey
-	url = https://github.com/jeremybobbin/libtermkey
-[submodule "src/netbsd-curses"]
-	path = src/netbsd-curses
-	url = https://github.com/sabotage-linux/netbsd-curses
-[submodule "src/musl"]
-	path = src/musl
-	url = https://github.com/bminor/musl
-[submodule "src/sbase"]
-	path = src/sbase
-	url = https://github.com/michaelforney/sbase
-[submodule "src/menutils"]
-	path = src/menutils
-	url = https://github.com/jeremybobbin/menutils
-[submodule "src/support"]
-	path = src/support
-	url = https://github.com/LambdaLabs/support
