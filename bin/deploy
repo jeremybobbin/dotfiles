@@ -111,22 +111,27 @@ CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 
 READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 
-.PHONY: base xorg all options
+.PHONY: all base options xorg 
 
 all: base xorg
-xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
 base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis
 	cp -af bin etc share src var $(PREFIX)
 	crontab $(PREFIX)/etc/crontab
-
 env:
 	@env
+
+clean:
+	cd $(PREFIX) && for src in $(PREFIX)/src/*; do \
+		cd "$$src" && make clean
+	done
 
 options:
 	@echo CC=$(CC)
 	@echo CFLAGS=$(DEPLOY_CFLAGS)
 	@echo LDFLAGS=$(DEPLOY_LDFLAGS)
 	@echo PREFIX=$(PREFIX)
+
+xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
 
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
