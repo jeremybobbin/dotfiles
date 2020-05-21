@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Might use this for cron if sourcing ~/.profile becomes too expensive
+#
+fifo="${1:"$SHELL_FIFO"}"
+
+[ -z "$fifo" ] && exit 1
+[ -p "$fifo" ] ||
+	(rm -f "$fifo" && mkfifo "$fifo")
+
+while :; do
+	. "$fifo"
+done
