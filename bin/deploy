@@ -115,7 +115,7 @@ SUPPORT = $(BIN)/orders $(BIN)/network-bug-report.sh
 .PHONY: all base options xorg 
 
 all: base xorg
-base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(MENUTILS) $(SHARE)/regex
+base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS) $(SUPPORT) 
 	cp -af bin etc share src var $(PREFIX)
 	cp -af $(PREFIX)/etc/skel/. $(HOME)
 	crontab $(PREFIX)/etc/crontab
@@ -125,7 +125,8 @@ env:
 
 clean:
 	cd $(PREFIX) && for src in $(PREFIX)/src/*; do \
-		cd "$$src" && $(MAKE) clean
+		cd "$$src" && $(MAKE) clean ||:; \
+		touch "$$src"; \
 	done
 
 options:
