@@ -97,6 +97,7 @@ SRC = $(PREFIX)/src
 BIN = $(PREFIX)/bin
 LIB = $(PREFIX)/lib
 INC = $(PREFIX)/include
+SHARE = $(PREFIX)/share
 CC = musl-gcc
 MAKE = make
 DEPLOY_CFLAGS = -I$(PREFIX)/include -I. $(CFLAGS)
@@ -104,17 +105,17 @@ DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
 MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
-
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so  $(LIB)/libterminfo.so \
 	$(INC)/curses.h
-
 READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
+MENUTILS = $(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache
+SUPPORT = $(BIN)/orders $(BIN)/network-bug-report.sh
 
 .PHONY: all base options xorg 
 
 all: base xorg
-base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis
+base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(MENUTILS) $(SHARE)/regex
 	cp -af bin etc share src var $(PREFIX)
 	cp -af $(PREFIX)/etc/skel/. $(HOME)
 	crontab $(PREFIX)/etc/crontab
@@ -124,7 +125,7 @@ env:
 
 clean:
 	cd $(PREFIX) && for src in $(PREFIX)/src/*; do \
-		cd "$$src" && make clean
+		cd "$$src" && $(MAKE) clean
 	done
 
 options:
@@ -163,24 +164,24 @@ $(BIN)/bash: $(SRC)/bash $(MUSL) $(CURSES) $(READLINE) $(LIB)/libtre.so
 $(LIB)/libtre.so: $(SRC)/tre $(MUSL)
 	cd $(SRC)/tre && \
 	./configure --prefix=$(PREFIX) && \
-	make install CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS) -lc" \
+	$(MAKE) install CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS) -lc" \
 		CFLAGS="-shared $(DEPLOY_CFLAGS) -DHAVE_WCHAR_H -DHAVE_WCTYPE_H -DHAVE_MBRTOWC";
 
-$(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache: $(SRC)/menutils
+$(MENUTILS): $(SRC)/menutils
 	cd $(SRC)/menutils && \
-	make install &&
+	$(MAKE) install &&
 
 $(BIN)/dmenu: $(SRC)/dmenu
 	cd $(SRC)/dmenu && \
-	make install "PREFIX=$(PREFIX)";
+	$(MAKE) install "PREFIX=$(PREFIX)";
 
 $(BIN)/st: $(SRC)/st
 	cd $(SRC)/st && \
-	make install "PREFIX=$(PREFIX)";
+	$(MAKE) install "PREFIX=$(PREFIX)";
 
 $(BIN)/surf: $(SRC)/surf $(BIN)/dmenu
 	cd $(SRC)/surf && \
-	make install "PREFIX=$(PREFIX)";
+	$(MAKE) install "PREFIX=$(PREFIX)";
 
 $(BIN)/dwm: $(SRC)/dwm
 	cd $(SRC)/dwm && \
@@ -189,13 +190,13 @@ $(BIN)/dwm: $(SRC)/dwm
 $(BIN)/lua $(LIB)/liblua.so: $(SRC)/lua $(READLINE) $(MUSL)
 	cd $(SRC)/lua && \
 	./configure "--prefix=$(PREFIX)"; \
-	make install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
+	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) LIBS=-lterminfo 
 
 $(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg
 	cd $(SRC)/lpeg && \
 	./configure; \
-	make install "CFLAGS=$(DEPLOY_CFLAGS) -shared" \
+	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -shared" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) PREFIX=$(PREFIX)
 
 $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(MUSL) $(LIB)/libcurses.so \
@@ -204,17 +205,23 @@ $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis 
 	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
 		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
 		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
-	make install
+	$(MAKE) install
 
 $(LIB)/libtermkey.so $(INC)/termkey.h: $(SRC)/libtermkey $(CURSES)
 	cd $(SRC)/libtermkey && \
 	./configure --prefix=$(PREFIX) --enable-curses && \
-	make install $(FLAGS);
+	$(MAKE) install $(FLAGS);
 
 $(BIN)/dvtm: $(SRC)/dvtm $(CURSES)
 	cd $(SRC)/dvtm && \
-	make install $(FLAGS) && \
+	$(MAKE) install $(FLAGS) && \
 	$(BIN)/tic $(SRC)/dvtm/dvtm.info
+
+$(SUPPORT): $(SRC)/support
+	cd $(SRC)/support && $(MAKE) install
+
+$(SHARE)/regex: $(SRC)/regex
+	cd $(SRC)/support && $(MAKE) install
 
 # I'm not aware of any other POSIX complient way of doing this that doesn't suck
 # https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html#tag_04_84_13_05
@@ -272,6 +279,10 @@ $(SRC)/nnn:
 $(SRC)/readline:
 	rm -rf "$@"
 	git clone https://git.savannah.gnu.org/git/readline.git -b readline-8.0 "$@"
+
+$(SRC)/regex:
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/regexes "$@"
 
 $(SRC)/sbase:
 	rm -rf "$@"
