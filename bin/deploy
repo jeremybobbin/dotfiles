@@ -116,7 +116,9 @@ READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 all: base xorg
 base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis
 	cp -af bin etc share src var $(PREFIX)
+	cp -af $(PREFIX)/etc/skel/. $(HOME)
 	crontab $(PREFIX)/etc/crontab
+
 env:
 	@env
 
