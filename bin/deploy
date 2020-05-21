@@ -111,6 +111,23 @@ CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 
 READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 
+.PHONY: base xorg all options
+
+all: base xorg
+xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
+base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis
+	cp -af bin etc share src var $(PREFIX)
+	crontab $(PREFIX)/etc/crontab
+
+env:
+	@env
+
+options:
+	@echo CC=$(CC)
+	@echo CFLAGS=$(DEPLOY_CFLAGS)
+	@echo LDFLAGS=$(DEPLOY_LDFLAGS)
+	@echo PREFIX=$(PREFIX)
+
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
 	./configure --prefix=$(PREFIX) CC=cc && \
@@ -148,19 +165,19 @@ $(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache: $(SRC)/menutils
 
 $(BIN)/dmenu: $(SRC)/dmenu
 	cd $(SRC)/dmenu && \
-	make install "PREFIX=$(PREFIX)" $(FLAGS);
+	make install "PREFIX=$(PREFIX)";
 
 $(BIN)/st: $(SRC)/st
 	cd $(SRC)/st && \
-	make install "PREFIX=$(PREFIX)" $(FLAGS);
+	make install "PREFIX=$(PREFIX)";
 
 $(BIN)/surf: $(SRC)/surf $(BIN)/dmenu
 	cd $(SRC)/surf && \
-	make install "PREFIX=$(PREFIX)" $(FLAGS);
+	make install "PREFIX=$(PREFIX)";
 
 $(BIN)/dwm: $(SRC)/dwm
 	cd $(SRC)/dwm && \
-	make install "PREFIX=$(PREFIX)" $(FLAGS);
+	$(MAKE) install "PREFIX=$(PREFIX)" MAKEFLAGS=; # DWM can't find ft2build.h unless MAKEFLAGS is unset
 
 $(BIN)/lua $(LIB)/liblua.so: $(SRC)/lua $(READLINE) $(MUSL)
 	cd $(SRC)/lua && \
@@ -177,7 +194,7 @@ $(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg
 $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(MUSL) $(LIB)/libcurses.so \
 	$(LIB)/libtermkey.so $(INC)/termkey.h $(LIB)/liblpeg.so $(LIB)/liblua.so 
 	cd $(SRC)/vis && \
-	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-lpeg-static --enable-tre \
+	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
 		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
 		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
 	make install
@@ -187,11 +204,10 @@ $(LIB)/libtermkey.so $(INC)/termkey.h: $(SRC)/libtermkey $(CURSES)
 	./configure --prefix=$(PREFIX) --enable-curses && \
 	make install $(FLAGS);
 
-#$(BIN)/dvtm: $(SRC)/dvtm
-#	cd $(SRC)/dvtm; \
-#	make -e install
-
-
+$(BIN)/dvtm: $(SRC)/dvtm $(CURSES)
+	cd $(SRC)/dvtm && \
+	make install $(FLAGS) && \
+	$(BIN)/tic $(SRC)/dvtm/dvtm.info
 
 # I'm not aware of any other POSIX complient way of doing this that doesn't suck
 # https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html#tag_04_84_13_05
