@@ -1,1 +1,1 @@
-* * * * * export PATH="$PATH:$HOME/.local/bin"; eval $(display-env); email -S
+* * * * * . "$HOME/.profile"; eval $(display-env); email -S
