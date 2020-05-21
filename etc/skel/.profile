@@ -89,13 +89,13 @@ _JAVA_AWT_WM_NONREPARENTING=1
 RUSTC_WRAPPER=""
 TZ='US/Pacific'
 
-DVTM_CMD_FIFO="$(mktemp -u)"
-DVTM_STATUS_FIFO="$(mktemp -u)"
-DWM_CMD_FIFO="$(mktemp -u)"
-DWM_STATUS_FIFO="$(mktemp -u)"
+DVTM_CMD_FIFO="$XDG_RUN_HOME/dvtm-cmd"
+DVTM_STATUS_FIFO="$XDG_RUN_HOME/dvtm-status"
+DWM_CMD_FIFO="$XDG_RUN_HOME/dwm-cmd"
+DWM_STATUS_FIFO="$XDG_RUN_HOME/dwm-status"
 
 for pipe in "$DVTM_CMD_FIFO" "$DVTM_STATUS_FIFO" "$DWM_CMD_FIFO" "$DWM_STATUS_FIFO"; do
-	[ -p "$pipe" ] || rm -f "$pipe" && mkfifo "$pipe"
+	[ -p "$pipe" ] || (rm -f "$pipe" && mkfifo "$pipe")
 done
 
 COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
