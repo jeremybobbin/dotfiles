@@ -2,6 +2,6 @@
 ```
 git clone https://github.com/jeremybobbin/dotfiles
 cd dotfiles
-make deploy
+make PREFIX=$HOME/.local
 ```
 [jer.sh](https://www.jer.sh)
