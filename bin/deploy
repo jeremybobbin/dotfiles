@@ -1,10 +1,197 @@
-#!/bin/make
+#!/bin/make -f
+#
+# ----------
+#
+# Why not just use a package manager?
+# I don't want to use makepkg because of its use of Bash.
+#
+# ----------
+#
+# Why not reimplement makepkg in POSIX sh?
+# Arguments to 'make' are not handled elegantly.
+# For example:
+# make_pkg() {
+# 	. $pkg/PKGBUILD
+# 	make "CC=$CC" "CFLAGS=$CFLAGS" "LDFLAGS=$LDFLAGS" $MAKE_OPTS
+# }
+#
+# Though CC & (C|LD)FLAGS are easy to manage, if PKGBUILD sets MAKE_OPTS like this:
+# MAKE_OPTS="LOCAL_LIBS=-lterminfo -ltre OTHER_MAKE_OPT=foo bar"
+#
+# I'm not sure how to manage the splitting of MAKE_OPTS
+# 
+# And though getting the dependency tree order right is easy with coreutils' tsort,
+# this functionality is baked into Makefile.
+# 
+# ----------
+#
+# Nitpicks
+#
+# If one of the src dirs' entries is added, renamed or removed during compilation,
+# make will re-make, (and optionally re-run 'configure')
+#
+# The makefile syntax should be restricted to its dependency macros,
+# $@, $^, $< (etc) and its "target0[ target1[ ...]]: [dep0[ dep1[ ..]]]\n\tshell".
+# m4 should do the rest(why cpp isn't just c.m4 doesn't make much sense to me either)
+# Why not apply UNIX universally?
+#
+# git doesn't have a clone --force option
+#
+# ----------
+#
+# I don't really like phony targets.
+# The following has too much indirection:
+#
+# ```
+# musl: musl-src
+# 	...
+# musl-src: $(SRC)/musl
+# $(SRC)/musl:
+# 	git clone ...
+# $(BIN)/bash: musl curses tre
+# 	...
+# ```
+#
+# Compared to example:
+# ```
+# $(LIB)/libc.so: $(SRC)/musl 
+# 	...
+# $(SRC)/musl:
+# 	git clone ...
+# $(BIN)/bash: $(LIB)/libc.so $(LIB)/libcurses.so $(LIB)/libtre.so
+# 	...
+# ```
+#
+# The latter is:
+# 1. a bit of an eye-sore
+# 2. makes the interface a somewhat painful
+# 	- ./deploy $HOME/.local/bin/bash PREFIX=$HOME/.local
+# 	- though this can be addressed later with "bash: $(BIN)/bash" or a
+# 	wrapper script
+#
+# I could use phony targets like "bash.git" and make ".git" a generic SUFFIX:
+# .SUFFIXES: .git
+# $(SRC)/bash: https://github.com/user/bash.git
+# .git:
+# 	cd $(SRC); git clone $@ 
+# However:
+# 	- bmake and GNU/make can't apply the inference rule when the dep isn't a dir entry
+#
+# ----------
+#
+# I don't really like too many interdepencies
+# At what point are their too many assumptions? 
+#  - POSIX is the only reasonable assumption
+#  	- But GIT is not POSIX
+#  		- Ok, POSIX + GIT
+#
+# ----------
+#
+# Shouldn't there be a single source of truth for a package's (provided|dependcy) (bin|libr)aries?
+# 	- Yeah, that's what package managers do. This is the package manager
+# 
+# ---------
+#
 PREFIX = /usr
 SRC = $(PREFIX)/src
-BIN = $(PREFIX)/src
-DEPLOY_CFLAGS = -Wl,-rpath=$(PREFIX)/lib -I$(PREFIX)/include -I. $(CFLAGS)
-DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
+BIN = $(PREFIX)/bin
+LIB = $(PREFIX)/lib
+INC = $(PREFIX)/include
 CC = musl-gcc
+MAKE = make
+DEPLOY_CFLAGS = -I$(PREFIX)/include -I. $(CFLAGS)
+DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
+FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
+
+MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
+
+CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
+	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so  $(LIB)/libterminfo.so \
+	$(INC)/curses.h
+
+READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
+
+$(MUSL): $(SRC)/musl
+	cd $(SRC)/musl && \
+	./configure --prefix=$(PREFIX) CC=cc && \
+	$(MAKE) install syslibdir=$(LIB);
+
+$(CURSES): $(MUSL) $(SRC)/netbsd-curses
+	cd $(SRC)/netbsd-curses && \
+	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX);
+
+$(READLINE): $(MUSL) $(CURSES) $(SRC)/readline 
+	cd $(SRC)/readline && \
+	./configure --prefix=$(PREFIX) --with-curses --enable-shared "CC=$(CC)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
+	$(MAKE) install SHLIB_LIBS=-lcurses "CFLAGS=$(DEPLOY_CFLAGS)";
+
+$(BIN)/abduco: $(SRC)/abduco $(MUSL)
+	cd $(SRC)/abduco && \
+	./configure --prefix=$(PREFIX) && \
+	$(MAKE) install;
+
+$(BIN)/bash: $(SRC)/bash $(MUSL) $(CURSES) $(READLINE) $(LIB)/libtre.so
+	cd $(SRC)/bash && \
+	./configure --prefix=$(PREFIX) --with-curses --enable-readline --without-bash-malloc \
+		"CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
+	$(MAKE) install "LOCAL_LIBS=-lterminfo -ltre";
+
+$(LIB)/libtre.so: $(SRC)/tre $(MUSL)
+	cd $(SRC)/tre && \
+	./configure --prefix=$(PREFIX) && \
+	make install CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS) -lc" \
+		CFLAGS="-shared $(DEPLOY_CFLAGS) -DHAVE_WCHAR_H -DHAVE_WCTYPE_H -DHAVE_MBRTOWC";
+
+$(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache: $(SRC)/menutils
+	cd $(SRC)/menutils && \
+	make install &&
+
+$(BIN)/dmenu: $(SRC)/dmenu
+	cd $(SRC)/dmenu && \
+	make install "PREFIX=$(PREFIX)" $(FLAGS);
+
+$(BIN)/st: $(SRC)/st
+	cd $(SRC)/st && \
+	make install "PREFIX=$(PREFIX)" $(FLAGS);
+
+$(BIN)/surf: $(SRC)/surf $(BIN)/dmenu
+	cd $(SRC)/surf && \
+	make install "PREFIX=$(PREFIX)" $(FLAGS);
+
+$(BIN)/dwm: $(SRC)/dwm
+	cd $(SRC)/dwm && \
+	make install "PREFIX=$(PREFIX)" $(FLAGS);
+
+$(BIN)/lua $(LIB)/liblua.so: $(SRC)/lua $(READLINE) $(MUSL)
+	cd $(SRC)/lua && \
+	./configure "--prefix=$(PREFIX)"; \
+	make install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
+		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) LIBS=-lterminfo 
+
+$(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg
+	cd $(SRC)/lpeg && \
+	./configure; \
+	make install "CFLAGS=$(DEPLOY_CFLAGS) -shared" \
+		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) PREFIX=$(PREFIX)
+
+$(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(MUSL) $(LIB)/libcurses.so \
+	$(LIB)/libtermkey.so $(INC)/termkey.h $(LIB)/liblpeg.so $(LIB)/liblua.so 
+	cd $(SRC)/vis && \
+	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-lpeg-static --enable-tre \
+		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
+		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
+	make install
+
+$(LIB)/libtermkey.so $(INC)/termkey.h: $(SRC)/libtermkey $(CURSES)
+	cd $(SRC)/libtermkey && \
+	./configure --prefix=$(PREFIX) --enable-curses && \
+	make install $(FLAGS);
+
+#$(BIN)/dvtm: $(SRC)/dvtm
+#	cd $(SRC)/dvtm; \
+#	make -e install
+
+
 
 # I'm not aware of any other POSIX complient way of doing this that doesn't suck
 # https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html#tag_04_84_13_05
@@ -12,80 +199,80 @@ CC = musl-gcc
 # I could write a makefile-gen script and then makefile-gen | make - 
 # But maintaining that'd be a bitch
 $(SRC)/abduco:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/abduco
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/abduco "$@"
 
 $(SRC)/bash:
-	cd $(SRC)
-	git clone http://git.savannah.gnu.org/git/bash
+	rm -rf "$@"
+	git clone http://git.savannah.gnu.org/git/bash -b bash-5.0 "$@"
 
 $(SRC)/dmenu:
-	cd $(SRC)
-	git clone https://www.github.com/jeremybobbin/dmenu
+	rm -rf "$@"
+	git clone https://www.github.com/jeremybobbin/dmenu "$@"
 
 $(SRC)/dvtm:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/dvtm
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/dvtm "$@"
 
 $(SRC)/dwm:
-	cd $(SRC)
-	git clone https://www.github.com/jeremybobbin/dwm
+	rm -rf "$@"
+	git clone https://www.github.com/jeremybobbin/dwm "$@"
 
 $(SRC)/libtermkey:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/libtermkey
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/libtermkey "$@"
 
 $(SRC)/lpeg:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/lpeg
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/lpeg "$@"
 
 $(SRC)/lua:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/lua
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/lua "$@"
 
 $(SRC)/menutils:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/menutils
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/menutils "$@"
 
 $(SRC)/musl:
-	cd $(SRC)
-	git clone https://github.com/bminor/musl
+	rm -rf "$@"
+	git clone https://github.com/bminor/musl "$@"
 
 $(SRC)/netbsd-curses:
-	cd $(SRC)
-	git clone https://github.com/sabotage-linux/netbsd-curses
+	rm -rf "$@"
+	git clone https://github.com/sabotage-linux/netbsd-curses "$@"
 
 $(SRC)/nnn:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/nnn
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/nnn "$@"
 
 $(SRC)/readline:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/readline
+	rm -rf "$@"
+	git clone https://git.savannah.gnu.org/git/readline.git -b readline-8.0 "$@"
 
 $(SRC)/sbase:
-	cd $(SRC)
-	git clone https://github.com/michaelforney/sbase
+	rm -rf "$@"
+	git clone https://github.com/michaelforney/sbase "$@"
 
 $(SRC)/st:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/st
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/st "$@"
 
 $(SRC)/support:
-	cd $(SRC)
-	git clone https://github.com/LambdaLabs/support
+	rm -rf "$@"
+	git clone https://github.com/LambdaLabs/support "$@"
 
 $(SRC)/surf:
-	cd $(SRC)
-	git clone https://www.github.com/jeremybobbin/surf
+	rm -rf "$@"
+	git clone https://www.github.com/jeremybobbin/surf "$@"
 
 $(SRC)/tre:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/tre
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/tre "$@"
 
 $(SRC)/vis:
-	cd $(SRC)
-	git clone https://github.com/jeremybobbin/vis
+	rm -rf "$@"
+	git clone https://github.com/jeremybobbin/vis "$@"
 
-deploy:
-	crontab "$(PREFIX)/etc/crontab"
+#deploy:
+#	crontab "$(PREFIX)/etc/crontab"
