@@ -113,7 +113,6 @@ DEPLOY_CFLAGS = -I$(PREFIX)/include -I. -fPIC $(CFLAGS)
 DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
-DIRS = $(BIN) $(ETC) $(SRC) $(SHARE) $(VAR)
 MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so  $(LIB)/libterminfo.so \
@@ -122,12 +121,13 @@ LUA = $(BIN)/lua $(LIB)/liblua.so $(INC)/lua.h
 READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 MENUTILS = $(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache
 SUPPORT = $(BIN)/orders $(BIN)/network-bug-report.sh
+TERMKEY = $(LIB)/libtermkey.so $(INC)/termkey.h
 VIM=etc/skel/.vim/pack/$(USER)/start/
 VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javascript \
 	$(VIM)/vim-json $(VIM)/vim-jsx $(VIM)/vim-repeat $(VIM)/vim-surround \
 	$(VIM)/vim-unimpaired $(VIM)/vim-vinegar
 
-.PHONY: all base deploy options xorg 
+.PHONY: all base options xorg 
 
 all: base xorg
 
@@ -151,7 +151,7 @@ options:
 # Vim plugins need to be cloned before we can copy them over 
 dotfiles: $(VIM_PLUGINS)
 	mkdir -p $(PREFIX)
-	cp -af bin etc share var $(PREFIX)
+	cp -af bin etc share $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
 		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"   && \
 		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d" && \
@@ -169,11 +169,11 @@ $(MUSL): $(SRC)/musl
 	./configure --prefix=$(PREFIX) CC=cc && \
 	$(MAKE) install syslibdir=$(LIB);
 
-$(CURSES): $(MUSL) $(SRC)/netbsd-curses
+$(CURSES): $(SRC)/netbsd-curses $(MUSL) 
 	cd $(SRC)/netbsd-curses && \
 	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX);
 
-$(READLINE): $(MUSL) $(CURSES) $(SRC)/readline 
+$(READLINE): $(SRC)/readline $(MUSL) $(CURSES)
 	cd $(SRC)/readline && \
 	./configure --prefix=$(PREFIX) --with-curses --enable-shared "CC=$(CC)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
 	$(MAKE) install SHLIB_LIBS=-lcurses "CFLAGS=$(DEPLOY_CFLAGS)";
@@ -183,7 +183,7 @@ $(BIN)/abduco: $(SRC)/abduco $(MUSL)
 	./configure --prefix=$(PREFIX) && \
 	$(MAKE) install;
 
-$(BIN)/bash: $(SRC)/bash $(MUSL) $(CURSES) $(READLINE) $(LIB)/libtre.so
+$(BIN)/bash: $(SRC)/bash $(MUSL) $(READLINE) $(LIB)/libtre.so
 	cd $(SRC)/bash && \
 	./configure --prefix=$(PREFIX) --with-curses --enable-readline --without-bash-malloc \
 		"CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
@@ -215,32 +215,32 @@ $(BIN)/dwm: $(SRC)/dwm
 	cd $(SRC)/dwm && \
 	$(MAKE) install "PREFIX=$(PREFIX)";
 
-$(LUA): $(SRC)/lua $(READLINE) $(CURSES) $(MUSL)
+$(LUA): $(SRC)/lua $(MUSL) $(READLINE)
 	cd $(SRC)/lua && \
 	./configure "--prefix=$(PREFIX)"; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) LIBS=-lterminfo 
 
-$(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(LUA)
+$(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(MUSL) $(LUA)
 	cd $(SRC)/lpeg && \
 	./configure; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -shared" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) PREFIX=$(PREFIX)
 
 $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(MUSL) $(LIB)/libcurses.so \
-	$(LIB)/libtermkey.so $(INC)/termkey.h $(LUA) $(LIB)/liblpeg.so
+	$(LIB)/libtermkey.so $(INC)/termkey.h $(LIB)/libtre.so $(LUA) $(LIB)/liblpeg.so
 	cd $(SRC)/vis && \
 	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
 		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
 		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
 	$(MAKE) install
 
-$(LIB)/libtermkey.so $(INC)/termkey.h: $(SRC)/libtermkey $(CURSES)
+$(TERMKEY): $(SRC)/libtermkey $(MUSL) $(CURSES)
 	cd $(SRC)/libtermkey && \
 	./configure --prefix=$(PREFIX) --enable-curses && \
 	$(MAKE) install $(FLAGS);
 
-$(BIN)/dvtm: $(SRC)/dvtm $(CURSES)
+$(BIN)/dvtm: $(SRC)/dvtm $(MUSL) $(CURSES)
 	cd $(SRC)/dvtm && \
 	$(MAKE) install $(FLAGS) && \
 	$(BIN)/tic $(SRC)/dvtm/dvtm.info
