@@ -118,6 +118,7 @@ MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so  $(LIB)/libterminfo.so \
 	$(INC)/curses.h
+LUA = $(BIN)/lua $(LIB)/liblua.so $(INC)/lua.h
 READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 MENUTILS = $(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache
 SUPPORT = $(BIN)/orders $(BIN)/network-bug-report.sh
@@ -129,8 +130,10 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 .PHONY: all base deploy options xorg 
 
 all: base xorg
+
 base: dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS) $(SUPPORT) 
 	crontab $(PREFIX)/etc/crontab
+
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
 
 clean:
@@ -148,7 +151,7 @@ options:
 # Vim plugins need to be cloned before we can copy them over 
 dotfiles: $(VIM_PLUGINS)
 	mkdir -p $(PREFIX)
-	cp -af bin etc share src var $(PREFIX)
+	cp -af bin etc share var $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
 		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"   && \
 		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d" && \
@@ -212,20 +215,20 @@ $(BIN)/dwm: $(SRC)/dwm
 	cd $(SRC)/dwm && \
 	$(MAKE) install "PREFIX=$(PREFIX)";
 
-$(BIN)/lua $(LIB)/liblua.so: $(SRC)/lua $(READLINE) $(MUSL)
+$(LUA): $(SRC)/lua $(READLINE) $(MUSL)
 	cd $(SRC)/lua && \
 	./configure "--prefix=$(PREFIX)"; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) LIBS=-lterminfo 
 
-$(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg
+$(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(LUA)
 	cd $(SRC)/lpeg && \
 	./configure; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -shared" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) PREFIX=$(PREFIX)
 
 $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(MUSL) $(LIB)/libcurses.so \
-	$(LIB)/libtermkey.so $(INC)/termkey.h $(LIB)/liblpeg.so $(LIB)/liblua.so 
+	$(LIB)/libtermkey.so $(INC)/termkey.h $(LUA)
 	cd $(SRC)/vis && \
 	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
 		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
