@@ -100,7 +100,10 @@ INC = $(PREFIX)/include
 SHARE = $(PREFIX)/share
 CC = musl-gcc
 MAKE = make
-DEPLOY_CFLAGS = -I$(PREFIX)/include -I. $(CFLAGS)
+LN = ln -sf
+CP = cp -fa
+RM = rm -rf
+DEPLOY_CFLAGS = -I$(PREFIX)/include -I. -fPIC $(CFLAGS)
 DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
@@ -116,8 +119,8 @@ SUPPORT = $(BIN)/orders $(BIN)/network-bug-report.sh
 
 all: base xorg
 base: $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS) $(SUPPORT) 
-	cp -af bin etc share src var $(PREFIX)
-	cp -af $(PREFIX)/etc/skel/. $(HOME)
+	$(CP) bin etc share src var $(PREFIX)
+	$(CP) $(PREFIX)/etc/skel/. $(HOME)
 	crontab $(PREFIX)/etc/crontab
 
 env:
@@ -186,7 +189,7 @@ $(BIN)/surf: $(SRC)/surf $(BIN)/dmenu
 
 $(BIN)/dwm: $(SRC)/dwm
 	cd $(SRC)/dwm && \
-	$(MAKE) install "PREFIX=$(PREFIX)" MAKEFLAGS=; # DWM can't find ft2build.h unless MAKEFLAGS is unset
+	$(MAKE) install "PREFIX=$(PREFIX)";
 
 $(BIN)/lua $(LIB)/liblua.so: $(SRC)/lua $(READLINE) $(MUSL)
 	cd $(SRC)/lua && \
@@ -230,83 +233,83 @@ $(SHARE)/regex: $(SRC)/regex
 # I could write a makefile-gen script and then makefile-gen | make - 
 # But maintaining that'd be a bitch
 $(SRC)/abduco:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/abduco "$@"
 
 $(SRC)/bash:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone http://git.savannah.gnu.org/git/bash -b bash-5.0 "$@"
 
 $(SRC)/dmenu:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://www.github.com/jeremybobbin/dmenu "$@"
 
 $(SRC)/dvtm:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/dvtm "$@"
 
 $(SRC)/dwm:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://www.github.com/jeremybobbin/dwm "$@"
 
 $(SRC)/libtermkey:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/libtermkey "$@"
 
 $(SRC)/lpeg:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/lpeg "$@"
 
 $(SRC)/lua:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/lua "$@"
 
 $(SRC)/menutils:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/menutils "$@"
 
 $(SRC)/musl:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/bminor/musl "$@"
 
 $(SRC)/netbsd-curses:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/sabotage-linux/netbsd-curses "$@"
 
 $(SRC)/nnn:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/nnn "$@"
 
 $(SRC)/readline:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://git.savannah.gnu.org/git/readline.git -b readline-8.0 "$@"
 
 $(SRC)/regex:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/regexes "$@"
 
 $(SRC)/sbase:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/michaelforney/sbase "$@"
 
 $(SRC)/st:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/st "$@"
 
 $(SRC)/support:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/LambdaLabs/support "$@"
 
 $(SRC)/surf:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://www.github.com/jeremybobbin/surf "$@"
 
 $(SRC)/tre:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/tre "$@"
 
 $(SRC)/vis:
-	rm -rf "$@"
+	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/vis "$@"
 
 #deploy:
