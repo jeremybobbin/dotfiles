@@ -1,5 +1,9 @@
 #!/bin/make -f
 #
+# Assumptions:
+# 	- POSIX
+# 	- git
+# 	- this makefile is not moved elsewhere relative to the repo dir
 # ----------
 #
 # Why not just use a package manager?
@@ -128,11 +132,6 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 all: base xorg
 base: $(DOTFILES) $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS) $(SUPPORT) 
 	crontab $(PREFIX)/etc/crontab
-
-install: $(VIM_PLUGINS)
-	cp -af bin etc share src var $(PREFIX)
-	$(PREFIX)/bin/deploy all PREFIX=$(PREFIX)
-
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
 
 clean:
@@ -147,19 +146,20 @@ options:
 	@echo LDFLAGS=$(DEPLOY_LDFLAGS)
 	@echo PREFIX=$(PREFIX)
 
-$(VIM_PLUGINS): 
-	git submodule update --init --recursive
-
-$(DOTFILES):
+# Vim plugins need to be cloned before we can copy them over 
+$(DOTFILES): $(VIM_PLUGINS)
+	mkdir -p $(PREFIX)
+	cp -af bin etc share src var $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
 		$(LN) "$(ETC)/profile"     "$(HOME)/.profile"   && \
 		$(LN) "$(ETC)/profile.d"   "$(HOME)/.profile.d" && \
 		$(LN) "$(ETC)/bash.bashrc" "$(HOME)/.bashrc"    && \
-		$(LN) "$(ETC)/bash.bash_profile "$(HOME)/.bashrc"    && \
 		$(LN) "$(ETC)/inputrc"     "$(HOME)/.inputrc"   && \
 		$(LN) "$(ETC)/vimrc"       "$(HOME)/.vimrc"     && \
 		$(LN) "$(ETC)/vim"         "$(HOME)/.vim"       ||:
 
+$(VIM_PLUGINS):
+	git submodule update --init --recursive
 
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
