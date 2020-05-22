@@ -131,7 +131,7 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 
 all: base xorg
 
-base: dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS) $(SUPPORT) 
+base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
 	crontab $(PREFIX)/etc/crontab
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
@@ -215,7 +215,7 @@ $(BIN)/dwm: $(SRC)/dwm
 	cd $(SRC)/dwm && \
 	$(MAKE) install "PREFIX=$(PREFIX)";
 
-$(LUA): $(SRC)/lua $(READLINE) $(MUSL)
+$(LUA): $(SRC)/lua $(READLINE) $(CURSES) $(MUSL)
 	cd $(SRC)/lua && \
 	./configure "--prefix=$(PREFIX)"; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
@@ -228,7 +228,7 @@ $(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(LUA)
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) PREFIX=$(PREFIX)
 
 $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(MUSL) $(LIB)/libcurses.so \
-	$(LIB)/libtermkey.so $(INC)/termkey.h $(LUA)
+	$(LIB)/libtermkey.so $(INC)/termkey.h $(LUA) $(LIB)/liblpeg.so
 	cd $(SRC)/vis && \
 	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
 		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
