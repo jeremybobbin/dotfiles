@@ -1,2 +1,0 @@
-CONFIG_OPTS="--with-curses --enable-readline --without-bash-malloc"
-MAKE_OPTS="LOCAL_LIBS=-ltre LOCAL_LIBS+=-lterminfo"

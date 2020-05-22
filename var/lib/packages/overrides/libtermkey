@@ -1,2 +1,0 @@
-#!/bin/sh
-CFLAGS="$CFLAGS -I$PREFIX/lib/libncursesw"

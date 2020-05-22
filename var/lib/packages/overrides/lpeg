@@ -1,2 +1,0 @@
-#!/bin/sh
-CFLAGS="-fPIC -shared $CFLAGS"
