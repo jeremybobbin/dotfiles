@@ -114,7 +114,6 @@ DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
 DIRS = $(BIN) $(ETC) $(SRC) $(SHARE) $(VAR)
-DOTFILES = $(HOME)/.profile $(HOME)/.profile.d $(HOME)/.bashrc $(HOME)/.bashrc.d $(HOME)/.inputrc $(HOME)/.vim $(HOME)/.vimrc
 MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so  $(LIB)/libterminfo.so \
@@ -130,7 +129,7 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 .PHONY: all base deploy options xorg 
 
 all: base xorg
-base: $(DOTFILES) $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS) $(SUPPORT) 
+base: dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS) $(SUPPORT) 
 	crontab $(PREFIX)/etc/crontab
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
 
@@ -147,16 +146,17 @@ options:
 	@echo PREFIX=$(PREFIX)
 
 # Vim plugins need to be cloned before we can copy them over 
-$(DOTFILES): $(VIM_PLUGINS)
+dotfiles: $(VIM_PLUGINS)
 	mkdir -p $(PREFIX)
 	cp -af bin etc share src var $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
-		$(LN) "$(ETC)/profile"     "$(HOME)/.profile"   && \
-		$(LN) "$(ETC)/profile.d"   "$(HOME)/.profile.d" && \
-		$(LN) "$(ETC)/bash.bashrc" "$(HOME)/.bashrc"    && \
-		$(LN) "$(ETC)/inputrc"     "$(HOME)/.inputrc"   && \
-		$(LN) "$(ETC)/vimrc"       "$(HOME)/.vimrc"     && \
-		$(LN) "$(ETC)/vim"         "$(HOME)/.vim"       ||:
+		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"   && \
+		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d" && \
+		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"    && \
+		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"   && \
+		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"   && \
+		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"     && \
+		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"       ||:
 
 $(VIM_PLUGINS):
 	git submodule update --init --recursive
