@@ -80,7 +80,6 @@ TERMINAL='st'
 BLUETOOTH_DEVICE='Jabra Elite 75t'
 DEFAULT_MAILBOX='lambda'
 HOME_PAGE='https://www.google.com'
-TERM=xterm-256color
 VIDEO_PLAYER='mpv'
 
 CARGO_CFG_COLOR='always'
