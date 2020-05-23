@@ -1,6 +1,6 @@
-source colors
-source bindings
-source lambdal.com # Default Mailbox
+source colors-muttrc
+source bindings-muttrc
+source lambdal.com-muttrc # Default Mailbox
 
 set date_format="%m/%d/%y %I:%M%p"
 set index_format="%5C %zs%zt%?X?A& ? %D %-15.15F %s (%-4.4c)"
@@ -47,10 +47,10 @@ set sort_aux = last-date-received
 
 
 # Profiles
-folder-hook 'jer.cx' 'source ~/.config/neomutt/jer.cx'
-folder-hook 'lambdal.com' 'source ~/.config/neomutt/lambdal.com'
-macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx<enter><change-folder>!<enter>'
-macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com<enter><change-folder>!<enter>'
+folder-hook 'jer.cx' 'source ~/.config/neomutt/jer.cx-muttrc'
+folder-hook 'lambdal.com' 'source ~/.config/neomutt/lambdal.com-muttrc'
+macro index <f2> '<enter-command>source ~/.config/neomutt/jer.cx-muttrc<enter><change-folder>!<enter>'
+macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com-muttrc<enter><change-folder>!<enter>'
 
 # Need to disown the browser process
 macro attach 'V' '<pipe-entry>view_xhtml<enter>'
