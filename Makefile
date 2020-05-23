@@ -113,13 +113,14 @@ DEPLOY_CFLAGS = -I$(PREFIX)/include -I. -fPIC $(CFLAGS)
 DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
-MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so  $(LIB)/libterminfo.so \
 	$(INC)/curses.h
+DOTFILES = $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc
 LUA = $(BIN)/lua $(LIB)/liblua.so $(INC)/lua.h
-READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 MENUTILS = $(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache
+MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
+READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 SUPPORT = $(BIN)/orders $(BIN)/network-bug-report.sh
 TERMKEY = $(LIB)/libtermkey.so $(INC)/termkey.h
 VIM=etc/skel/.vim/pack/$(USER)/start/
@@ -131,7 +132,9 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 
 all: base xorg
 
-base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
+install: base
+
+base: $(SUPPORT) $(DOTFILES) $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
 	crontab $(PREFIX)/etc/crontab
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
@@ -149,7 +152,7 @@ options:
 	@echo PREFIX=$(PREFIX)
 
 # Vim plugins need to be cloned before we can copy them over 
-dotfiles: $(VIM_PLUGINS)
+$(DOTFILES): $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
