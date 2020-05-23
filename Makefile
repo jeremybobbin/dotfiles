@@ -309,7 +309,7 @@ $(SRC)/nnn:
 
 $(SRC)/readline:
 	$(RM) "$@"
-	git clone https://git.savannah.gnu.org/git/readline.git -b readline-8.0 "$@"
+	git clone -b readline-8.0 https://git.savannah.gnu.org/git/readline.git "$@"
 
 $(SRC)/regex:
 	$(RM) "$@"
@@ -329,7 +329,7 @@ $(SRC)/support:
 
 $(SRC)/surf:
 	$(RM) "$@"
-	git clone https://www.github.com/jeremybobbin/surf "$@"
+	git clone -b master https://www.github.com/jeremybobbin/surf "$@" 
 
 $(SRC)/tre:
 	$(RM) "$@"
