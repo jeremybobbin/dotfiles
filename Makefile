@@ -96,7 +96,7 @@
 # 
 # ---------
 #
-PREFIX = /usr
+PREFIX = $(HOME)/.local
 SRC = $(PREFIX)/src
 BIN = $(PREFIX)/bin
 LIB = $(PREFIX)/lib
