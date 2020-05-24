@@ -178,8 +178,8 @@ $(CURSES): $(SRC)/netbsd-curses $(MUSL)
 
 $(READLINE): $(SRC)/readline $(MUSL) $(CURSES)
 	cd $(SRC)/readline && \
-	./configure --prefix=$(PREFIX) --with-curses --enable-shared "CC=$(CC)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
-	$(MAKE) install SHLIB_LIBS=-lcurses "CFLAGS=$(DEPLOY_CFLAGS)";
+	./configure --prefix=$(PREFIX) --with-curses --enable-shared "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" && \
+	$(MAKE) install "LDFLAGS=$(DEPLOY_LDFLAGS)" "SHLIB_LIBS=-lcurses";
 
 $(BIN)/abduco: $(SRC)/abduco $(MUSL)
 	cd $(SRC)/abduco && \
@@ -195,12 +195,12 @@ $(BIN)/bash: $(SRC)/bash $(MUSL) $(READLINE) $(LIB)/libtre.so
 $(LIB)/libtre.so: $(SRC)/tre $(MUSL)
 	cd $(SRC)/tre && \
 	./configure --prefix=$(PREFIX) && \
-	$(MAKE) install CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS) -lc" \
+	$(MAKE) install PREFIX=$(PREFIX) CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS) -lc" \
 		CFLAGS="-shared $(DEPLOY_CFLAGS) -DHAVE_WCHAR_H -DHAVE_WCTYPE_H -DHAVE_MBRTOWC";
 
 $(MENUTILS): $(SRC)/menutils
 	cd $(SRC)/menutils && \
-	$(MAKE) install
+	$(MAKE) install PREFIX=$(PREFIX)
 
 $(BIN)/dmenu: $(SRC)/dmenu
 	cd $(SRC)/dmenu && \
@@ -234,25 +234,25 @@ $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis 
 	$(LIB)/libtermkey.so $(INC)/termkey.h $(LIB)/libtre.so $(LUA) $(LIB)/liblpeg.so
 	cd $(SRC)/vis && \
 	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
-		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
+		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" \
 		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
 	$(MAKE) install
 
 $(TERMKEY): $(SRC)/libtermkey $(MUSL) $(CURSES)
 	cd $(SRC)/libtermkey && \
-	./configure --prefix=$(PREFIX) --enable-curses && \
-	$(MAKE) install $(FLAGS);
+	./configure --enable-curses && \
+	$(MAKE) install "PREFIX=$(PREFIX)" $(FLAGS);
 
 $(BIN)/dvtm: $(SRC)/dvtm $(MUSL) $(CURSES)
 	cd $(SRC)/dvtm && \
-	$(MAKE) install $(FLAGS) && \
+	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX) && \
 	$(BIN)/tic $(SRC)/dvtm/dvtm.info
 
 $(SUPPORT): $(SRC)/support
-	cd $(SRC)/support && $(MAKE) install
+	cd $(SRC)/support && $(MAKE) install PREFIX=$(PREFIX)
 
 $(SHARE)/regex: $(SRC)/regex
-	cd $(SRC)/support && $(MAKE) install
+	cd $(SRC)/support && $(MAKE) install PREFIX=$(PREFIX)
 
 # I'm not aware of any other POSIX complient way of doing this that doesn't suck
 # https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html#tag_04_84_13_05
