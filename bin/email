@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 # Sync notify: email -Sn 
 # Count all: email -Ca 
 
@@ -21,13 +21,15 @@ unread() {
 is_new_mail() {
 	stderr "checking for new mail"
 	mkdir -p "$CACHE_DIR"
+
+	# the one we saw on the last invocation of is_new_mail
+	saw_last_time="$(cat "$CACHE_DIR/email_notify" || echo 0)"
+
 	# latest is based on the premise that email file names are
 	# prefixed with their Unix timestamp
 	# this awk invocation is derives the basename(same as xargs -n1 basename) 
-	latest=$(unread | sort -nr | awk -F '/' '{ print $(NF); exit; }')
+	latest="$(unread | sort -nr | awk -F '/' '{ print f=$(NF); exit; } END { print (f ? f : 0) }' | tee "$CACHE_DIR/email_notify")"
 
-	# the one we saw on the last invocation of is_new_mail
-	saw_last_time=$(cat "$CACHE_DIR/email_notify")
 
 	echo "$latest" > "$CACHE_DIR/email_notify"
 
