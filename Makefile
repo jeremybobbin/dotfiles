@@ -114,7 +114,7 @@ DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
-	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so  $(LIB)/libterminfo.so \
+	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so \
 	$(INC)/curses.h
 DOTFILES = $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc
 LUA = $(BIN)/lua $(LIB)/liblua.so $(INC)/lua.h
@@ -172,14 +172,16 @@ $(MUSL): $(SRC)/musl
 	./configure --prefix=$(PREFIX) CC=cc && \
 	$(MAKE) install syslibdir=$(LIB);
 
-$(CURSES): $(SRC)/netbsd-curses $(MUSL) 
-	cd $(SRC)/netbsd-curses && \
-	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX);
+$(CURSES): $(SRC)/ncurses $(MUSL) 
+	cd $(SRC)/ncurses && \
+	./configure --prefix=$(PREFIX) --enable-overwrite --without-cxx --without-ada --with-shared --enable-widec $(FLAGS) && \
+	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX) && \
+	ln -sf $(LIB)/libncursesw.so $(LIB)/libcurses.so
 
 $(READLINE): $(SRC)/readline $(MUSL) $(CURSES)
 	cd $(SRC)/readline && \
-	./configure --prefix=$(PREFIX) --with-curses --enable-shared "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" && \
-	$(MAKE) install "LDFLAGS=$(DEPLOY_LDFLAGS)" "SHLIB_LIBS=-lcurses";
+	./configure --prefix=$(PREFIX) --with-curses --enable-shared "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
+	$(MAKE) install;
 
 $(BIN)/abduco: $(SRC)/abduco $(MUSL)
 	cd $(SRC)/abduco && \
@@ -190,7 +192,7 @@ $(BIN)/bash: $(SRC)/bash $(MUSL) $(READLINE) $(LIB)/libtre.so
 	cd $(SRC)/bash && \
 	./configure --prefix=$(PREFIX) --with-curses --enable-readline --without-bash-malloc \
 		"CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
-	$(MAKE) install "LOCAL_LIBS=-lterminfo -ltre";
+	$(MAKE) install "LOCAL_LIBS=-ltre -lncurses";
 
 $(LIB)/libtre.so: $(SRC)/tre $(MUSL)
 	cd $(SRC)/tre && \
@@ -222,7 +224,7 @@ $(LUA): $(SRC)/lua $(MUSL) $(READLINE)
 	cd $(SRC)/lua && \
 	./configure "--prefix=$(PREFIX)"; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
-		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) LIBS=-lterminfo 
+		"LDFLAGS=$(LD_FLAGS)" CC=$(CC)
 
 $(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(MUSL) $(LUA)
 	cd $(SRC)/lpeg && \
@@ -234,14 +236,14 @@ $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis 
 	$(LIB)/libtermkey.so $(INC)/termkey.h $(LIB)/libtre.so $(LUA) $(LIB)/liblpeg.so
 	cd $(SRC)/vis && \
 	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
-		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" \
+		CC=$(CC) "CFLAGS=$(DEPLOY_CFLAGS)" CFLAGS_CURSES= \
 		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
 	$(MAKE) install
 
 $(TERMKEY): $(SRC)/libtermkey $(MUSL) $(CURSES)
 	cd $(SRC)/libtermkey && \
-	./configure --enable-curses && \
-	$(MAKE) install "PREFIX=$(PREFIX)" $(FLAGS);
+	./configure --prefix=$(PREFIX) --enable-curses && \
+	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX);
 
 $(BIN)/dvtm: $(SRC)/dvtm $(MUSL) $(CURSES)
 	cd $(SRC)/dvtm && \
@@ -299,9 +301,9 @@ $(SRC)/musl:
 	$(RM) "$@"
 	git clone https://github.com/bminor/musl "$@"
 
-$(SRC)/netbsd-curses:
+$(SRC)/ncurses:
 	$(RM) "$@"
-	git clone https://github.com/sabotage-linux/netbsd-curses "$@"
+	git clone https://github.com/mirror/ncurses "$@"
 
 $(SRC)/nnn:
 	$(RM) "$@"
