@@ -189,13 +189,13 @@ $(READLINE): $(SRC)/readline $(MUSL) $(CURSES)
 
 $(BIN)/abduco: $(SRC)/abduco $(MUSL)
 	cd $(SRC)/abduco && \
-	./configure --prefix=$(PREFIX) && \
+	./configure --prefix=$(PREFIX) $(FLAGS) && \
 	$(MAKE) install;
 
 $(BIN)/bash: $(SRC)/bash $(MUSL) $(READLINE) $(LIB)/libtre.so
 	cd $(SRC)/bash && \
 	./configure --prefix=$(PREFIX) --with-curses --enable-readline --with-installed-readline --without-bash-malloc \
-		"CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
+		$(FLAGS) && \
 	$(MAKE) install;
 
 $(LIB)/libtre.so: $(SRC)/tre $(MUSL)
