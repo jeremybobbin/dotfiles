@@ -127,6 +127,9 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 	$(VIM)/vim-json $(VIM)/vim-jsx $(VIM)/vim-repeat $(VIM)/vim-surround \
 	$(VIM)/vim-unimpaired $(VIM)/vim-vinegar
 
+# C Stack
+C=$(MUSL) # $(BIN)/$(CC)
+
 .PHONY: all base options xorg 
 
 all: base xorg
@@ -172,7 +175,13 @@ $(MUSL): $(SRC)/musl
 	./configure --prefix=$(PREFIX) CC=cc && \
 	$(MAKE) install syslibdir=$(LIB);
 
-$(CURSES): $(SRC)/ncurses $(MUSL) 
+$(BIN)/tcc: $(SRC)/tcc $(MUSL)
+	cd $(SRC)/tcc && \
+	./configure --cc=musl-gcc --prefix=$(PREFIX) --config-musl --sysroot=$(PREFIX) \
+		--extra-cflags="$(DEPLOY_CFLAGS)" --extra-ldflags="$(DEPLOY_LDFLAGS)" && \
+	make && make install
+
+$(CURSES): $(SRC)/ncurses $(C)
 	cd $(SRC)/ncurses && \
 	./configure --prefix=$(PREFIX) --enable-overwrite --without-cxx --without-ada --with-shared --enable-widec $(FLAGS) && \
 	$(MAKE) install && \
@@ -181,24 +190,24 @@ $(CURSES): $(SRC)/ncurses $(MUSL)
 	$(LN) -sf $(LIB)/libformw.so $(LIB)/libform.so && \
 	$(LN) -sf $(LIB)/libmenuw.so $(LIB)/libmenu.so
 
-$(READLINE): $(SRC)/readline $(MUSL) $(CURSES)
+$(READLINE): $(SRC)/readline $(C) $(CURSES)
 	cd $(SRC)/readline && \
 	./configure --prefix=$(PREFIX) --with-curses --enable-shared \
 		"CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
 	$(MAKE) install SHLIB_LIBS=-lcurses;
 
-$(BIN)/abduco: $(SRC)/abduco $(MUSL)
+$(BIN)/abduco: $(SRC)/abduco $(C)
 	cd $(SRC)/abduco && \
 	./configure --prefix=$(PREFIX) $(FLAGS) && \
-	$(MAKE) install;
+	$(MAKE) install CC=$(CC) || test -e $(PREFIX)/bin/abduco;
 
-$(BIN)/bash: $(SRC)/bash $(MUSL) $(READLINE) $(LIB)/libtre.so
+$(BIN)/bash: $(SRC)/bash $(C) $(READLINE) $(LIB)/libtre.so
 	cd $(SRC)/bash && \
 	./configure --prefix=$(PREFIX) --with-curses --enable-readline --with-installed-readline --without-bash-malloc \
 		$(FLAGS) && \
 	$(MAKE) install;
 
-$(LIB)/libtre.so: $(SRC)/tre $(MUSL)
+$(LIB)/libtre.so: $(SRC)/tre $(C)
 	cd $(SRC)/tre && \
 	./configure --prefix=$(PREFIX) && \
 	$(MAKE) install PREFIX=$(PREFIX) CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS)" \
@@ -224,19 +233,19 @@ $(BIN)/dwm: $(SRC)/dwm
 	cd $(SRC)/dwm && \
 	$(MAKE) install "PREFIX=$(PREFIX)";
 
-$(LUA): $(SRC)/lua $(MUSL) $(READLINE)
+$(LUA): $(SRC)/lua $(C) $(READLINE)
 	cd $(SRC)/lua && \
 	./configure "--prefix=$(PREFIX)"; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC)
 
-$(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(MUSL) $(LUA)
+$(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(C) $(LUA)
 	cd $(SRC)/lpeg && \
 	./configure; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -shared" \
 		"LDFLAGS=$(LD_FLAGS)" CC=$(CC) PREFIX=$(PREFIX)
 
-$(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(MUSL) $(LIB)/libcurses.so \
+$(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis $(C) $(LIB)/libcurses.so \
 	$(LIB)/libtermkey.so $(INC)/termkey.h $(LIB)/libtre.so $(LUA) $(LIB)/liblpeg.so
 	cd $(SRC)/vis && \
 	./configure --prefix=$(PREFIX) --enable-curses --enable-lua --enable-tre \
@@ -244,12 +253,12 @@ $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis 
 		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
 	$(MAKE) install
 
-$(TERMKEY): $(SRC)/libtermkey $(MUSL) $(CURSES)
+$(TERMKEY): $(SRC)/libtermkey $(C) $(CURSES)
 	cd $(SRC)/libtermkey && \
 	./configure --prefix=$(PREFIX) --enable-curses && \
 	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX);
 
-$(BIN)/dvtm: $(SRC)/dvtm $(MUSL) $(CURSES)
+$(BIN)/dvtm: $(SRC)/dvtm $(C) $(CURSES)
 	cd $(SRC)/dvtm && \
 	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX) && \
 	$(BIN)/tic $(SRC)/dvtm/dvtm.info
@@ -336,6 +345,10 @@ $(SRC)/support:
 $(SRC)/surf:
 	$(RM) "$@"
 	git clone -b master https://www.github.com/jeremybobbin/surf "$@" 
+
+$(SRC)/tcc:
+	$(RM) "$@"
+	git clone https://github.com/TinyCC/tinycc "$@"
 
 $(SRC)/tre:
 	$(RM) "$@"
