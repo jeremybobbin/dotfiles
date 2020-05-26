@@ -14,4 +14,4 @@ unset trash
 set postponed=+Drafts
 set spoolfile=+Inbox
 
-mailboxes "+All Mail" +Drafts +Important +Inbox "+Sent Mail" +Spam +Starred +Trash
+mailboxes `find ~/.mail/lambda -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | tr '\n' ' '`

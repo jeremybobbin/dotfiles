@@ -13,5 +13,4 @@ set spoolfile=+Inbox
 set record=+Sent
 set postponed=+Drafts
 
-mailboxes +Inbox +Drafts +Sent
-
+mailboxes `find ~/.mail/jer -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | tr '\n' ' '`
