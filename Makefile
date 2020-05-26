@@ -116,7 +116,6 @@ FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)"
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so \
 	$(INC)/curses.h
-DOTFILES = $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc
 LUA = $(BIN)/lua $(LIB)/liblua.so $(INC)/lua.h
 MENUTILS = $(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache
 MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
@@ -134,7 +133,7 @@ all: base xorg
 
 install: base
 
-base: $(SUPPORT) $(DOTFILES) $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
+base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
 	crontab $(PREFIX)/etc/crontab
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
@@ -152,7 +151,7 @@ options:
 	@echo PREFIX=$(PREFIX)
 
 # Vim plugins need to be cloned before we can copy them over 
-$(DOTFILES): $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
+dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
@@ -163,6 +162,7 @@ $(DOTFILES): $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"   && \
 		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"     && \
 		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"       ||:
+	cp -af $(ETC)/skel/. $(HOME)
 
 $(VIM_PLUGINS):
 	git submodule update --init --recursive
