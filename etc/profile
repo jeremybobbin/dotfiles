@@ -57,7 +57,6 @@ isatty() {
 
 
 set -a
-LD_LIBRARY_PATH="$HOME/.local/lib"
 
 XDG_BIN_HOME="$HOME/.local/bin"
 XDG_CACHE_HOME="$HOME/.cache"
@@ -116,7 +115,7 @@ prependpath /tmp/bin
 set +a
 
 if [ ! "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && [ "$(tty)" = "/dev/tty1" ] && [ -x "/usr/bin/startx" ]; then
-	LD_BACKUP="$LD_LIBRARY_PATH" exec startx
+	exec startx
 elif isatty; then
 	remap tty
 fi

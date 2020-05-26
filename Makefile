@@ -110,7 +110,7 @@ LN = ln -sf
 CP = cp -fa
 RM = rm -rf
 DEPLOY_CFLAGS = -I$(PREFIX)/include -I. -fPIC -O3 $(CFLAGS)
-DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
+DEPLOY_LDFLAGS = -L$(PREFIX)/lib -Wl,-rpath=$(LIB) $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
 CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
