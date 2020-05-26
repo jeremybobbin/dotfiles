@@ -109,7 +109,7 @@ MAKE = make
 LN = ln -sf
 CP = cp -fa
 RM = rm -rf
-DEPLOY_CFLAGS = -I$(PREFIX)/include -I. -fPIC $(CFLAGS)
+DEPLOY_CFLAGS = -I$(PREFIX)/include -I. -fPIC -O3 $(CFLAGS)
 DEPLOY_LDFLAGS = -L$(PREFIX)/lib $(LDFLAGS)
 FLAGS = "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" 
 
@@ -175,13 +175,17 @@ $(MUSL): $(SRC)/musl
 $(CURSES): $(SRC)/ncurses $(MUSL) 
 	cd $(SRC)/ncurses && \
 	./configure --prefix=$(PREFIX) --enable-overwrite --without-cxx --without-ada --with-shared --enable-widec $(FLAGS) && \
-	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX) && \
-	ln -sf $(LIB)/libncursesw.so $(LIB)/libcurses.so
+	$(MAKE) install && \
+	$(LN) -sf $(LIB)/libncursesw.so $(LIB)/libcurses.so && \
+	$(LN) -sf $(LIB)/libpanelw.so $(LIB)/libpanel.so && \
+	$(LN) -sf $(LIB)/libformw.so $(LIB)/libform.so && \
+	$(LN) -sf $(LIB)/libmenuw.so $(LIB)/libmenu.so
 
 $(READLINE): $(SRC)/readline $(MUSL) $(CURSES)
 	cd $(SRC)/readline && \
-	./configure --prefix=$(PREFIX) --with-curses --enable-shared "CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
-	$(MAKE) install;
+	./configure --prefix=$(PREFIX) --with-curses --enable-shared \
+		"CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
+	$(MAKE) install SHLIB_LIBS=-lcurses;
 
 $(BIN)/abduco: $(SRC)/abduco $(MUSL)
 	cd $(SRC)/abduco && \
@@ -190,14 +194,14 @@ $(BIN)/abduco: $(SRC)/abduco $(MUSL)
 
 $(BIN)/bash: $(SRC)/bash $(MUSL) $(READLINE) $(LIB)/libtre.so
 	cd $(SRC)/bash && \
-	./configure --prefix=$(PREFIX) --with-curses --enable-readline --without-bash-malloc \
+	./configure --prefix=$(PREFIX) --with-curses --enable-readline --with-installed-readline --without-bash-malloc \
 		"CC=$(CC)" "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" && \
-	$(MAKE) install "LOCAL_LIBS=-ltre -lncurses";
+	$(MAKE) install;
 
 $(LIB)/libtre.so: $(SRC)/tre $(MUSL)
 	cd $(SRC)/tre && \
 	./configure --prefix=$(PREFIX) && \
-	$(MAKE) install PREFIX=$(PREFIX) CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS) -lc" \
+	$(MAKE) install PREFIX=$(PREFIX) CC=$(CC) LDFLAGS="$(DEPLOY_LDFLAGS)" \
 		CFLAGS="-shared $(DEPLOY_CFLAGS) -DHAVE_WCHAR_H -DHAVE_WCTYPE_H -DHAVE_MBRTOWC";
 
 $(MENUTILS): $(SRC)/menutils
