@@ -1,0 +1,21 @@
+#!/bin/sh
+ARCH="$(uname -m)"
+PREFIX="${PREFIX:-"$HOME/.local"}"
+MUSL_LDD="$PREFIX/lib/ld-musl-$ARCH.so.1" 
+
+# absolute path to $0
+PRG="$(dirname "$(realpath "$0")")"
+
+# remove absolute path from PATH to prevent recursive calls to ldd
+IFS=:
+for path in $PATH; do
+	[ "$path" = "$PRG" ] && continue
+	PATH="$path${PATH+":$PATH"}"
+done
+
+if [ -x "$MUSL_LDD" ]; then
+	exec "$MUSL_LDD" --list -- "$@"
+elif command -v ldd >/dev/null 2&>1; then
+	echo "${0##*/}: using GNU/ldd" 1>&2
+	exec ldd "$@"
+fi
