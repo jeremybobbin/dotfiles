@@ -137,6 +137,7 @@ all: base xorg
 install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
+	# TODO: if cron isn't installed, this doesn't work
 	crontab $(PREFIX)/etc/crontab
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
@@ -154,6 +155,8 @@ options:
 	@echo PREFIX=$(PREFIX)
 
 # Vim plugins need to be cloned before we can copy them over 
+# TODO: PATH !~ *$HOME/.local/bin* by default -
+# another argument for shell script wrapper around this
 dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
