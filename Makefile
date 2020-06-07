@@ -258,8 +258,8 @@ $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis 
 
 $(TERMKEY): $(SRC)/libtermkey $(C) $(CURSES)
 	cd $(SRC)/libtermkey && \
-	./configure --prefix=$(PREFIX) --enable-curses && \
-	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX);
+	./configure --prefix=$(PREFIX) --enable-curses $(FLAGS) && \
+	$(MAKE) install PREFIX=$(PREFIX);
 
 $(BIN)/dvtm: $(SRC)/dvtm $(C) $(CURSES)
 	cd $(SRC)/dvtm && \
