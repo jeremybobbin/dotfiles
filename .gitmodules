@@ -28,6 +28,3 @@
 [submodule "etc/skel/.vim/pack/jer/start/vim-vinegar"]
 	path = etc/skel/.vim/pack/jer/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
-[submodule "etc/skel/.config/vis/plugins/vis-ctags"]
-	path = etc/skel/.config/vis/plugins/vis-ctags
-	url = https://github.com/jeremybobbin/vis-ctags

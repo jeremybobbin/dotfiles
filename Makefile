@@ -157,21 +157,27 @@ options:
 # Vim plugins need to be cloned before we can copy them over 
 # TODO: PATH !~ *$HOME/.local/bin* by default -
 # another argument for shell script wrapper around this
-dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
+dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIS_PLUGINS) $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
-		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"   && \
-		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d" && \
-		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"    && \
-		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"   && \
-		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"   && \
-		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"     && \
-		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"       ||:
+		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"    && \
+		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d"  && \
+		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"     && \
+		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"    && \
+		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"    && \
+		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
+		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
+		$(LN) "$(ETC)/vis"                   "$(HOME)/.config/vis" ||:
+
 	cp -af $(ETC)/skel/. $(HOME)
 
 $(VIM_PLUGINS):
 	git submodule update --init --recursive
+
+VIS_PLUGINS = $(ETC)/vis/vis-ctags
+$(ETC)/vis/vis-ctags:
+	git clone https://github.com/jeremybobbin/vis-ctags $@
 
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
