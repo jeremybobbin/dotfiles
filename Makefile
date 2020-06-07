@@ -122,7 +122,7 @@ MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
 READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
 SUPPORT = $(BIN)/orders $(BIN)/network-bug-report.sh
 TERMKEY = $(LIB)/libtermkey.so $(INC)/termkey.h
-VIM=etc/skel/.vim/pack/$(USER)/start/
+VIM=etc/vim/pack/$(USER)/start/
 VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javascript \
 	$(VIM)/vim-json $(VIM)/vim-jsx $(VIM)/vim-repeat $(VIM)/vim-surround \
 	$(VIM)/vim-unimpaired $(VIM)/vim-vinegar
