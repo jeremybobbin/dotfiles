@@ -137,6 +137,7 @@ all: base xorg
 install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
+	# TODO: if cron isn't installed, this doesn't work
 	crontab $(PREFIX)/etc/crontab
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
@@ -154,21 +155,29 @@ options:
 	@echo PREFIX=$(PREFIX)
 
 # Vim plugins need to be cloned before we can copy them over 
-dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
+# TODO: PATH !~ *$HOME/.local/bin* by default -
+# another argument for shell script wrapper around this
+dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIS_PLUGINS) $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
-		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"   && \
-		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d" && \
-		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"    && \
-		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"   && \
-		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"   && \
-		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"     && \
-		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"       ||:
+		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"    && \
+		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d"  && \
+		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"     && \
+		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"    && \
+		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"    && \
+		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
+		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
+		$(LN) "$(ETC)/vis"                   "$(HOME)/.config/vis" ||:
+
 	cp -af $(ETC)/skel/. $(HOME)
 
 $(VIM_PLUGINS):
 	git submodule update --init --recursive
+
+VIS_PLUGINS = $(ETC)/vis/vis-ctags
+$(ETC)/vis/vis-ctags:
+	git clone https://github.com/jeremybobbin/vis-ctags $@
 
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
@@ -255,8 +264,8 @@ $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis 
 
 $(TERMKEY): $(SRC)/libtermkey $(C) $(CURSES)
 	cd $(SRC)/libtermkey && \
-	./configure --prefix=$(PREFIX) --enable-curses && \
-	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX);
+	./configure --prefix=$(PREFIX) --enable-curses $(FLAGS) && \
+	$(MAKE) install PREFIX=$(PREFIX);
 
 $(BIN)/dvtm: $(SRC)/dvtm $(C) $(CURSES)
 	cd $(SRC)/dvtm && \
