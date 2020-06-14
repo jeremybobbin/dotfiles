@@ -5,26 +5,25 @@ case $- in
 esac
 
 installed() {
-	for p; do
-		command -v "$p" > /dev/null 2>&1 || return 1
-	done
+	command -v "$p" > /dev/null 2>&1 || return 1
 }
 
+if [ "$0" = "/bin/bash" ] && [ -x "$HOME/.local/bin/bash" ]; then
+	exec "$HOME/.local/bin/bash" "$@"
+fi
+
 # abduco/dvtm session
-if installed abduco dvtm && [ -z "$ABDUCO_SESSION" ] && [ -z "$DVTM" ]; then
-	if [ -z "$SSH_CILENT" ] ; then
-		exec abduco -A dvtm-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
-	elif [ -n "$FORCE_DVTM"]; then
-		exec abduco -A dvtm-ssh-session dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
+if installed abduco && [ -z "$ABDUCO_SESSION" ]; then
+	if [ -z "$SSH_CLIENT" ]; then
+		exec abduco -A local $0
 	else
-		exec abduco -A ssh-session
+		exec abduco -A remote $0
 	fi
 fi
 
-#if installed abduco && [ -z "$ABDUCO_SESSION" ]; then
-#	exec abduco -A dvtm-session bash
-#fi
-
+if installed dvtm && [ -z "$DVTM" ]; then
+	exec dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
+fi
 
 PS1="$(ps1)"
 TAB="$(printf '\t')"
@@ -55,9 +54,4 @@ fi
 
 if [ ! "$SSH_AUTH_SOCK" ]; then
 	. "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-
-if [ "$0" = "/bin/bash" ]; then
-	# /bin/bash crashes when dyn linked against libreadline (dyn linked against muslgcc)?
-	exec "$(which bash)" "$@"
 fi

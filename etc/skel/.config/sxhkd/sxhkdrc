@@ -52,6 +52,9 @@ XF86AudioPrev
 	mpc prev
 
 # Utils
+super + f
+	funnel
+
 Print
 	maim -s -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | xclip -selection c -t image/png
 
