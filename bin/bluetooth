@@ -25,8 +25,7 @@ mac() {
 	# bluetoothctl output expected:
 	# Device MAC NAME
 	echo devices | bluetoothctl |
-		awk -v "device=$device" '$1 ~ /Device/ &&
-		$2 ~ mac && $3 $4 $5 ~ device { print $2 }' 
+		awk -v "device=$device" '$1 ~ /Device/ && $0 ~ device { print $2 }'
 }
 
 main() {
