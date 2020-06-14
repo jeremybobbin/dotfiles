@@ -5,7 +5,7 @@ case $- in
 esac
 
 installed() {
-	command -v "$p" > /dev/null 2>&1 || return 1
+	command -v "$1" > /dev/null 2>&1 || return 1
 }
 
 if [ "$0" = "/bin/bash" ] && [ -x "$HOME/.local/bin/bash" ]; then
