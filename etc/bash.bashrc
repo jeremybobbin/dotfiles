@@ -8,6 +8,10 @@ installed() {
 	command -v "$p" > /dev/null 2>&1 || return 1
 }
 
+if [ "$0" = "/bin/bash" ] && [ -x "$HOME/.local/bin/bash" ]; then
+	exec "$HOME/.local/bin/bash" "$@"
+fi
+
 # abduco/dvtm session
 if installed abduco && [ -z "$ABDUCO_SESSION" ]; then
 	if [ -z "$SSH_CLIENT" ]; then
@@ -50,9 +54,4 @@ fi
 
 if [ ! "$SSH_AUTH_SOCK" ]; then
 	. "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-
-if [ "$0" = "/bin/bash" ]; then
-	# /bin/bash crashes when dyn linked against libreadline (dyn linked against muslgcc)?
-	exec "$(which bash)" "$@"
 fi
