@@ -126,6 +126,8 @@ VIM=etc/vim/pack/$(USER)/start/
 VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javascript \
 	$(VIM)/vim-json $(VIM)/vim-jsx $(VIM)/vim-repeat $(VIM)/vim-surround \
 	$(VIM)/vim-unimpaired $(VIM)/vim-vinegar
+VIS_PLUGIN_DIR=$(ETC)/vis/plugins
+VIS_PLUGINS = $(VIS_PLUGIN_DIR)/vis-ctags
 
 # C Stack
 C=$(MUSL) # $(BIN)/$(CC)
@@ -168,15 +170,14 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIS_PLUGINS) $(VIM
 		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"    && \
 		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
 		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
-		$(LN) "$(ETC)/vis"                   "$(HOME)/.config/vis" ||:
+		$(LN) "$(ETC)/vis"                   "$(HOME)/.config/"    ||:
 
 	cp -af $(ETC)/skel/. $(HOME)
 
 $(VIM_PLUGINS):
 	git submodule update --init --recursive
 
-VIS_PLUGINS = $(ETC)/vis/vis-ctags
-$(ETC)/vis/vis-ctags:
+$(VIS_PLUGIN_DIR)/vis-ctags:
 	git clone https://github.com/jeremybobbin/vis-ctags $@
 
 $(MUSL): $(SRC)/musl
