@@ -127,7 +127,7 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 	$(VIM)/vim-json $(VIM)/vim-jsx $(VIM)/vim-repeat $(VIM)/vim-surround \
 	$(VIM)/vim-unimpaired $(VIM)/vim-vinegar
 VIS_PLUGIN_DIR=$(ETC)/vis/plugins
-VIS_PLUGINS = $(VIS_PLUGIN_DIR)/vis-ctags
+VIS_PLUGINS = $(VIS_PLUGIN_DIR)/vis-ctags $(VIS_PLUGIN_DIR)/vis-surround
 
 # C Stack
 C=$(MUSL) # $(BIN)/$(CC)
@@ -159,7 +159,8 @@ options:
 # Vim plugins need to be cloned before we can copy them over 
 # TODO: PATH !~ *$HOME/.local/bin* by default -
 # another argument for shell script wrapper around this
-dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIS_PLUGINS) $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
+dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
+	$(VIS_PLUGINS) $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
@@ -170,7 +171,7 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc: $(VIS_PLUGINS) $(VIM
 		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"    && \
 		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
 		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
-		$(LN) "$(ETC)/vis"                   "$(HOME)/.config/"    ||:
+		$(LN) "$(ETC)/"                      "$(HOME)/.config"    ||:
 
 	cp -af $(ETC)/skel/. $(HOME)
 
@@ -179,6 +180,10 @@ $(VIM_PLUGINS):
 
 $(VIS_PLUGIN_DIR)/vis-ctags:
 	git clone https://github.com/jeremybobbin/vis-ctags $@
+
+$(VIS_PLUGIN_DIR)/vis-surround:
+	git clone https://repo.or.cz/vis-surround.git $@
+
 
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
@@ -366,7 +371,4 @@ $(SRC)/tre:
 
 $(SRC)/vis:
 	$(RM) "$@"
-	git clone https://github.com/jeremybobbin/vis "$@"
-
-#deploy:
-#	crontab "$(PREFIX)/etc/crontab"
+	git clone https://github.com/martanne/vis "$@"
