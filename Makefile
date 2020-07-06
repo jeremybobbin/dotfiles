@@ -127,7 +127,9 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 	$(VIM)/vim-json $(VIM)/vim-jsx $(VIM)/vim-repeat $(VIM)/vim-surround \
 	$(VIM)/vim-unimpaired $(VIM)/vim-vinegar
 VIS_PLUGIN_DIR=$(ETC)/vis/plugins
-VIS_PLUGINS = $(VIS_PLUGIN_DIR)/vis-ctags $(VIS_PLUGIN_DIR)/vis-surround
+VIS_PLUGINS = $(VIS_PLUGIN_DIR)/vis-ctags $(VIS_PLUGIN_DIR)/vis-surround \
+	$(VIS_PLUGIN_DIR)/vis-cursors $(VIS_PLUGIN_DIR)/vis-toggler $(VIS_PLUGIN_DIR)/vis-pairs \
+	$(VIS_PLUGIN_DIR)/vis-commentary
 
 # C Stack
 C=$(MUSL) # $(BIN)/$(CC)
@@ -178,12 +180,23 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 $(VIM_PLUGINS):
 	git submodule update --init --recursive
 
+$(VIS_PLUGIN_DIR)/vis-commentary:
+	git clone https://github.com/jeremybobbin/vis-commentary $@
+
 $(VIS_PLUGIN_DIR)/vis-ctags:
 	git clone https://github.com/jeremybobbin/vis-ctags $@
+
+$(VIS_PLUGIN_DIR)/vis-cursors:
+	git clone https://github.com/erf/vis-cursors $@
+
+$(VIS_PLUGIN_DIR)/vis-pairs:
+	git clone https://repo.or.cz/vis-pairs.git $@
 
 $(VIS_PLUGIN_DIR)/vis-surround:
 	git clone https://repo.or.cz/vis-surround.git $@
 
+$(VIS_PLUGIN_DIR)/vis-toggler:
+	git clone https://repo.or.cz/vis-toggler.git $@
 
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
