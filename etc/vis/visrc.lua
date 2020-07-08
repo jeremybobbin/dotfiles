@@ -3,7 +3,6 @@ require('vis')
 require('plugins/vis-commentary')
 require('plugins/vis-ctags')
 require('plugins/vis-cursors')
-require('plugins/vis-pairs')
 require('plugins/vis-surround')
 require('plugins/vis-toggler')
 
