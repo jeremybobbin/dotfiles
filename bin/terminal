@@ -1,6 +1,12 @@
 #!/bin/sh
+fmt() {
+	for arg; do
+		printf "\"$arg\" "
+	done | sed 's/["\]/\\&/g'
+}
+
 if [ -n "$DVTM_CMD_FIFO" ] && [ -w "$DVTM_CMD_FIFO" ]; then
-	echo "create '$*' '' $PWD" > "$DVTM_CMD_FIFO"
+	echo "create \"$(fmt "$@")\" \"\" $PWD" > "$DVTM_CMD_FIFO"
 else
 	"$TERMINAL" -e "$*"
 fi
