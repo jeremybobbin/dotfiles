@@ -12,4 +12,9 @@ end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 	vis:command('set relativenumbers')
+	vis:map(vis.modes.NORMAL, "<Tab>", "<C-i>")
+
+	-- Jumplist
+	vis:map(vis.modes.NORMAL, "<C-i>", "g>")
+	vis:map(vis.modes.NORMAL, "<C-o>", "g<")
 end)
