@@ -1,0 +1,4 @@
+#!/bin/sh -e
+snippets="${XDG_DATA_HOME:-"$HOME/.local/share"}/snippets"
+mkdir -p "$snippets"
+cat "$(menu-fb "$snippets")"
