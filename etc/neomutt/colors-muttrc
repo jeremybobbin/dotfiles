@@ -1,4 +1,4 @@
-# vim: syntax=muttrc
+# vim: syntax=neomuttrc
 # Default index colors:
 color index yellow default '.*'
 color index_author red default '.*'
@@ -9,6 +9,7 @@ color index_subject cyan default '.*'
 color index brightyellow black "~N"
 color index_author brightred black "~N"
 color index_subject brightcyan black "~N"
+color index_author white default "~fsupport@lambdalabs\.zendesk\.com"
 
 # Tagged mail is highlighted:
 color index brightyellow blue "~T"
