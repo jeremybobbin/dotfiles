@@ -6,9 +6,9 @@ color index_number blue default
 color index_subject cyan default '.*'
 
 # New mail is boldened:
-color index brightyellow black "~N"
-color index_author brightred black "~N"
-color index_subject brightcyan black "~N"
+color index brightyellow default "~N"
+color index_author brightred default "~N"
+color index_subject brightcyan default "~N"
 color index_author white default "~fsupport@lambdalabs\.zendesk\.com"
 
 # Tagged mail is highlighted:
@@ -24,17 +24,17 @@ mono error bold
 color normal default default
 color indicator white brightmagenta
 color sidebar_highlight red default
-color sidebar_divider brightblack black
-color sidebar_flagged red black
-color sidebar_new green black
+color sidebar_divider default brightblack default
+color sidebar_flagged red default
+color sidebar_new green default
 color normal brightyellow default
 color error red default
-color tilde black default
+color tilde default default
 color message cyan default
 color markers red white
 color attachment white default
 color search brightmagenta default
-color status brightyellow black
+color status brightyellow default
 color hdrdefault brightgreen default
 color quoted green default
 color quoted1 blue default
@@ -43,8 +43,8 @@ color quoted3 yellow default
 color quoted4 red default
 color quoted5 brightred default
 color signature brightgreen default
-color bold black default
-color underline black default
+color bold default default
+color underline default default
 color normal default default
 
 # Regex highlighting:
