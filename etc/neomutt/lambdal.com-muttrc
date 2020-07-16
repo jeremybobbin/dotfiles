@@ -15,3 +15,5 @@ set postponed=+Drafts
 set spoolfile=+Inbox
 
 mailboxes `find ~/.mail/lambda -type d -name cur | sort | sed -e 's:/cur/*$::' -e 's/ /\\ /g' | tr '\n' ' '`
+
+color index_author white default "~fsupport@lambdalabs\.zendesk\.com"

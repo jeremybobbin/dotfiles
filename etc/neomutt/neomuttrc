@@ -113,7 +113,6 @@ color index_subject cyan default '.*'
 color index brightyellow default "~N"
 color index_author brightred default "~N"
 color index_subject brightcyan default "~N"
-color index_author white default "~fsupport@lambdalabs\.zendesk\.com"
 
 # Tagged mail is highlighted:
 color index brightyellow blue "~T"
