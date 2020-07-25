@@ -55,7 +55,8 @@ bind attach,browser,pager,index g   noop
 bind index                      h   noop
 
 bind attach,index               G   last-entry
-bind pager,browser              G   bottom-page
+bind browser                    G   bottom-page
+bind pager                      G   bottom
 bind attach,index               gg  first-entry
 bind pager,browser              gg  top-page
 bind pager                      j   next-line
