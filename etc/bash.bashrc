@@ -15,9 +15,9 @@ fi
 # abduco/dvtm session
 if installed abduco && [ -z "$ABDUCO_SESSION" ]; then
 	if [ -z "$SSH_CLIENT" ]; then
-		exec abduco -A local $0
+		exec abduco -A local "${0#-}"
 	else
-		exec abduco -A remote $0
+		exec abduco -A remote "${0#-}"
 	fi
 fi
 
