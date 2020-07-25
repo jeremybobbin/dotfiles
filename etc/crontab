@@ -1,1 +1,1 @@
-* * * * * . "$HOME/.profile"; eval $(display-env); email -S
+* * * * * . "$HOME/.profile"; eval $(display-env); email -S >/dev/null 2>&1
