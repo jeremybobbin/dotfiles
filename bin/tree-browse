@@ -1,0 +1,21 @@
+#!/bin/sh -e
+tmp=$(mktemp)
+
+if [ $# -gt 0 ]; then
+	git log --pretty=oneline "$1..HEAD" 
+else
+	git log --pretty=oneline
+fi | tac | awk '{ printf "pick\t%s\n", $0 }' > "$tmp"
+
+${EDITOR:-vi} "$tmp"
+
+while read action hash message; do
+	case "$action" in
+		diff) git diff "${prev?}..$hash";;
+		from) from="$hash";;
+		to)   git diff "${from?}..$hash";;
+		pick);;
+		*) echo error 1>&2; exit 1;;
+	esac
+	prev="$hash"
+done < "$tmp"
