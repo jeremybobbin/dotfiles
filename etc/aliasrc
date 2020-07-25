@@ -72,7 +72,7 @@ smki	sudo make install
 rh	runhaskell
 
 # Media
-rec	ffmpeg -video_size 1920x1080 -framerate 20 -f x11grab -i :0.0+0,0 "$HOME/Media/Video/ScreenCast/$(date +%s).mp4"
+rec	ffmpeg -video_size 1920x1080 -framerate 20 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default "$HOME/Media/Video/ScreenCast/$(date +%s).mp4"
 pm	pulsemixer
 
 # Colors
