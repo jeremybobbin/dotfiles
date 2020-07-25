@@ -127,7 +127,7 @@ mono error bold
 color normal default default
 color indicator white brightmagenta
 color sidebar_highlight red default
-color sidebar_divider default brightblack default
+color sidebar_divider default default
 color sidebar_flagged red default
 color sidebar_new green default
 color normal brightyellow default
