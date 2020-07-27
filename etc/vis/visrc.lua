@@ -18,4 +18,14 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 	-- Jumplist
 	vis:map(vis.modes.NORMAL, "<C-i>", "g>")
 	vis:map(vis.modes.NORMAL, "<C-o>", "g<")
+	vis:operator_new("gq", function(file, range, pos)
+		local status, out, err = vis:pipe(file, range, "fmt")
+		if not status then
+			vis:info(err)
+		else
+			file:delete(range)
+			file:insert(range.start, out)
+		end
+		return range.start -- new cursor location
+	end, "Formating operator, filter range through fmt(1)")
 end)
