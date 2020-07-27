@@ -173,6 +173,7 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"    && \
 		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
 		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
+		$(LN) "$(ETC)/gdb/gdbinit"           "$(HOME)/.gdbinit"    && \
 		$(LN) "$(ETC)/"                      "$(HOME)/.config"    ||:
 
 	cp -af $(ETC)/skel/. $(HOME)

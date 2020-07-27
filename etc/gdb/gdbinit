@@ -1,0 +1,6 @@
+set history save on
+set history size unlimited
+set history remove-duplicates unlimited
+
+set follow-fork-mode child
+set detach-on-fork off
