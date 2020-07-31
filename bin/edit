@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ -d "${ENTRY:=$1}" ]; then
+	ENTRY=$(vis-open -p Edit: $1)
+fi
+
+shift
+
+case "${0##*/}" in
+	E) terminal "$EDITOR" "$@" "$ENTRY";;
+	e|*) "$EDITOR" "$@" "$ENTRY";;
+esac

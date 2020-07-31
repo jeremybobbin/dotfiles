@@ -17,7 +17,6 @@ rm	rm_wrapper
 sp	. ~/.profile
 sbrc	. ~/.bashrc
 
-e	terminal $EDITOR
 ebp	e ~/.bash_profile
 ebrc	e ~/.bashrc
 eirc	e ~/.inputrc
