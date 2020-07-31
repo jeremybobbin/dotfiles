@@ -20,6 +20,8 @@ set forward_quote		# include message in forwards
 set reverse_name		# reply as whomever it was to
 set include			# include message in replies
 
+set header_cache=~/.cache/mutt
+set message_cachedir=~/.cache/mutt
 
 # Sidebar
 set sidebar_visible = yes
@@ -52,11 +54,12 @@ macro index <f3> '<enter-command>source ~/.config/neomutt/lambdal.com-muttrc<ent
 bind attach,browser,pager,index g   noop
 bind index                      h   noop
 
-bind attach,index               G   last-entry
-bind browser                    G   bottom-page
-bind pager                      G   bottom
 bind attach,index               gg  first-entry
-bind pager,browser              gg  top-page
+bind attach,index               G   last-entry
+bind browser                    gg  top-page
+bind browser                    G   bottom-page
+bind pager                      gg  top
+bind pager                      G   bottom
 bind pager                      j   next-line
 bind pager                      k   previous-line
 
