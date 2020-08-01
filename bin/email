@@ -52,7 +52,6 @@ sync() {
 			count='no'
 		fi
 		notify 'Mail' "You've got $count new mail."
-		play "$HOME/Media/Audio/Recordings/bow.mp3" vol 0.25
 	fi
 }
 
