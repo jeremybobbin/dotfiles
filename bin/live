@@ -1,0 +1,42 @@
+#!/bin/sh
+
+: ${FPS="30"}
+: ${INRES="1920x1080"}
+: ${OUTRES="1280x800"}
+: ${THREADS="0"}
+: ${CBR="1000k"}
+: ${QUALITY="slow"}
+: ${AUDIO_RATE="44100"}
+: ${RTSP_URL="rtsp://jer.cx:8554/stream"}
+
+GOP="$((FPS * 2))"
+GOPMIN="$FPS"
+
+while getopts "s:m:" opt; do case "$opt" in
+	s) system=$OPTARG;;
+	m) mic=$OPTARG;;
+	*) exit 1;;
+esac done 
+
+ffmpeg -f x11grab -s "$INRES" \
+	-framerate "$FPS" \
+	-flags low_delay \
+	-fflags nobuffer \
+	-fflags discardcorrupt \
+	-avioflags direct \
+	-i :0.0 \
+	-f pulse -i "${system?}" \
+	-f pulse -i "${mic?}" \
+	-filter_complex "[2:0]volume=0.5[m];[1:0][m]amix=inputs=2" \
+	-f rtsp \
+	-ar "$AUDIO_RATE" \
+	-vcodec libx264 \
+	-g $GOP -keyint_min $GOPMIN -b:v $CBR -minrate $CBR -maxrate $CBR \
+	-pix_fmt yuv420p \
+	-s "$OUTRES" \
+	-preset "$QUALITY" \
+	-tune film \
+	-threads "$THREADS" \
+	-c:a libmp3lame \
+	-strict normal \
+	"$RTSP_URL"
