@@ -5,6 +5,7 @@ require('plugins/vis-ctags')
 require('plugins/vis-cursors')
 require('plugins/vis-surround')
 require('plugins/vis-toggler')
+require('plugins/vis-quickfix')
 
 vis.events.subscribe(vis.events.INIT, function()
 	vis:command('set theme default-16')

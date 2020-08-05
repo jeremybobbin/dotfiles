@@ -129,7 +129,7 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 VIS_PLUGIN_DIR=$(ETC)/vis/plugins
 VIS_PLUGINS = $(VIS_PLUGIN_DIR)/vis-ctags $(VIS_PLUGIN_DIR)/vis-surround \
 	$(VIS_PLUGIN_DIR)/vis-cursors $(VIS_PLUGIN_DIR)/vis-toggler \
-	$(VIS_PLUGIN_DIR)/vis-commentary
+	$(VIS_PLUGIN_DIR)/vis-commentary $(VIS_PLUGIN_DIR)/vis-quickfix
 
 # C Stack
 C=$(MUSL) # $(BIN)/$(CC)
@@ -195,6 +195,9 @@ $(VIS_PLUGIN_DIR)/vis-surround:
 
 $(VIS_PLUGIN_DIR)/vis-toggler:
 	git clone https://repo.or.cz/vis-toggler.git $@
+
+$(VIS_PLUGIN_DIR)/vis-quickfix:
+	git clone https://repo.or.cz/vis-quickfix.git $@
 
 $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
