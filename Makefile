@@ -165,6 +165,7 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 	$(VIS_PLUGINS) $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
+	mkdir $(VAR)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
 		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"    && \
 		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d"  && \
@@ -175,7 +176,9 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
 		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
 		$(LN) "$(ETC)/gdb/gdbinit"           "$(HOME)/.gdbinit"    && \
-		$(LN) "$(ETC)/"                      "$(HOME)/.config"    ||:
+		$(LN) "$(ETC)/"                      "$(HOME)/.config"     && \
+		$(LN) "$(VAR)/cache/wal/Xresources"  "$(HOME)/.Xresources" && \
+		$(LN) "$(VAR)/cache"                 "$(HOME)/.cache"      ||:
 
 	cp -af $(ETC)/skel/. $(HOME)
 
