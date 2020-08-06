@@ -1,7 +1,3 @@
 #!/bin/sh
-set -o pipefail
-
-bin=$(ct | sed 's_Cargo.toml_src/bin_') || exit 1
-
-find "$bin" -type f -printf "%f\n" |
-	sed -E 's/([^.]+)\.[^.]+/\1/g'
+IFS=':' 
+printf 'ls %s\n' $PATH | sh
