@@ -170,6 +170,7 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d"  && \
 		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"     && \
 		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"    && \
+		$(LN) "$(ETC)/xprofile"              "$(HOME)/.xprofile"   && \
 		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"    && \
 		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
 		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
