@@ -1,7 +1,0 @@
-#!/bin/sh
-
-set -o pipefail
-
-cargo locate-project 2> /dev/null |
-	sed -e 's/{"root":"\(.*\)"}/\1/g' ||
-		exit 1
