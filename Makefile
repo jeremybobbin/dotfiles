@@ -183,8 +183,8 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 		$(LN) "$(ETC)/gdb/gdbinit"           "$(HOME)/.gdbinit"      && \
 		$(LN) "$(ETC)/"                      "$(HOME)/.config"       && \
 		$(LN) "$(VAR)/cache/wal/Xresources"  "$(HOME)/.Xresources"   && \
-		$(LN) "$(VAR)/mail"                  "$(HOME)/.mail"         && \
-		$(LN) "$(VAR)/cache"                 "$(HOME)/.cache"        ||:
+		$(LN) "$(VAR)/mail/"                 "$(HOME)/.mail"         && \
+		$(LN) "$(VAR)/cache/"                "$(HOME)/.cache"        ||:
 
 	cp -af $(ETC)/skel/. $(HOME)
 
