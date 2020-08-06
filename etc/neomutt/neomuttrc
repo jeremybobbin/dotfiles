@@ -101,7 +101,7 @@ bind index,pager R group-reply
 
 
 # Need to disown the browser process
-macro attach 'V' '<pipe-entry>view_xhtml<enter>'
+macro attach 'V' '<pipe-entry>view-xhtml<enter>'
 macro attach 'L' "<pipe-entry>extract URL | xargs $BROWSER<enter>"
 
 # vim: syntax=neomuttrc

@@ -4,7 +4,7 @@ autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . 
 
 
 func! ListBins()
-	let l:dirs = split(system("list_bins"), "\n")
+	let l:dirs = split(system("ls-bins"), "\n")
 	call complete(col('.'), l:dirs)
 	return ''
 endfunc
