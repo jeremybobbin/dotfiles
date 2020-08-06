@@ -11,8 +11,7 @@ lt		/bin/ls --color=auto -thN
 _		xargs
 
 
-# rm_wrapper function in ~/.bashrc
-rm	rm_wrapper
+rm	trash
 
 sp	. ~/.profile
 sbrc	. ~/.bashrc
