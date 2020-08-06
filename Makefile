@@ -167,18 +167,20 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 	cp -af bin etc share $(PREFIX)
 	mkdir $(VAR)
 	[ "$(PREFIX)" = "$$HOME/.local" ] &&  \
-		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"    && \
-		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d"  && \
-		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"     && \
-		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"    && \
-		$(LN) "$(ETC)/xprofile"              "$(HOME)/.xprofile"   && \
-		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"    && \
-		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"      && \
-		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"        && \
-		$(LN) "$(ETC)/gdb/gdbinit"           "$(HOME)/.gdbinit"    && \
-		$(LN) "$(ETC)/"                      "$(HOME)/.config"     && \
-		$(LN) "$(VAR)/cache/wal/Xresources"  "$(HOME)/.Xresources" && \
-		$(LN) "$(VAR)/cache"                 "$(HOME)/.cache"      ||:
+		$(LN) "$(ETC)/profile"               "$(HOME)/.profile"      && \
+		$(LN) "$(ETC)/profile"               "$(HOME)/.bash_profile" && \
+		$(LN) "$(ETC)/profile.d"             "$(HOME)/.profile.d"    && \
+		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"       && \
+		$(LN) "$(ETC)/bash.bashrc"           "$(HOME)/.bashrc"       && \
+		$(LN) "$(ETC)/X11/xinit/xinitrc"     "$(HOME)/.xinitrc"      && \
+		$(LN) "$(ETC)/xprofile"              "$(HOME)/.xprofile"     && \
+		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"      && \
+		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"        && \
+		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"          && \
+		$(LN) "$(ETC)/gdb/gdbinit"           "$(HOME)/.gdbinit"      && \
+		$(LN) "$(ETC)/"                      "$(HOME)/.config"       && \
+		$(LN) "$(VAR)/cache/wal/Xresources"  "$(HOME)/.Xresources"   && \
+		$(LN) "$(VAR)/cache"                 "$(HOME)/.cache"        ||:
 
 	cp -af $(ETC)/skel/. $(HOME)
 
