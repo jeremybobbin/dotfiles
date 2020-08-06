@@ -1,7 +1,7 @@
 #!/bin/sh -e
 # lastpass menu wrapper
 # TODO: swap LPASS_ASKPASS with script
-lpass ls | sed -E 's|\([^)]*\)/([^\[]*) \[.*\]|\1|g' | menu | if read account; then
+lpass ls | sed -E 's|\([^)]*\)/([^\[]*) \[.*\]|\1|g' | menu -i | if read account; then
 	LPASS_ASKPASS="dmenu -P -p 'Enter $account password:'" lpass show --password "$account" | if [ -t 1 ]; then
 		xclip -sel c
 		echo "${0##*/}: password copied to clipboard" 1>&2
