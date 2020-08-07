@@ -104,7 +104,7 @@ super + {h,l}
 	echo setmfact {-,+}0.05 > "$DWM_CMD_FIFO"
 
 super + {j,k}
-	echo focusstack {-,+}1 > "$DWM_CMD_FIFO"
+	echo focusstack {+,-}1 > "$DWM_CMD_FIFO"
 
 super + shift + {d,i}
 	echo incnmaster {-,+}1 > "$DWM_CMD_FIFO"
