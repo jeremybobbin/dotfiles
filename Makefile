@@ -276,7 +276,7 @@ $(LUA): $(SRC)/lua $(C) $(READLINE)
 	cd $(SRC)/lua && \
 	./configure "--prefix=$(PREFIX)"; \
 	$(MAKE) install "CFLAGS=$(DEPLOY_CFLAGS) -DLUA_USE_LINUX -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" \
-		"LDFLAGS=$(LD_FLAGS)" CC=$(CC)
+		"LDFLAGS=$(DEPLOY_LDFLAGS)" CC=$(CC)
 
 $(LIB)/liblpeg.so $(LIB)/liblpeg.a: $(SRC)/lpeg $(C) $(LUA)
 	cd $(SRC)/lpeg && \
