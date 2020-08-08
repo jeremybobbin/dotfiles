@@ -117,6 +117,12 @@ CURSES = $(BIN)/infocmp $(BIN)/tabs $(BIN)/tput  $(BIN)/tset $(BIN)/tic \
 	$(LIB)/libcurses.so  $(LIB)/libform.so  $(LIB)/libmenu.so $(LIB)/libpanel.so \
 	$(INC)/curses.h
 LUA = $(BIN)/lua $(LIB)/liblua.so $(INC)/lua.h
+MBLAZE = $(BIN)/maddr $(BIN)/magrep $(BIN)/mbnc $(BIN)/mcolor $(BIN)/mcom \
+	$(BIN)/mdate $(BIN)/mdeliver $(BIN)/mdirs $(BIN)/mexport $(BIN)/mflag \
+	$(BIN)/mflow $(BIN)/mgenmid $(BIN)/mhdr $(BIN)/minc $(BIN)/mless \
+	$(BIN)/mlist $(BIN)/mmime $(BIN)/mmkdir $(BIN)/mpick $(BIN)/mquote \
+	$(BIN)/mrep  $(BIN)/mscan $(BIN)/msed $(BIN)/mseq $(BIN)/mshow \
+	$(BIN)/msort $(BIN)/mthread  $(BIN)/museragent
 MENUTILS = $(BIN)/menu $(BIN)/menu-fb $(BIN)/menu-cache
 MUSL = $(BIN)/musl-gcc $(LIB)/libc.so $(LIB)/libdl.a
 READLINE = $(LIB)/libhistory.so $(LIB)/libreadline.so
@@ -140,7 +146,8 @@ all: base xorg
 
 install: base
 
-base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MENUTILS)
+base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis \
+	$(SHARE)/regex $(MBLAZE) $(MENUTILS)
 	# TODO: if cron isn't installed, this doesn't work
 	crontab $(PREFIX)/etc/crontab
 
@@ -292,6 +299,11 @@ $(BIN)/vis $(BIN)/vis-clipboard $(BIN)/vis-complete $(BIN)/vis-open: $(SRC)/vis 
 		"LDFLAGS=$(DEPLOY_LDFLAGS) -ltre -lcurses -llpeg -llua -ltermkey" && \
 	$(MAKE) install
 
+$(MBLAZE): $(SRC)/mblaze
+	cd $(SRC)/mblaze && \
+	make install "CFLAGS=$(DEPLOY_CFLAGS)" "LDFLAGS=$(DEPLOY_LDFLAGS)" \
+		PREFIX=$(PREFIX) CC=$(CC)
+
 $(TERMKEY): $(SRC)/libtermkey $(C) $(CURSES)
 	cd $(SRC)/libtermkey && \
 	./configure --prefix=$(PREFIX) --enable-curses $(FLAGS) && \
@@ -344,6 +356,10 @@ $(SRC)/lpeg:
 $(SRC)/lua:
 	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/lua "$@"
+
+$(SRC)/mblaze:
+	$(RM) "$@"
+	git clone https://github.com/leahneukirchen/mblaze "$@"
 
 $(SRC)/menutils:
 	$(RM) "$@"
