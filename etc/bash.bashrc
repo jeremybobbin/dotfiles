@@ -55,3 +55,22 @@ fi
 if [ ! "$SSH_AUTH_SOCK" ]; then
 	. "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
+
+mail_mode() {
+	alias new='mlist -s ~/.mail/*/Inbox | stest -v -h |
+		full-thread ~/.mail/jer ~/.mail/lambda | mseq -S'
+	alias j='mless .+1'
+	alias k='mless .-1'
+	alias s='mless'
+	alias sc='mscan'
+	alias dt='mseq .= | sed -n "s/^[ ]*//; /^</d; /Inbox/p" | xargs rm && new'
+	alias dirs='mdirs ~/.mail'
+	alias mrm='trash $(mseq .)'
+	alias mrepc='mrep $(mseq .)'
+	alias mgetallg='mlist ~/.mail/lambda/inbox | mthread  | mseq -S'
+	alias mgetallc='mlist ~/.mail/lambda/inbox/ | mthread  | mseq -S'
+}
+
+no_mode() {
+	unalias new all mall mread s n p sc mrm mrepc mcomc mgetallg mgetallc
+}

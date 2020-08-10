@@ -1,0 +1,8 @@
+#!/bin/sh
+parent() {
+	find ~/.mail/ | grep -v '^\.' | mthread -v "$(realpath "$1")" | head -n1
+}
+
+while read -r line; do
+	find ~/.mail/ | magrep "References:$(parent $line)" | mthread -v | sed '/<.*>/d' | msort -d
+done
