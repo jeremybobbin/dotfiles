@@ -1,8 +1,29 @@
 #!/bin/sh
-parent() {
-	find ~/.mail/ | grep -v '^\.' | mthread -v "$(realpath "$1")" | head -n1
+patterns="$(mktemp)"
+threads="$(mktemp)"
+MAILSEQ="$(mktemp)"
+
+export MAILSEQ
+
+die() {
+	echo "${0##*/}: $*" 1>&2
+	exit 1
 }
 
-while read -r line; do
-	find ~/.mail/ | magrep "References:$(parent $line)" | mthread -v | sed '/<.*>/d' | msort -d
-done
+while read -r e; do
+	if [ ! -f "$e" ]; then
+		die "'$e' is not a file"
+	fi
+	echo "$e"
+done > "$patterns"
+
+# commands to pass to mseq
+mdirs ~/.mail/ | sed 's#.local/var/mail#.mail#' | while read -r md; do
+	mlist "$md"
+done | mthread | tee "$threads" | mseq -S >/dev/null
+
+grep -nFf "$patterns" "$threads" | while read cmd; do
+	mseq "${cmd%%:*}="
+done | awk '!x[$0]++'
+
+#rm -rf "$patterns" "$threads" "$MAILSEQ"
