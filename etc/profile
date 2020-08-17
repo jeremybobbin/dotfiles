@@ -40,14 +40,6 @@
 #TODO ssam: stream sam
 #TODO bluetooth: keybindings to switch bluetooth profiles
 
-
-prependpath() {
-	case ":$PATH:" in
-		*:"$1":*) ;;
-		*) PATH=$1${PATH+":$PATH"};;
-	esac
-}
-
 isatty() {
 	case "$(tty)" in
 		/dev/tty*) return 0;;
@@ -103,14 +95,18 @@ COLORS_TTY=$XDG_CACHE_HOME/wal/colors-tty.sh
 
 [ -r "$COLORS_TTY" ] && . "$COLORS_TTY"
 
-prependpath /usr/bin/
-prependpath /usr/sbin/
-prependpath /usr/local/bin
-prependpath /usr/local/sbin
-prependpath $HOME/.yarn/bin
-prependpath $HOME/.cargo/bin
-prependpath $HOME/.local/bin
-prependpath /tmp/bin
+PATH="\
+/tmp/bin:\
+$HOME/.local/bin:\
+$HOME/.cargo/bin:\
+$HOME/.yarn/bin:\
+/usr/local/bin:\
+/usr/local/sbin:\
+/usr/bin/:\
+/usr/sbin/:\
+/bin:\
+/sbin:\
+"
 
 set +a
 
