@@ -18,7 +18,7 @@ while read -r e; do
 done > "$patterns"
 
 # commands to pass to mseq
-mdirs ~/.mail/ | sed 's#.local/var/mail#.mail#' | while read -r md; do
+mdirs "$@" | sed 's#.local/var/mail#.mail#' | while read -r md; do
 	mlist "$md"
 done | mthread | tee "$threads" | mseq -S >/dev/null
 
