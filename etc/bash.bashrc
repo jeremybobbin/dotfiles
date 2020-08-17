@@ -57,20 +57,14 @@ if [ ! "$SSH_AUTH_SOCK" ]; then
 fi
 
 mail_mode() {
-	alias new='mlist -s ~/.mail/*/Inbox | stest -v -h |
-		full-thread ~/.mail/jer ~/.mail/lambda | mseq -S'
-	alias j='mless .+1'
-	alias k='mless .-1'
-	alias s='mless'
-	alias sc='mscan'
-	alias dt='mseq .= | sed -n "s/^[ ]*//; /^</d; /Inbox/p" | xargs rm && new'
-	alias dirs='mdirs ~/.mail'
-	alias mrm='trash $(mseq .)'
-	alias mrepc='mrep $(mseq .)'
-	alias mgetallg='mlist ~/.mail/lambda/inbox | mthread  | mseq -S'
-	alias mgetallc='mlist ~/.mail/lambda/inbox/ | mthread  | mseq -S'
+	alias all='mlist ~/.mail/*/Inbox | thread | mseq -S'
+	alias new='mlist -s ~/.mail/*/Inbox | full-thread ~/.mail/jer ~/.mail/lambda |
+		mseq -S && mseq -C $ && mseq -f | mseq -S'
+	alias v='mless' # view
+	alias p='mscan | less' # preview
+	alias d='mseq -r .= | grep "Inbox" | mflag -S | xargs rm && new'
 }
 
 no_mode() {
-	unalias new all mall mread s n p sc mrm mrepc mcomc mgetallg mgetallc
+	unalias new all j k v p d
 }
