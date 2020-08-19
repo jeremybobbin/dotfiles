@@ -67,6 +67,7 @@ IRC_CLIENT='weechat'
 MUSIC_PLAYER='ncmpcpp'
 PDF_VIEWER='zathura'
 TERMINAL='st'
+TERMINFO="$XDG_DATA_HOME/terminfo"
 
 BLUETOOTH_DEVICE='Jabra Elite 75t'
 DEFAULT_MAILBOX='lambda'
