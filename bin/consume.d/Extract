@@ -1,4 +1,4 @@
 #!/bin/sh
-method="$(extract -l | menu)"
-chosen="$(extract "$method" | menu)"
+method="$(extract -l | menu -i)"
+chosen="$(extract "$method" | menu -i)"
 echo "$chosen" | consume

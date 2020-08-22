@@ -1,5 +1,5 @@
 #!/bin/sh
-case "$(printf "Primary\nSecondary\n" | menu)" in
+case "$(printf "Primary\nSecondary\n" | menu -i)" in
 	Primary) xclip -sel p;;
 	Secondary) xclip -sel c;;
 	*) exit 1;;
