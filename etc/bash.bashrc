@@ -38,8 +38,8 @@ shopt -s globstar
 #shopt -s progcomp_alias
 
 # Infinite history.
-export HISTSIZE=
-export HISTFILESIZE=
+export HISTSIZE=2147483647
+export HISTFILESIZE=ignoreboth:erasedups
 
 # But ignore commands prefixed with a ' '
 export HISTCONTROL="ignorespace${HISTCONTROL:+:$HISTCONTROL}"
