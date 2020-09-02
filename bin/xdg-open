@@ -17,7 +17,7 @@ for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/\.gz$/                 { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
 	/\.tar$/                { printf "tar xf \"%s\"\n", $0;          sub(/\.tar$/, "") }
 	/^https?:\/\/|\.html?$/ { printf "surf \"%s\"\n", $0;                         next }
-	/\.(jpg|png)$/          { printf "sxiv \"%s\"\n", $0;                         next }
+	/\.(jpe?g|png)$/        { printf "sxiv \"%s\"\n", $0;                         next }
 	/\.(mov|mp[34])$/       { printf "mpv \"%s\"\n", $0;                          next }
 	/\.pdf$/                { printf "zathura \"%s\"\n", $0;                      next }
 	/\.(txt|log)$/          { printf "terminal less \"%s\"\n", $0;                next }
