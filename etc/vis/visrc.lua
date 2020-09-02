@@ -10,6 +10,8 @@ require('plugins/vis-quickfix')
 vis.events.subscribe(vis.events.INIT, function()
 	vis:command('set theme default-16')
 	vis:command('set escdelay 0')
+	vis:command('set autoindent on')
+
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
