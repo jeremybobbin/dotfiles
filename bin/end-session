@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for arg; do
+	#   $(NF): session ID
+	# $(NF-1): PID
+	abduco | awk '$(NF) ~ '"/$arg/"' { printf "kill %d\n", $(NF-1) }' | sh
+done
