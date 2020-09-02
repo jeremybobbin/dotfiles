@@ -1,18 +1,26 @@
 #!/bin/sh
 tmp="$HOME/Downloads/"
-for arg; do
-	echo "$arg"
-done | awk -v "tmp=$tmp" '
-	# URI
-	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|pdf|png|txt)$/ {
-                  printf "wget -P %s \"%s\";\n", tmp, $0; sub(/.*\//, tmp) }
-	/\.gz$/ && !/\.tar\.gz$/ {
-	          sub(/\.gz$/, ""); printf "zcat \"%s.gz\" > \"%s\";\n", $0, $0 }
+
+handle() {
+	case "$(file $1)" in
+		*'ASCII text'*) terminal "$EDITOR" $1;;
+		*'directory')   terminal "$FILE_BROWSER" $1;;
+		*)              echo "don't know how to handle $1" 1>&2;;
+	esac
+}
+
+for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/^(https?:\/\/)?(www\.)?(youtube.com\/watch\?|youtu\.be\/|bitchute\.com\/video)/ {
-	          printf "mpv --record-file=video-dump \"%s\";\n", $0; next }
-	/^https?:\/\//       { printf "surf \"%s\";\n", $0;      next }
-	/\.(jpg|png)$/             { printf "sxiv \"%s\";\n", $0;       next }
-	/\.(mov|mp[34])$/          { printf "mpv \"%s\";\n", $0;       next }
-	/\.pdf$/                   { printf "zathura \"%s\";\n", $0;   next }
-	/\.(txt|log)$/             { printf "consume < \"%s\";\n", $0; next }
-' | sh
+	                          printf "mpv --record-file=video-dump \"%s\"\n", $0       }
+	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|pdf|png|txt)(\?.*)?$/ {
+		                  printf "wget -P %s \"%s\"\n", tmp, $0;  sub(/.*\//, tmp) }
+	/\.gz$/                 { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
+	/\.tar$/                { printf "tar xf \"%s\"\n", $0;          sub(/\.tar$/, "") }
+	/^https?:\/\/|\.html?$/ { printf "surf \"%s\"\n", $0;                         next }
+	/\.(jpg|png)$/          { printf "sxiv \"%s\"\n", $0;                         next }
+	/\.(mov|mp[34])$/       { printf "mpv \"%s\"\n", $0;                          next }
+	/\.pdf$/                { printf "zathura \"%s\"\n", $0;                      next }
+	/\.(txt|log)$/          { printf "terminal less \"%s\"\n", $0;                next }
+				{ printf "handle \"%s\"\n", $0;                       next }
+' | while read cmd; do eval "$cmd"; done
+#TODO(?): merge lines where programs take multiple args
