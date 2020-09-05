@@ -41,6 +41,16 @@ local snippets = {
 	},
 };
 
+-- fancy string ops
+local strdefi=getmetatable('').__index
+getmetatable('').__index=function(str,i)
+	if type(i) == "number" then
+		return string.sub(str,i,i)
+	else
+		return strdefi[i]
+	end
+end
+
 vis.events.subscribe(vis.events.INIT, function()
 	vis:command('set theme default-16')
 	vis:command('set escdelay 0')
