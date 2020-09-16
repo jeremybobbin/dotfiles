@@ -11,7 +11,7 @@ handle() {
 
 for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/^(https?:\/\/)?(www\.)?(youtube.com\/watch\?|youtu\.be\/|bitchute\.com\/video)/ {
-	                          printf "mpv --record-file=video-dump \"%s\"\n", $0       }
+	                          printf "mpv --record-file=video-dump \"%s\"\n", $0; next }
 	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|pdf|png|txt)(\?.*)?$/ {
 		                  printf "wget -P %s \"%s\"\n", tmp, $0;  sub(/.*\//, tmp) }
 	/\.gz$/                 { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
@@ -20,7 +20,7 @@ for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/\.(jpe?g|png)$/        { printf "sxiv \"%s\"\n", $0;                         next }
 	/\.(mov|mp[34])$/       { printf "mpv \"%s\"\n", $0;                          next }
 	/\.pdf$/                { printf "zathura \"%s\"\n", $0;                      next }
-	/\.(txt|log)$/          { printf "terminal less \"%s\"\n", $0;                next }
+	/\.(txt|log)$/          { printf "e \"%s\"\n", $0;                            next }
 				{ printf "handle \"%s\"\n", $0;                       next }
 ' | while read cmd; do eval "$cmd"; done
 #TODO(?): merge lines where programs take multiple args
