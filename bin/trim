@@ -1,0 +1,10 @@
+#!/bin/sh
+# - truncate lines containing only whitespace
+# - remove whitespace before newline
+if [ $# -eq 0 ]; then
+	exec sed -E 's/[ \t\b\r]+$//'
+fi
+
+for arg; do
+	sed -E 's/[ \t\b\r]+$//' "$arg" | sponge "$arg"
+done

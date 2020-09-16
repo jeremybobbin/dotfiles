@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for img in "$@"; do
+	sxiv $img & pid=$sxiv
+	name=$(:|dmenu);
+	mv "$img" "$name".jpg;
+	kill $pid;
+done
