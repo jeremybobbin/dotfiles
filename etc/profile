@@ -107,7 +107,7 @@ $HOME/.yarn/bin:\
 /usr/bin/:\
 /usr/sbin/:\
 /bin:\
-/sbin:\
+/sbin\
 "
 
 set +a
