@@ -148,8 +148,7 @@ install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis \
 	$(SHARE)/regex $(MBLAZE) $(MENUTILS)
-	# TODO: if cron isn't installed, this doesn't work
-	crontab $(PREFIX)/etc/crontab
+	[ command -v crontab >/dev/null 2>&1 ] && crontab $(PREFIX)/etc/crontab
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
 
@@ -192,8 +191,6 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 		$(LN) "$(VAR)/cache/wal/Xresources"  "$(HOME)/.Xresources"   && \
 		$(LN) "$(VAR)/mail/"                 "$(HOME)/.mail"         && \
 		$(LN) "$(VAR)/cache/"                "$(HOME)/.cache"        ||:
-
-	cp -af $(ETC)/skel/. $(HOME)
 
 $(VIM_PLUGINS):
 	git submodule update --init --recursive
