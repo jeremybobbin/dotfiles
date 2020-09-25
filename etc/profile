@@ -68,7 +68,7 @@ MUSIC_PLAYER='ncmpcpp'
 PAGER='less -R'
 PDF_VIEWER='zathura'
 TERMINAL='st'
-TERMINFO="$XDG_DATA_HOME/terminfo"
+TERMINFO="$XDG_DATA_HOME/terminfo:/usr/share/terminfo"
 
 BLUETOOTH_DEVICE='Jabra Elite 75t'
 DEFAULT_MAILBOX='lambda'
