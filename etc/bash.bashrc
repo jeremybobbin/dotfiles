@@ -21,7 +21,7 @@ if installed abduco && [ -z "$ABDUCO_SESSION" ]; then
 	fi
 fi
 
-if installed dvtm && [ -z "$DVTM" ]; then
+if installed dvtm && [ -z "$DVTM" ] && echo "$TERM" | grep -q '256color$'; then
 	exec dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
 fi
 
