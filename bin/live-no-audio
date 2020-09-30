@@ -1,0 +1,40 @@
+#!/bin/sh -x
+
+: ${FPS="30"}
+: ${INRES="1920x1080"}
+: ${OUTRES="1280x800"}
+: ${THREADS="0"}
+: ${CBR="1000k"}
+: ${QUALITY="slow"}
+: ${AUDIO_RATE="44100"}
+: ${RTSP_URL="rtsp://jer.cx:8554/stream"}
+
+GOP="$((FPS * 2))"
+GOPMIN="$FPS"
+
+while getopts "s:m:" opt; do case "$opt" in
+	s) system=$OPTARG;;
+	m) mic=$OPTARG;;
+	*) exit 1;;
+esac done 
+
+sudo renice -n -20 $$
+
+exec ffmpeg -f x11grab -s "$INRES" \
+	-flags low_delay \
+	-fflags nobuffer \
+	-fflags discardcorrupt \
+	-avioflags direct \
+	-threads $(nproc) \
+	-i :0.0 \
+	-f rtsp \
+	-vsync 0 \
+	-vcodec libx264 \
+	-g $GOP -keyint_min $GOPMIN -b:v $CBR -minrate $CBR -maxrate $CBR \
+	-pix_fmt yuv420p \
+	-s "$OUTRES" \
+	-preset "$QUALITY" \
+	-tune film \
+	-threads "$THREADS" \
+	-strict normal \
+	"$RTSP_URL"
