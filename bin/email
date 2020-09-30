@@ -23,17 +23,15 @@ is_new_mail() {
 	mkdir -p "$CACHE_DIR"
 
 	# the one we saw on the last invocation of is_new_mail
-	saw_last_time="$(cat "$CACHE_DIR/email_notify" || echo 0)"
+	saw_last_time="$(cat "$CACHE_DIR/email_notify")"
 
 	# latest is based on the premise that email file names are
 	# prefixed with their Unix timestamp
 	# this awk invocation is derives the basename(same as xargs -n1 basename) 
-	latest="$(unread | sort -nr | awk -F '/' '{ print f=$(NF); exit; } END { print (f ? f : 0) }' | tee "$CACHE_DIR/email_notify")"
+	latest="$(unread | sort -nr | sed -E 's#.*/##; s#\..*##; q')"
+	echo "${latest}" > "$CACHE_DIR/email_notify"
 
-
-	echo "$latest" > "$CACHE_DIR/email_notify"
-
-	[ "$latest" -gt "$saw_last_time" ] && [ "$(unread | wc -l)" -gt 0 ] ||
+	[ "${latest:0}" -gt "${saw_last_time:0}" ] && [ "$(unread | wc -l)" -gt 0 ] ||
 		return 1
 
 }
