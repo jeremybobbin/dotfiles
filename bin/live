@@ -18,9 +18,9 @@ while getopts "s:m:" opt; do case "$opt" in
 	*) exit 1;;
 esac done 
 
-sudo true
+sudo renice -n -20 $$
 
-ffmpeg -f x11grab -s "$INRES" \
+exec ffmpeg -f x11grab -s "$INRES" \
 	-framerate "$FPS" \
 	-flags low_delay \
 	-fflags nobuffer \
@@ -41,8 +41,4 @@ ffmpeg -f x11grab -s "$INRES" \
 	-threads "$THREADS" \
 	-c:a libmp3lame \
 	-strict normal \
-	"$RTSP_URL" &
-
-ff=$!
-sudo renice -n -20 "$ff"
-wait "$ff"
+	"$RTSP_URL"
