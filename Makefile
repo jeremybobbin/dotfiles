@@ -147,7 +147,7 @@ all: base xorg
 install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis \
-	$(SHARE)/regex $(MBLAZE) $(MENUTILS)
+	$(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm
 	[ command -v crontab >/dev/null 2>&1 ] && crontab $(PREFIX)/etc/crontab
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
@@ -217,6 +217,9 @@ $(MUSL): $(SRC)/musl
 	cd $(SRC)/musl && \
 	./configure --prefix=$(PREFIX) CC=cc && \
 	$(MAKE) install syslibdir=$(LIB);
+
+$(BIN)/spm: $(SRC)/spm
+	cd $(SRC)/spm && make install PREFIX=$(PREFIX)
 
 $(BIN)/tcc: $(SRC)/tcc $(MUSL)
 	cd $(SRC)/tcc && \
@@ -385,6 +388,10 @@ $(SRC)/regex:
 $(SRC)/sbase:
 	$(RM) "$@"
 	git clone https://github.com/michaelforney/sbase "$@"
+
+$(SRC)/spm:
+	$(RM) "$@"
+	git clone https://github.com/jeremybobbin/spm "$@"
 
 $(SRC)/st:
 	$(RM) "$@"
