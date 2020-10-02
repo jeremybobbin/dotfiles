@@ -22,7 +22,6 @@ sudo renice -n -20 $$
 
 exec ffmpeg -f x11grab -s "$INRES" \
 	-framerate "$FPS" \
-	-flags low_delay \
 	-fflags nobuffer \
 	-fflags discardcorrupt \
 	-avioflags direct \
