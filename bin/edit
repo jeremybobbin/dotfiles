@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 if [ -d "${ENTRY:=$1}" ]; then
 	ENTRY=$(vis-open -p Edit: $1)
 fi
