@@ -68,6 +68,13 @@ no_mode() {
 	unalias new all j k v p d
 }
 
+prompt_command() {
+	LAST="$(history 1 | cut -c8-)"
+	printf "\e]2;%s\a\e]1;%s\a" "$LAST" "$LAST"
+}
+
+PROMPT_COMMAND=prompt_command
+
 alias o="$XDG_BIN_HOME/open"
 alias la='/bin/ls --color=auto -ahN --group-directories-first'
 alias lc='/bin/ls --color=always -hN --group-directories-first'
