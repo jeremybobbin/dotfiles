@@ -1,0 +1,14 @@
+#!/bin/sh -e
+# lastpass menu wrapper
+# TODO: swap LPASS_ASKPASS with script
+spm list | menu -i | if read account; then
+	spm show "$account" | if [ -t 1 ]; then
+		xclip -sel c
+		echo "${0##*/}: password copied to clipboard" 1>&2
+	else
+		cat
+	fi 
+else
+	echo "${0##*/}: no account chosen" 1>&2
+	exit 1
+fi
