@@ -148,7 +148,9 @@ install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis \
 	$(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm
-	[ command -v crontab >/dev/null 2>&1 ] && crontab $(PREFIX)/etc/crontab
+	if [ command -v crontab >/dev/null 2>&1 ]; then \
+		crontab $(PREFIX)/etc/crontab; \
+	fi
 
 xorg: $(BIN)/dwm $(BIN)/dmenu $(BIN)/st $(BIN)/surf
 
