@@ -12,13 +12,13 @@ handle() {
 for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/^(https?:\/\/)?(www\.)?(youtube.com\/watch\?|youtu\.be\/|bitchute\.com\/video)/ {
 	                          printf "mpv --record-file=video-dump \"%s\"\n", $0; next }
-	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|pdf|png|txt)(\?.*)?$/ {
+	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|mov|mp[34]|webm|pdf|png|txt)(\?.*)?$/ {
 		                  printf "wget -P %s \"%s\"\n", tmp, $0;  sub(/.*\//, tmp) }
 	/\.gz$/                 { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
 	/\.tar$/                { printf "tar xf \"%s\"\n", $0;          sub(/\.tar$/, "") }
 	/^https?:\/\/|\.html?$/ { printf "surf \"%s\"\n", $0;                         next }
 	/\.(jpe?g|png)$/        { printf "sxiv \"%s\"\n", $0;                         next }
-	/\.(mov|mp[34])$/       { printf "mpv \"%s\"\n", $0;                          next }
+	/\.(mkv|mov|mp[34]|webm)$/   { printf "mpv \"%s\"\n", $0;                          next }
 	/\.pdf$/                { printf "mupdf \"%s\"\n", $0;                        next }
 	/\.(txt|log)$/          { printf "e \"%s\"\n", $0;                            next }
 				{ printf "handle \"%s\"\n", $0;                       next }
