@@ -15,13 +15,13 @@ for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|mov|mp[34]|webm|pdf|png|txt)(\?.*)?$/ {
 	                          url=$0; sub(/\?.*/, "");
 		                  printf "wget -P %s -O %s \"%s\"\n", tmp, $0, url; sub(/.*\//, tmp) }
-	/\.gz$/                 { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
-	/\.tar$/                { printf "tar xf \"%s\"\n", $0;          sub(/\.tar$/, "") }
-	/^https?:\/\/|\.html?$/ { printf "surf \"%s\"\n", $0;                         next }
-	/\.(jpe?g|png)$/        { printf "sxiv \"%s\"\n", $0;                         next }
-	/\.(mkv|mov|mp[34]|webm)$/   { printf "mpv \"%s\"\n", $0;                          next }
-	/\.pdf$/                { printf "mupdf \"%s\"\n", $0;                        next }
-	/\.(txt|log)$/          { printf "e \"%s\"\n", $0;                            next }
-				{ printf "handle \"%s\"\n", $0;                       next }
+	/\.gz$/                           { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
+	/\.tar$/                          { printf "tar xf \"%s\"\n", $0;          sub(/\.tar$/, "") }
+	/^https?:\/\/|\.html?$/           { printf "surf \"%s\"\n", $0;                         next }
+	/\.(jpe?g|png)$/                  { printf "sxiv \"%s\"\n", $0;                         next }
+	/\.(mkv|mov|mp[34]|webm)$/        { printf "mpv \"%s\"\n", $0;                          next }
+	/\.pdf$/                          { printf "mupdf \"%s\"\n", $0;                        next }
+	/\.(txt|log)$/                    { printf "e \"%s\"\n", $0;                            next }
+				          { printf "handle \"%s\"\n", $0;                       next }
 ' | while read cmd; do eval "$cmd"; done
 #TODO(?): merge lines where programs take multiple args
