@@ -13,7 +13,8 @@ for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/^(https?:\/\/)?(www\.)?(youtube.com\/watch\?|youtu\.be\/|bitchute\.com\/video)/ {
 	                          printf "mpv --record-file=video-dump \"%s\"\n", $0; next }
 	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|mov|mp[34]|webm|pdf|png|txt)(\?.*)?$/ {
-		                  printf "wget -P %s \"%s\"\n", tmp, $0;  sub(/.*\//, tmp) }
+	                          url=$0; sub(/\?.*/, "");
+		                  printf "wget -P %s -O %s \"%s\"\n", tmp, $0, url; sub(/.*\//, tmp) }
 	/\.gz$/                 { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
 	/\.tar$/                { printf "tar xf \"%s\"\n", $0;          sub(/\.tar$/, "") }
 	/^https?:\/\/|\.html?$/ { printf "surf \"%s\"\n", $0;                         next }
