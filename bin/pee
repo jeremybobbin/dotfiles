@@ -1,0 +1,17 @@
+#!/bin/sh
+fifos="$(mktemp -d)"
+pids="$(mktemp)"
+
+for a; do
+	mkfifo "$fifos/$((++n))"
+	sh -c "$a" < "$fifos/$n" &
+	echo $! >> "$pids"
+done
+
+tee $fifos/* >/dev/null
+
+while read pid; do
+	wait "$pid"
+done < $pids
+
+rm -rf "$tmp" "$pids"
