@@ -63,16 +63,16 @@ super + f
 	funnel
 
 Print
-	maim -s -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | xclip -selection c -t image/png
+	maim -s -o | jpg | tee "$HOME/Media/Images/Screenshots/$(date +%s).jpg" | xclip -selection c -t image/jpg
 
 Print + shift
-	maim -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | xclip -selection c -t image/png
+	maim -o | jpg | tee "$HOME/Media/Images/Screenshots/$(date +%s).jpg" | xclip -selection c -t image/jpg
 
 Print + control
-	maim -s -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | pasta png
+	maim -s -o | jpg | tee "$HOME/Media/Images/Screenshots/$(date +%s).jpg" | pasta jpg
 
 Print + control + shift
-	maim -o | tee "$HOME/Media/Images/Screenshots/$(date +%s).png" | pasta png
+	maim -o | jpg | tee "$HOME/Media/Images/Screenshots/$(date +%s).jpg" | pasta jpg
 
 super + v
 	mpv /dev/video0
