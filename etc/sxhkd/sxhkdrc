@@ -17,9 +17,6 @@ super + p
 super + i
 	"$TERMINAL" -e "$IRC_CLIENT"
 	
-super + m
-	"$TERMINAL" -e "$MUSIC_PLAYER"
-	
 super + a
 	"$TERMINAL" -e pulsemixer
 
@@ -41,6 +38,13 @@ super + e; super + { e, w, p, s }
 # Bluetooth
 super + b; super + { b, t, c, d, s }
 	bluetooth { toggle, toggle, connect, disconnect, status } "$BLUETOOTH_DEVICE"
+
+
+super + m; super + m
+	"$TERMINAL" -e "$MUSIC_PLAYER"
+
+super + m; super + { space, j, k, h, l }
+	mpc { toggle, next, prev, seek -10, seek 10 }
 
 XF86AudioPlay
 	mpc toggle
