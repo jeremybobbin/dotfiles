@@ -147,7 +147,7 @@ all: base xorg
 install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis \
-	$(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm
+	$(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm $(BIN)/entr
 	if [ command -v crontab >/dev/null 2>&1 ]; then \
 		crontab $(PREFIX)/etc/crontab; \
 	fi
@@ -222,6 +222,11 @@ $(MUSL): $(SRC)/musl
 
 $(BIN)/spm: $(SRC)/spm
 	cd $(SRC)/spm && make install PREFIX=$(PREFIX)
+
+$(BIN)/entr: $(SRC)/entr
+	cd $(SRC)/entr &&
+		./configure &&
+		make install PREFIX=$(PREFIX) $(FLAGS)
 
 $(BIN)/tcc: $(SRC)/tcc $(MUSL)
 	cd $(SRC)/tcc && \
@@ -346,6 +351,10 @@ $(SRC)/dvtm:
 $(SRC)/dwm:
 	$(RM) "$@"
 	git clone https://www.github.com/jeremybobbin/dwm "$@"
+
+$(SRC)/entr:
+	$(RM) "$@"
+	git clone https://github.com/eradman/entr "$@"
 
 $(SRC)/libtermkey:
 	$(RM) "$@"

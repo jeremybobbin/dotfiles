@@ -4,5 +4,5 @@ theme reset
 compton -c -r 2 -e1 -l 2 -t 2 --no-fading-openclose &
 xrdb $HOME/.Xresources &
 remap xorg
-INTERACTIVE=true sxhkd &
+INTERACTIVE=true echo $HOME/.config/sxhkd/sxhkdrc | entr -s 'sxhkd' &
 dunst &
