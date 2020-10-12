@@ -75,7 +75,8 @@ Print + control + shift
 	maim -o | jpg | tee "$HOME/Media/Images/Screenshots/$(date +%s).jpg" | pasta jpg
 
 super + v
-	mpv /dev/video0
+	mpv --profile=low-latency --untimed --demuxer-lavf-format=video4linux2 \
+		--demuxer-lavf-o-set=input_format=mjpeg av://v4l2:/dev/video0
 
 super + shift + w
 	xwininfo | grep 'Window id' | grep -Eo '0x[0-9a-fA-F]+' | xclip -selection c
