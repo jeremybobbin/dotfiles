@@ -33,7 +33,7 @@ super + w; super + { w, s, g, b, r, c }
 # dwm...
 # email + check, work, personal
 super + e; super + { e, w, p, s }
-	email { -O "$DEFAULT_MAILBOX",  -O lambda, -O jer, -S }
+	:|email { -O "$DEFAULT_MAILBOX",  -O lambda, -O jer, -S }
 
 # Bluetooth
 super + b; super + { b, t, c, d, s }
@@ -44,7 +44,7 @@ super + m; super + m
 	"$TERMINAL" -e "$MUSIC_PLAYER"
 
 super + m; super + { space, j, k, h, l }
-	mpc { toggle, next, prev, seek -10, seek 10 }
+	mpc { toggle, next, prev, seek -10, seek +10 }
 
 XF86AudioPlay
 	mpc toggle
