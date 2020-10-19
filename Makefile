@@ -146,8 +146,9 @@ all: base xorg
 
 install: base
 
-base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/dvtm $(BIN)/vis \
-	$(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm $(BIN)/entr
+base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/bar-x11 \
+	$(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm \
+	$(BIN)/entr
 	if [ command -v crontab >/dev/null 2>&1 ]; then \
 		crontab $(PREFIX)/etc/crontab; \
 	fi
@@ -222,6 +223,14 @@ $(MUSL): $(SRC)/musl
 
 $(BIN)/spm: $(SRC)/spm
 	cd $(SRC)/spm && make install PREFIX=$(PREFIX)
+
+$(BIN)/bar: $(SRC)/bar
+	cd $(SRC)/bar && make install PREFIX=$(PREFIX)
+
+$(BIN)/inotifywatch $(BIN)/inotifywait: $(SRC)/inotify-tools
+	cd $(SRC)/inotify-tools && \
+		./autogen.sh && ./configure --prefix=$(PREFIX) $(FLAGS) && \
+		make install
 
 $(BIN)/entr: $(SRC)/entr
 	cd $(SRC)/entr &&
@@ -340,6 +349,10 @@ $(SRC)/bash:
 	$(RM) "$@"
 	git clone http://git.savannah.gnu.org/git/bash -b bash-5.0 "$@"
 
+$(SRC)/bar:
+	$(RM) "$@"
+	git clone https://github.com/jeremybobbin/bar "$@"
+
 $(SRC)/dmenu:
 	$(RM) "$@"
 	git clone https://www.github.com/jeremybobbin/dmenu "$@"
@@ -355,6 +368,10 @@ $(SRC)/dwm:
 $(SRC)/entr:
 	$(RM) "$@"
 	git clone https://github.com/eradman/entr "$@"
+
+$(SRC)/inotify-tools:
+	$(RM) "$@"
+	git clone https://github.com/inotify-tools/inotify-tools "$@"
 
 $(SRC)/libtermkey:
 	$(RM) "$@"
