@@ -172,6 +172,7 @@ options:
 # another argument for shell script wrapper around this
 dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 	$(VIS_PLUGINS) $(VIM_PLUGINS) etc/profile etc/bash.bashrc etc/inputrc etc/crontab
+	./bin/dotfiles-backup
 	mkdir -p $(PREFIX)
 	cp -af bin etc share $(PREFIX)
 	mkdir -p $(VAR)/mail $(VAR)/cache

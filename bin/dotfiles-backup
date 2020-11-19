@@ -1,0 +1,13 @@
+#!/bin/sh -e
+dst="${1:-backup.tar.gz}"
+if [ -e $dst ]; then
+	mv "$dst" "$dst.old"
+fi
+
+(
+	cd "$(git rev-parse --show-toplevel)"
+	git ls-files | (
+		cd $HOME/.local;
+		stest -e | xargs -d '\n' tar czf -;
+	)
+) > "${1:-backup.tar.gz}"
