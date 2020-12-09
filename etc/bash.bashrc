@@ -12,17 +12,8 @@ if [ "$0" = "/bin/bash" ] && [ -x "$HOME/.local/bin/bash" ]; then
 	exec "$HOME/.local/bin/bash" "$@"
 fi
 
-# abduco/dvtm session
-if installed abduco && [ -z "$ABDUCO_SESSION" ]; then
-	if [ -z "$SSH_CLIENT" ]; then
-		exec abduco -A local "${0#-}"
-	else
-		exec abduco -A remote "${0#-}"
-	fi
-fi
-
-if installed dvtm && [ -z "$DVTM" ] && echo "$TERM" | grep -q '256color$'; then
-	exec dvtm -c "$DVTM_CMD_FIFO" -s "$DVTM_STATUS_FIFO"
+if installed svtm && [ -z "$SVTM" ] && echo "$TERM" | grep -q '256color$'; then
+	exec svtm
 fi
 
 PS1="$(ps1)"
