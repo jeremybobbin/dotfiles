@@ -1,0 +1,52 @@
+#!/bin/sh
+# deps
+#	- oauth2.py
+#	- spm
+#
+#
+
+DIR="$HOME/.local/var/oat/"
+mkdir -p "$DIR"
+cd $DIR
+
+# returns age in seconds
+age() {
+	echo $(($(date +%s) - $(stat "$1" -c %Y)))
+}
+
+serialize() {
+	awk '
+			/^Access Token:/ {
+				print $3 > "access"
+			}
+			/^Access Token Expiration Seconds:/ {
+				print $5 > "expiration"
+			}
+			/Refresh Token:/ {
+				print $3 > "refresh"
+			}
+			/http:/ {
+				system("chromium " $1)
+			}
+		'
+}
+
+if [ -f access ] && [ -f refresh ] && read expiration < expiration &&  [ $(age access) -lt $expiration ]; then
+	# refresh the token
+	read refresh < refresh
+	python2.7 -u ~/.local/bin/oauth2.py \
+		--user=jeremy@lambdal.com \
+		--client_id=684682239017-g9u6msd8mijqtmo7vr47hm8sirh4jdca.apps.googleusercontent.com \
+		--client_secret=$(spm show "Google/Client Secret")  \
+		--generate_oauth2_token \
+		--refresh_token="$refresh"
+else
+	# make new token
+	python2.7 -u ~/.local/bin/oauth2.py  \
+		--user=jeremy@lambdal.com \
+		--client_id=684682239017-g9u6msd8mijqtmo7vr47hm8sirh4jdca.apps.googleusercontent.com \
+		--client_secret=$(spm show "Google/Client Secret")  \
+		--generate_oauth2_token
+fi  | tee /dev/stderr | serialize
+
+cat access
