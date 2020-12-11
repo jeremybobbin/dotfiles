@@ -188,6 +188,7 @@ dotfiles $(HOME)/.profile $(HOME)/.bashrc $(HOME)/.inputrc $(HOME)/.config:\
 		$(LN) "$(ETC)/inputrc"               "$(HOME)/.inputrc"      && \
 		$(LN) "$(ETC)/vimrc"                 "$(HOME)/.vimrc"        && \
 		$(LN) "$(ETC)/vim"                   "$(HOME)/.vim"          && \
+		$(LN) "$(ETC)/mblaze"                "$(HOME)/.mblaze"       && \
 		$(LN) "$(ETC)/mbsyncrc"              "$(HOME)/.mbsyncrc"     && \
 		$(LN) "$(ETC)/msmtprc"               "$(HOME)/.msmtprc"      && \
 		$(LN) "$(ETC)/gdb/gdbinit"           "$(HOME)/.gdbinit"      && \

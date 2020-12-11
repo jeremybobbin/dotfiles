@@ -1,0 +1,14 @@
+#!/bin/sh -x
+# msmtp-enqueue.sh wrapper
+if [ -z "$SMTP_ACCOUNT" ]; then
+	awk '$1 ~ /^account$/ && $2 !~ /^default:$/ { print $2 }' "$HOME/.msmtprc" |
+		menu
+else
+	echo "$SMTP_ACCOUNT"
+fi | if read acct; then
+	# -t reads To, Cc & Bcc for recipients
+	exec msmtp-enqueue.sh -t -a "$acct"
+else
+	echo "${0%%*/}: error reading account choice"
+	exit 1
+fi
