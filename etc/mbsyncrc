@@ -5,8 +5,8 @@ Expunge Both
 IMAPAccount lambda
 Host imap.gmail.com
 User jeremy@lambdal.com
-AuthMechs XOAUTH2
-PassCmd "oat"
+AuthMechs LOGIN
+PassCmd "spm show 'Google/App Password'"
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 SSLType IMAPS
 
