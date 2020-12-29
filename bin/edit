@@ -1,6 +1,10 @@
 #!/bin/sh -e
+if [ $# -eq 0 ]; then
+	exec "$EDITOR"
+fi
+
 if [ -d "${ENTRY:=$1}" ]; then
-	ENTRY=$(vis-open -p Edit: $1)
+	ENTRY="$(vis-open -p Edit: "$1")"
 fi
 
 shift
