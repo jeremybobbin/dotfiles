@@ -148,7 +148,7 @@ install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/bar-x11 \
 	$(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm \
-	$(BIN)/entr $(BIN)/smu
+	$(BIN)/entr $(BIN)/smu $(BIN)/svtm
 	if [ command -v crontab >/dev/null 2>&1 ]; then \
 		crontab $(PREFIX)/etc/crontab; \
 	fi
@@ -336,6 +336,14 @@ $(BIN)/smu: $(SRC)/smu
 	cd $(SRC)/smu && \
 	make install PREFIX=$(PREFIX)
 
+$(BIN)/sthkd: $(SRC)/sthkd
+	cd $(SRC)/sthkd && \
+	$(MAKE) install PREFIX=$(PREFIX)
+
+$(BIN)/svtm: $(SRC)/svtm $(BIN)/sthkd
+	cd $(SRC)/svtm && \
+	$(MAKE) install PREFIX=$(PREFIX)
+
 $(SUPPORT): $(SRC)/support
 	cd $(SRC)/support && $(MAKE) install PREFIX=$(PREFIX)
 
@@ -436,9 +444,17 @@ $(SRC)/st:
 	$(RM) "$@"
 	git clone https://github.com/jeremybobbin/st "$@"
 
+$(SRC)/sthkd:
+	$(RM) "$@"
+	git clone -b master https://www.github.com/jeremybobbin/sthkd "$@"
+
 $(SRC)/support:
 	$(RM) "$@"
 	git clone https://github.com/LambdaLabs/support "$@"
+
+$(SRC)/svtm:
+	$(RM) "$@"
+	git clone -b master https://www.github.com/jeremybobbin/svtm "$@"
 
 $(SRC)/surf:
 	$(RM) "$@"
