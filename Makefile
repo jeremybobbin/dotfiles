@@ -148,7 +148,7 @@ install: base
 
 base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/bar-x11 \
 	$(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm \
-	$(BIN)/entr
+	$(BIN)/entr $(BIN)/smu
 	if [ command -v crontab >/dev/null 2>&1 ]; then \
 		crontab $(PREFIX)/etc/crontab; \
 	fi
@@ -332,8 +332,13 @@ $(BIN)/dvtm: $(SRC)/dvtm $(C) $(CURSES)
 	$(MAKE) install $(FLAGS) PREFIX=$(PREFIX) && \
 	$(BIN)/tic $(SRC)/dvtm/dvtm.info
 
+$(BIN)/smu: $(SRC)/smu
+	cd $(SRC)/smu && \
+	make install PREFIX=$(PREFIX)
+
 $(SUPPORT): $(SRC)/support
 	cd $(SRC)/support && $(MAKE) install PREFIX=$(PREFIX)
+
 
 $(SHARE)/regex: $(SRC)/regex
 	cd $(SRC)/support && $(MAKE) install PREFIX=$(PREFIX)
@@ -418,6 +423,10 @@ $(SRC)/regex:
 $(SRC)/sbase:
 	$(RM) "$@"
 	git clone https://github.com/michaelforney/sbase "$@"
+
+$(SRC)/smu:
+	$(RM) "$@"
+	git clone https://github.com/Gottox/smu "$@"
 
 $(SRC)/spm:
 	$(RM) "$@"
