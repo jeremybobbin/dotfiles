@@ -2,9 +2,9 @@
 tmp="$HOME/Downloads/"
 
 handle() {
-	case "$(file $1)" in
-		*'ASCII text'*) terminal "$EDITOR" $1;;
-		*'directory')   terminal "$FILE_BROWSER" $1;;
+	case "$(file "$1")" in
+		*'ASCII text'*) terminal sh -c "highlight --out-format=ansi \"$1\" | less -R";;
+		*'directory')   terminal "$FILE_BROWSER" "$1";;
 		*)              echo "don't know how to handle $1" 1>&2;;
 	esac
 }
@@ -13,11 +13,14 @@ for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
 	/^(https?:\/\/)?(www\.)?(youtube.com\/watch\?|youtu\.be\/|bitchute\.com\/video)/ {
 	                          printf "mpv --record-file=video-dump \"%s\"\n", $0; next }
 	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|mov|mp[34]|webm|pdf|png|txt)(\?.*)?$/ {
-	                          url=$0; sub(/\?.*/, "");
-		                  printf "wget -P %s -O %s \"%s\"\n", tmp, $0, url; sub(/.*\//, tmp) }
+	                          url=$0; sub(/\?.*/, ""); sub(/.*\//, "");
+	                          # if url is like /?, then just open in the browser
+	                          if ($0 == "") { $0=url; } else {
+		                          $0 = tmp $0;
+			                  printf "wget -O %s \"%s\"\n", $0, url;  } }
+	/^https?:\/\/|\.html?$/           { printf "surf \"%s\"\n", $0;                         next }
 	/\.gz$/                           { printf "gunzip \"%s\"\n", $0;           sub(/\.gz$/, "") }
 	/\.tar$/                          { printf "tar xf \"%s\"\n", $0;          sub(/\.tar$/, "") }
-	/^https?:\/\/|\.html?$/           { printf "surf \"%s\"\n", $0;                         next }
 	/\.(jpe?g|png)$/                  { printf "sxiv \"%s\"\n", $0;                         next }
 	/\.(mkv|mov|mp[34]|webm)$/        { printf "mpv \"%s\"\n", $0;                          next }
 	/\.pdf$/                          { printf "mupdf \"%s\"\n", $0;                        next }
