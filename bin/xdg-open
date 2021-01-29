@@ -3,7 +3,7 @@ tmp="$HOME/Downloads/"
 
 handle() {
 	case "$(file "$1")" in
-		*'ASCII text'*) terminal sh -c "highlight --out-format=ansi \"$1\" | less -R";;
+		*'ASCII text'*|*'UTF-8'*) terminal sh -c "highlight --out-format=ansi \"$1\" | less -R";;
 		*'directory')   terminal "$FILE_BROWSER" "$1";;
 		*)              echo "don't know how to handle $1" 1>&2;;
 	esac
