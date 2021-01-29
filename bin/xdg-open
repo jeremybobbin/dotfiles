@@ -9,7 +9,7 @@ handle() {
 	esac
 }
 
-for arg; do echo "$arg"; done | awk -v "tmp=$tmp" '
+echo "$1" | awk -v "tmp=$tmp" '
 	/^(https?:\/\/)?(www\.)?(youtube.com\/watch\?|youtu\.be\/|bitchute\.com\/video)/ {
 	                          printf "mpv --record-file=video-dump \"%s\"\n", $0; next }
 	/^(ftps?|https?:)\/\// && /\.(gz|jpg|mkv|mov|mp[34]|webm|pdf|png|txt)(\?.*)?$/ {

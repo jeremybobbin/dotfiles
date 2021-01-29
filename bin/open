@@ -2,5 +2,7 @@
 if [ "$#" -eq '0' ]; then
 	xargs -n1 xdg-open
 else
-	printf "xdg-open '%s'\n" "$@" | sh -e
+	for arg; do
+		xdg-open "$arg"
+	done
 fi
