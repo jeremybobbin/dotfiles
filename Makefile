@@ -146,7 +146,7 @@ all: base xorg
 
 install: base
 
-base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/bar-x11 \
+base: $(SUPPORT) dotfiles $(BIN)/abduco $(BIN)/bash $(BIN)/bar \
 	$(BIN)/dvtm $(BIN)/vis $(SHARE)/regex $(MBLAZE) $(MENUTILS) $(BIN)/spm \
 	$(BIN)/entr $(BIN)/smu $(BIN)/svtm
 	if [ command -v crontab >/dev/null 2>&1 ]; then \
