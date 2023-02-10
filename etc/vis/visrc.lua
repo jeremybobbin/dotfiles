@@ -39,6 +39,23 @@ local snippets = {
 
 		ca = "awk '<++> {<++>}'",
 	},
+	go = {
+		po = "fmt.Println(\"<++>\")",
+		pe = "fmt.Fprintln(os.Stderr, \"<++>\", <++>)",
+		pf = "fmt.Fprintln(<++>, \"<++>\")",
+		-- loop
+		lw = "for {\n\t<++>\n}",
+		lr = "for <++> := range <++>; {\n\t<++>\n}",
+		ln = "for i := 0; i < <++>; i+= 1 do\n\t<++>\ndone",
+
+		["if"] = "if <++>; then\n\t<++>\nfi",
+		fn = "func <++>() <++> {\n\t<++>\n}",
+		sw = "switch <++> {\ncase <++>:\n\t<++>\n}",
+		sl = "select <++> {\ncase <++>:\n\t<++>\n}",
+		hd = "<++> <<- EOF\n<++>\nEOF",
+
+		ca = "awk '<++> {<++>}'",
+	},
 };
 
 -- fancy string ops
@@ -67,7 +84,15 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 	vis:map(vis.modes.NORMAL, "<C-o>", "g<")
 
 	-- Jump to place holder
-	vis:map(vis.modes.NORMAL, "<Space>", "/<\\+\\+><Enter>cf>")
+	vis:map(vis.modes.NORMAL, " ", function(keys)
+		local file = win.file
+		local pos = win.selection.pos
+		if file:content(pos, 4) == "<++>" then
+		else
+			vis:feedkeys("/<\\+\\+><Enter>")
+		end
+		vis:feedkeys("cf>")
+	end, "jump to place holder")
 
 	-- snippets
 	if snippets[win.syntax] ~= nil then
@@ -78,7 +103,8 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 			vis:map(vis.modes.NORMAL, seq, function(keys)
 				vis:feedkeys("i")
 				vis:insert(v)
-				vis:feedkeys("<Escape>")
+				local str = string.format("<Escape>%dh", string.len(v))
+				vis:feedkeys(str)
 			end, comment)
 			vis:map(vis.modes.INSERT, seq, function(keys)
 				vis:insert(v)
