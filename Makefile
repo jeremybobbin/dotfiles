@@ -135,7 +135,8 @@ VIM_PLUGINS = $(VIM)/csv.vim $(VIM)/haskell-vim $(VIM)/rust.vim $(VIM)/vim-javas
 VIS_PLUGIN_DIR=$(ETC)/vis/plugins
 VIS_PLUGINS = $(VIS_PLUGIN_DIR)/vis-ctags $(VIS_PLUGIN_DIR)/vis-surround \
 	$(VIS_PLUGIN_DIR)/vis-cursors $(VIS_PLUGIN_DIR)/vis-toggler \
-	$(VIS_PLUGIN_DIR)/vis-commentary $(VIS_PLUGIN_DIR)/vis-quickfix
+	$(VIS_PLUGIN_DIR)/vis-commentary $(VIS_PLUGIN_DIR)/vis-quickfix \
+	$(VIS_PLUGIN_DIR)/vis-ins-completion
 
 # C Stack
 C=$(MUSL) # $(BIN)/$(CC)
@@ -208,6 +209,9 @@ $(VIS_PLUGIN_DIR)/vis-ctags:
 
 $(VIS_PLUGIN_DIR)/vis-cursors:
 	git clone https://github.com/erf/vis-cursors $@
+
+$(VIS_PLUGIN_DIR)/vis-ins-completion:
+	git clone https://github.com/jeremybobbin/vis-ins-completion $@
 
 $(VIS_PLUGIN_DIR)/vis-surround:
 	git clone https://repo.or.cz/vis-surround.git $@

@@ -6,9 +6,10 @@ require('plugins/vis-cursors')
 require('plugins/vis-surround')
 require('plugins/vis-toggler')
 require('plugins/vis-quickfix')
-require('plugins/vis-completion')
+require('plugins/vis-ins-completion')
+require('plugins/vis-go')
 
-dictfiles =  {
+dictfiles =  { 
 	text = '/usr/share/dict/words',
 }
 
@@ -93,7 +94,7 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 		local file = win.file
 		local pos = win.selection.pos
 		if file:content(pos, 4) == "<++>" then
-		else
+		else 
 			vis:feedkeys("/<\\+\\+><Enter>")
 		end
 		vis:feedkeys("cf>")
