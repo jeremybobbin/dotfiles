@@ -13,56 +13,81 @@ dictfiles =  {
 	text = '/usr/share/dict/words',
 }
 
-local snippets = {
-	ansi_c = {
-		po = "fprintf(stdout, \"<++>\", <++>);",
-		pe = "fprintf(stderr, \"<++>\", <++>);",
-		pf = "fprintf(<++>, \"<++>\", <++>);",
-		ps = "sprintf(<++>, \"<++>\", <++>);",
-		-- loop
-		lf = "for (<++>;<++>;<++>) {\n\t<++>\n}",
-		lw = "while (<++>) {\n\t<++>\n}",
-		ld = "do {\n\t<++>\n} while (<++>);",
+local register_snippets = function(snippets)
+	for k, v in pairs(snippets) do
+		local seq = string.format("<C-_>%s", k)
+		--v = v:gsub("\n", "<Enter>")
+		vis:map(vis.modes.NORMAL, seq, function(keys)
+			vis:feedkeys("i")
+			vis:insert(v)
+			local str = string.format("<Escape>%dh", string.len(v))
+			vis:feedkeys(str)
+		end, "Snippet")
+		vis:map(vis.modes.INSERT, seq, function(keys)
+			vis:insert(v)
+			vis:feedkeys("<Escape>")
+			vis:feedkeys(" ")
+		end, "Snippet")
+	end
+end
 
-		["if"] = "if (<++>) {\n\t<++>\n}",
 
-		fn = "<++>\n<++>(<++>)\n{\n\t<++>\n}",
-		sw = "switch (<++>) {\ncase <++>:<++>;\n\tdefault:<++>;;\n}",
-	},
-	bash = {
-		po = "printf '<++>'",
-		pe = "printf '<++>' 1>&2",
-		pf = "printf '<++>' > <++>",
-		-- loop
-		lw = "while <++>; do\n\t<++>\ndone",
-		lu = "until <++>; do\n\t<++>\ndone",
-		lf = "for <++> in <++>; do\n\t<++>\ndone",
+local on_syntax = {
+	ansi_c = function()
+		register_snippets({
+			po = "fprintf(stdout, \"<++>\", <++>);",
+			pe = "fprintf(stderr, \"<++>\", <++>);",
+			pf = "fprintf(<++>, \"<++>\", <++>);",
+			ps = "sprintf(<++>, \"<++>\", <++>);",
+			-- loop
+			lf = "for (<++>;<++>;<++>) {\n\t<++>\n}",
+			lw = "while (<++>) {\n\t<++>\n}",
+			ld = "do {\n\t<++>\n} while (<++>);",
 
-		["if"] = "if <++>; then\n\t<++>\nfi",
-		fn = "<++>()\n{\n\t<++>\n}",
-		sw = "case <++> in\n\t<++>)<++>;;\n\t*)<++>;;\nesac",
-		hd = "<++> <<- EOF\n<++>\nEOF",
+			["if"] = "if (<++>) {\n\t<++>\n}",
 
-		ca = "awk '<++> {<++>}'",
-	},
-	go = {
-		po = "fmt.Println(\"<++>\")",
-		pe = "fmt.Fprintln(os.Stderr, \"<++>\", <++>)",
-		pf = "fmt.Fprintln(<++>, \"<++>\")",
-		-- loop
-		lw = "for {\n\t<++>\n}",
-		lr = "for <++> := range <++>; {\n\t<++>\n}",
-		ln = "for i := 0; i < <++>; i+= 1 do\n\t<++>\ndone",
+			fn = "<++>\n<++>(<++>)\n{\n\t<++>\n}",
+			sw = "switch (<++>) {\ncase <++>:<++>;\n\tdefault:<++>;;\n}",
+		})
+	end,
+	bash = function()
+		register_snippets({
+			po = "printf '<++>'",
+			pe = "printf '<++>' 1>&2",
+			pf = "printf '<++>' > <++>",
+			-- loop
+			lw = "while <++>; do\n\t<++>\ndone",
+			lu = "until <++>; do\n\t<++>\ndone",
+			lf = "for <++> in <++>; do\n\t<++>\ndone",
 
-		["if"] = "if <++>; then\n\t<++>\nfi",
-		fn = "func <++>() <++> {\n\t<++>\n}",
-		sw = "switch <++> {\ncase <++>:\n\t<++>\n}",
-		sl = "select <++> {\ncase <++>:\n\t<++>\n}",
-		hd = "<++> <<- EOF\n<++>\nEOF",
+			["if"] = "if <++>; then\n\t<++>\nfi",
+			fn = "<++>()\n{\n\t<++>\n}",
+			sw = "case <++> in\n\t<++>)<++>;;\n\t*)<++>;;\nesac",
+			hd = "<++> <<- EOF\n<++>\nEOF",
 
-		ca = "awk '<++> {<++>}'",
-	},
-};
+			ca = "awk '<++> {<++>}'",
+		})
+	end,
+	go = function()
+		register_snippets({
+			po = "fmt.Println(\"<++>\")",
+			pe = "fmt.Fprintln(os.Stderr, \"<++>\", <++>)",
+			pf = "fmt.Fprintln(<++>, \"<++>\")",
+			-- loop
+			lw = "for {\n\t<++>\n}",
+			lr = "for <++> := range <++>; {\n\t<++>\n}",
+			ln = "for i := 0; i < <++>; i+= 1 do\n\t<++>\ndone",
+
+			["if"] = "if <++>; then\n\t<++>\nfi",
+			fn = "func <++>() <++> {\n\t<++>\n}",
+			sw = "switch <++> {\ncase <++>:\n\t<++>\n}",
+			sl = "select <++> {\ncase <++>:\n\t<++>\n}",
+			hd = "<++> <<- EOF\n<++>\nEOF",
+
+			ca = "awk '<++> {<++>}'",
+		})
+	end
+}
 
 -- fancy string ops
 local strdefi=getmetatable('').__index
@@ -101,23 +126,8 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 	end, "jump to place holder")
 
 	-- snippets
-	if snippets[win.syntax] ~= nil then
-		for k,v in pairs(snippets[win.syntax]) do
-			local comment = "Snippets"
-			local seq = string.format("<C-_>%s", k)
-			--v = v:gsub("\n", "<Enter>")
-			vis:map(vis.modes.NORMAL, seq, function(keys)
-				vis:feedkeys("i")
-				vis:insert(v)
-				local str = string.format("<Escape>%dh", string.len(v))
-				vis:feedkeys(str)
-			end, comment)
-			vis:map(vis.modes.INSERT, seq, function(keys)
-				vis:insert(v)
-				vis:feedkeys("<Escape>")
-				vis:feedkeys(" ")
-			end, comment)
-		end
+	if on_syntax[win.syntax] ~= nil then
+		on_syntax[win.syntax]()
 	end
 
 	vis:operator_new("gq", function(file, range, pos)
