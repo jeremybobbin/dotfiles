@@ -137,17 +137,29 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 				pe = "fmt.Fprintln(os.Stderr, \"<++>\", <++>)",
 				pf = "fmt.Fprintln(<++>, \"<++>\")",
 				-- loop
-				lw = "for {\n\t<++>\n}",
-				lr = "for <++> := range <++>; {\n\t<++>\n}",
-				ln = "for i := 0; i < <++>; i+= 1 do\n\t<++>\ndone",
+				li = "for {\n\t<++>\n}",
+				lw = "for <++> {\n\t<++>\n}",
+				lr = "for <++> := range <++> {\n\t<++>\n}",
+				ln = "for i := 0; i < <++>; i += 1 {\n<++>\n}",
 
-				["if"] = "if <++>; then\n\t<++>\nfi",
-				fn = "func <++>() <++> {\n\t<++>\n}",
+				-- funcs
+				["if"] = "if <++> {\n\t<++>\n}",
+				fn = "func <++>(<++>) <++> {\n\t<++>\n}",
+				af = "func(<++>) {\n\t<++>\n}",
+				gf = "go func(<++>) {\n\t<++>\n}(<++>)",
+
+				-- switch/select
 				sw = "switch <++> {\ncase <++>:\n\t<++>\n}",
 				sl = "select <++> {\ncase <++>:\n\t<++>\n}",
-				hd = "<++> <<- EOF\n<++>\nEOF",
+				cs = "case <++>:\n\t<++>\n",
 
-				ca = "awk '<++> {<++>}'",
+				-- make
+				ms = "<++> := make([]<++>, <++>)",
+				mc = "<++> := make(chan <++>)",
+
+				-- err (er: err return)
+				er = "if err != nil {\n\treturn err\n}",
+				ep = "if err != nil {\n\tfmt.Println(\"<++>\", err)\n}",
 			})
 		end
 	}
