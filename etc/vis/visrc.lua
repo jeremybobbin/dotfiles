@@ -163,7 +163,25 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 				er = "if err != nil {\n\treturn err\n}",
 				ep = "if err != nil {\n\tfmt.Println(\"<++>\", err)\n}",
 			})
-		end
+		end,
+		javascript = function()
+			vis:command("set tabwidth 4")
+			register_snippets({
+				ps = "console.log(\"<++>\");",
+				pv = "console.log(<++>);",
+				-- loop
+				lf = "for (<++>;<++>;<++>) {\n\t<++>\n}",
+				lw = "while (<++>) {\n\t<++>\n}",
+				ld = "do {\n\t<++>\n} while (<++>);",
+
+				["if"] = "if (<++>) {\n\t<++>\n}",
+
+				af = "(<++>) => {\n\t<++>\n}",
+				fn = "<++>\n<++>(<++>)\n{\n\t<++>\n}",
+				sw = "switch (<++>) {\ncase <++>:<++>;\n\tdefault:<++>;;\n}",
+				cs = "case <++>:\n\t<++>\nbreak",
+			})
+		end,
 	}
 
 	-- snippets
