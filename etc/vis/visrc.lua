@@ -7,7 +7,6 @@ require('plugins/vis-surround')
 require('plugins/vis-toggler')
 require('plugins/vis-quickfix')
 require('plugins/vis-ins-completion')
-require('plugins/vis-go')
 
 dictfiles =  { 
 	text = '/usr/share/dict/words',
