@@ -125,6 +125,23 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 		vis:feedkeys("cf>")
 	end, "jump to place holder")
 
+
+	-- lines within selections
+	vis:map(vis.modes.VISUAL, "<C-s>l", function(keys)
+		vis:command('x/.*\\n/ y/^\\s+/')
+		vis:command('g/\\S/')
+	end, "jump to place holder")
+
+	-- word within selections
+	vis:map(vis.modes.VISUAL, "<C-s>w", function(keys)
+		vis:command('x/[a-zA-Z_]+/')
+	end, "jump to place holder")
+
+	-- WORDs within selections
+	vis:map(vis.modes.VISUAL, "<C-s>W", function(keys)
+		vis:command('x/\\S+/')
+	end, "jump to place holder")
+
 	-- snippets
 	if on_syntax[win.syntax] ~= nil then
 		on_syntax[win.syntax]()
