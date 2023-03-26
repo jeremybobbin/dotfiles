@@ -45,13 +45,15 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 
 	-- Jump to place holder
 	vis:map(vis.modes.NORMAL, " ", function(keys)
-		local file = win.file
-		local pos = win.selection.pos
-		if file:content(pos, 4) == "<++>" then
-		else 
-			vis:feedkeys("/<\\+\\+><Enter>")
+		vis:command("/<(\\+\\+|!!)>/")
+		local ph = win.file:content(win.selection.range) -- placeholder
+		if ph == "<++>" then
+			vis:feedkeys("c")
+		elseif ph == "<!!>" then
+			vis:feedkeys("<C-a>c")
+		else
+			return
 		end
-		vis:feedkeys("cf>")
 	end, "jump to place holder")
 
 
